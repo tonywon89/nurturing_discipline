@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Users/tonywon/Projects/growing_discipline"
+		}
+	],
+		"settings":
+	{
+		"ignored_packages":
+		[
+			"Vintage"
+		],
+		"scroll_past_end": true,
+		"tab_size": 2,
+		"trim_trailing_white_space_on_save": true,
+		"ensure_newline_at_eof_on_save": true,
+	},
+}
