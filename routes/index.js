@@ -5,13 +5,13 @@ var router = express.Router();
 var user_controller = require('../controllers/user_controller');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Growing Discipline' });
+  res.render('index.pug', { title: 'Growing Discipline' });
 });
 
-router.get('/user/create', user_controller.user_create_get);
+router.get('/user/register', user_controller.user_register_get);
 
 /* POST request for creating user. */
-router.post('/user/create', user_controller.user_create_post);
+router.post('/user/register', user_controller.user_register_post);
 
 /* GET request to delete user. */
 router.get('/user/:userId/delete', user_controller.user_delete_get);

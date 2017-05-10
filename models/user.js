@@ -26,7 +26,7 @@ var UserSchema = Schema(
 		password: {
 			type: String
 		},
-		date_added: {type: Date},
+		date_added: { type: Date, default: Date.now },
 	}
 );
 

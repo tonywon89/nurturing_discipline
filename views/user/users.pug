@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  h1= title
+  ul
+    each user in data.users
+      ul
+        li= user.name
+        li= user.email
+        li= user.date_added
+
+  a(href="/") Back
