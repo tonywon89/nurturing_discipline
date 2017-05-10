@@ -9,7 +9,7 @@ exports.user_list = function (req, res, next) {
 		}, function(err, results) {
 				// res.render('user/users', { title: 'All users', error: err, data: results });
 				// res.json(results)
-        res.render('users', { error: err, data: results });
+        res.render('json/users', { error: err, data: results });
 		});
 }
 
@@ -38,7 +38,7 @@ exports.user_register_post = function(req, res, next) {
 	});
 
 	if (errors) {
-		res.render('user/user_register', { 'title': 'Register', 'errors': errors });
+		res.render('pug/user/user_register', { 'title': 'Register', 'errors': errors });
 		return;
 	} else {
 		user.save(function (err) {
