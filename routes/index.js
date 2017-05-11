@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
-
+var path = require('path');
 
 var user_controller = require('../controllers/user_controller');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('pug/index.pug', { title: 'Nuturing Discipline' });
+  res.render('pug/index.pug', { title: "Nuturing Discipline"});
 });
 
 router.get('/user/register', user_controller.user_register_get);
