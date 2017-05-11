@@ -20,11 +20,14 @@
     "express": "~4.14.1",
     "express-json-views": "^0.1.0",
     "express-validator": "^3.2.0",
+    "lodash": "^4.17.4",
     "mongoose": "^4.9.7",
     "morgan": "~1.7.0",
     "pug": "~2.0.0-beta10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
     "serve-favicon": "~2.3.2"
   },
   "devDependencies": {

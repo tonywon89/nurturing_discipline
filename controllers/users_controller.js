@@ -24,9 +24,16 @@ exports.user_register_get = function(req, res, next) {
 // Handle User create on POST
 exports.user_register_post = function(req, res, next) {
   req.checkBody('first_name', 'First Name Required').notEmpty();
-
   req.sanitize('first_name').escape();
   req.sanitize('first_name').trim();
+
+  req.checkBody('last_name', 'Last Name Required').notEmpty();
+  req.sanitize('last_name').escape();
+  req.sanitize('last_name').trim();
+
+  req.checkBody('email', 'First Name Required').notEmpty();
+  req.sanitize('email').escape();
+  req.sanitize('email').trim();
 
   var errors = req.validationErrors();
 
