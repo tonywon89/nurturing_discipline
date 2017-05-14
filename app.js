@@ -8,8 +8,10 @@ var MongoClient = require('mongodb').MongoClient;
 var expressValidator = require('express-validator');
 var viewEngine = require('express-json-views');
 
+/** Importing the different routes **/
 var index = require('./routes/index');
 var usersAPI = require('./routes/api/users');
+var convictionsAPI = require('./routes/api/convictions');
 
 var app = express();
 
@@ -36,8 +38,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressValidator());
+
+// Routes
 app.use('/', index);
 app.use('/api/users', usersAPI);
+app.use('/api/convictions', convictionsAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
