@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var DriverSchema = Schema(
+var ActivatorSchema = Schema(
   {
     title: {
       type: String,
@@ -15,16 +15,16 @@ var DriverSchema = Schema(
       trim: true,
       required: false,
     },
-
     _user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true
-    }
+    },
+
     date_added: { type: Date, default: Date.now }
   }
 );
 
-module.exports = mongoose.model('Driver', DriverSchema);
+module.exports = mongoose.model('activator', ActivatorSchema);
 
 

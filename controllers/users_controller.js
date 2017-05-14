@@ -1,14 +1,15 @@
 var async = require('async');
 var User = require('../models/User.js');
 
+
+// callback
 exports.user_list = function (req, res, next) {
-  async.parallel(
-  {
+  async.parallel({
     users: function(callback) {
       User.find({}, callback);
     },
   }, function(err, results) {
-      res.render('json/users', { error: err, data: results });
+      res.render('json/user/users', { error: err, data: results });
   });
 }
 

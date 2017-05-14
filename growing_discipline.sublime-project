@@ -2,7 +2,8 @@
 	"folders":
 	[
 		{
-			"path": "/Users/tonywon/Projects/growing_discipline"
+			"path": "/Users/tonywon/Projects/growing_discipline",
+      "folder_exclude_patterns": ["-*/node_modules/*"]
 		}
 	],
 		"settings":
