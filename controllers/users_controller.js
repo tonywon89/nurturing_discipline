@@ -1,5 +1,5 @@
 var async = require('async');
-var User = require('../models/user.js');
+var User = require('../models/User.js');
 
 exports.user_list = function (req, res, next) {
   async.parallel(
