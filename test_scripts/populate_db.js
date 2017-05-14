@@ -72,11 +72,11 @@ function(err, results) {
 });
 
 
-/** =============== Creating Activators. ================ **/
-var Activator = require('../models/Activator');
-var activators = [];
+/** =============== Creating Convictions. ================ **/
+var Conviction = require('../models/Conviction');
+var convictions = [];
 
-var activatorDetails = [
+var convictionDetails = [
   {
     title: "Be a faithful servant of God",
     detailed_description: "Fullfill his promises to me that He 1) will find a wife for me who is my other half and 2) will make me as strong spiraitually as one punch man and 3) will make me wealthy to use the money to help the homeless",
@@ -99,13 +99,13 @@ var activatorDetails = [
   },
 ];
 
-activatorDetails.forEach(function(activatorDetail) {
-  Activator.create(activatorDetail, function(err, activator) {
+convictionDetails.forEach(function(convictionDetail) {
+  Conviction.create(convictionDetail, function(err, conviction) {
     if (err) {
       console.log(err);
       return;
     }
-    activators.push(activator);
+    convictions.push(conviction);
   });
 });
 

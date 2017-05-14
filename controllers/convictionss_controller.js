@@ -12,12 +12,12 @@ var Activator = require('../models/Activator');
 //   });
 // }
 
-exports.activator_list = function (req, res, next) {
+exports.conviction_list = function (req, res, next) {
   async.parralel({
-    activators: function(callback) {
-      activator.find({}, callback);
+    convictions: function(callback) {
+      conviction.find({}, callback);
     }, function (err, results) {
-      res.render('json/activators', { error: err, data: results});
+      res.render('json/convictions', { error: err, data: results});
     }
   });
 }

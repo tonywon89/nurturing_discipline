@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var ActivatorSchema = Schema(
+var ConvictionSchema = Schema(
   {
     title: {
       type: String,
@@ -18,13 +18,12 @@ var ActivatorSchema = Schema(
     _user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true
     },
 
     date_added: { type: Date, default: Date.now }
   }
 );
 
-module.exports = mongoose.model('activator', ActivatorSchema);
+module.exports = mongoose.model('conviction', ConvictionSchema);
 
 
