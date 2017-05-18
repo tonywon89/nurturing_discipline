@@ -1,15 +1,14 @@
 import React from 'react';
 
-const ConvictionList = (props) => {
-  console.log(props);
+const ConvictionList = ({ convictions, addConviction }) => {
   return (
 
     <div>
       <ul>
-        {props.convictions.map((conviction, idx) => <li key={idx}>{conviction.title}</li>)}
+        {convictions.map((conviction, idx) => <li key={idx}>{conviction.title}</li>)}
       </ul>
 
-      <form onSubmit={props.addConviction}>
+      <form onSubmit={addConviction}>
         <label>Add Conviction</label>
         <input type="text" name="conviction-title" placeholder="conviction" />
         <input type="submit" value="Add Conviction" />

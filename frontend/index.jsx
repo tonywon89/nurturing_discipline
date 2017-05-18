@@ -9,22 +9,23 @@ import ConvictionContainer from './Components/conviction/ConvictionContainer.jsx
 
 const store = configureStore();
 
-const App = () => (
+const Root = () => (
   <Provider store={store}>
     <HashRouter>
-      <Route exact path ="/" component={SimpleComponent} />
+      <Route exact path ="/" component={App} />
     </HashRouter>
   </Provider>
 );
 
-class SimpleComponent extends React.Component {
-  componentDidMount() {
+class App extends React.Component {
+  componentWillMount() {
     store.dispatch(fetchConvictions());
   }
+
   render() {
     return (
       <div>
-        <h2>I am a Simple Component</h2>
+        <h2>This is the main App</h2>
         <Link to="/api/convictions">All Convictions</Link>
         <ConvictionContainer />
       </div>
@@ -33,5 +34,5 @@ class SimpleComponent extends React.Component {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  ReactDOM.render(<App />, document.getElementById('root'));
+  ReactDOM.render(<Root />, document.getElementById('root'));
 });

@@ -9,12 +9,12 @@ export const addConviction = (conviction) => ({
   conviction: conviction
 });
 
-export const getConvictions = (convictions) => ({
+export const getConvictions = (data) => ({
   type: RECEIVE_CONVICTIONS,
-  convictions: convictions.convictions
+  convictions: data.convictions
 })
 
 export const fetchConvictions = () => dispatch => {
-  ConvictionAPIUtil.fetchConvictions().then(convictions => dispatch(getConvictions(convictions)));
+  ConvictionAPIUtil.fetchConvictions().then(data => dispatch(getConvictions(data)));
 }
 

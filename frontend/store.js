@@ -1,12 +1,13 @@
 import { createStore, applyMiddleware } from 'redux';
-import RootReducer from './rootReducer.js';
+import RootReducer from './reducers/root_reducer.js';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import * as ConvictionAPIUtil from './api_utils/conviction_api_util';
 
-let configureStore = (preloadedState = {
+const defaultState = {
   convictions: []
-}) => (
+}
+
+let configureStore = (preloadedState = defaultState) => (
     createStore(
         RootReducer,
         preloadedState,
