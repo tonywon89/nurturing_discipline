@@ -1,33 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, HashRouter} from 'react-router-dom';
+import { Route, HashRouter, Link} from 'react-router-dom';
+import { Provider } from 'react-redux';
+import configureStore from './store.js';
 
-const Root = () => (
-  <HashRouter>
-    <div>
+import { addConviction, fetchConvictions } from './actions/conviction_actions.js';
+import ConvictionContainer from './Components/conviction/ConvictionContainer.jsx';
+
+const store = configureStore();
+
+const App = () => (
+  <Provider store={store}>
+    <HashRouter>
       <Route exact path ="/" component={SimpleComponent} />
-      <Route path="/users" component={UserComponent}/>
-    </div>
-  </HashRouter>
+    </HashRouter>
+  </Provider>
 );
 
 class SimpleComponent extends React.Component {
-  render() {
-    return (
-      <h2>I am a Simple Component Helloooo! Goodbye Hello there 213</h2>
-    );
+  componentDidMount() {
+    store.dispatch(fetchConvictions());
   }
-}
-
-class UserComponent extends React.Component {
   render() {
     return (
-      <h2>I am a User Component Hellooo</h2>
+      <div>
+        <h2>I am a Simple Component</h2>
+        <Link to="/api/convictions">All Convictions</Link>
+        <ConvictionContainer />
+      </div>
     );
   }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  const root = document.getElementById('root');
-  ReactDOM.render(<Root />, root);
+  ReactDOM.render(<App />, document.getElementById('root'));
 });

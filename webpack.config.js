@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   entry: './frontend/index.jsx',
@@ -14,8 +15,19 @@ module.exports = {
         loader: 'babel-loader', // Sets Babel as the transpiler
         query: {
           presets: ['es2015', 'react'] // Tells Babel what syntaxes to translate
-        }
+        },
+
       }
-    ]
-  }
+    ],
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery"
+      })
+  ],
+  devtool: 'source-map',
+  resolve: {
+    extensions: ['.js', '.jsx', '*']
+  },
 };
