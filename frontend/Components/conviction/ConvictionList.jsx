@@ -5,7 +5,17 @@ const ConvictionList = ({ convictions, createConviction }) => {
 
     <div>
       <ul>
-        {convictions.map((conviction, idx) => <li key={idx}>{conviction.title}</li>)}
+        {convictions.map((conviction, idx) => (
+          <li className="convictionTitle" key={idx}>
+            <b>{conviction.title}</b>
+            <ul>
+              <li className="convictionDetail">{conviction.detailed_description}</li>
+            </ul>
+            <hr />
+          </li>
+
+        )
+        )}
       </ul>
 
       <form onSubmit={createConviction}>
