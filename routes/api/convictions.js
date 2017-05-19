@@ -6,4 +6,6 @@ var convictions_controller = require('../../controllers/convictions_controller')
 /* GET convictions listing. */
 router.get('/', convictions_controller.conviction_list);
 
+router.post('/', convictions_controller.conviction_create);
+
 module.exports = router;

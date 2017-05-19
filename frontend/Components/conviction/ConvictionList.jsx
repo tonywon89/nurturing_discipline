@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ConvictionList = ({ convictions, addConviction }) => {
+const ConvictionList = ({ convictions, createConviction }) => {
   return (
 
     <div>
@@ -8,9 +8,8 @@ const ConvictionList = ({ convictions, addConviction }) => {
         {convictions.map((conviction, idx) => <li key={idx}>{conviction.title}</li>)}
       </ul>
 
-      <form onSubmit={addConviction}>
-        <label>Add Conviction</label>
-        <input type="text" name="conviction-title" placeholder="conviction" />
+      <form onSubmit={createConviction}>
+        <input type="text" name="conviction_title" placeholder="conviction" />
         <input type="submit" value="Add Conviction" />
       </form>
     </div>

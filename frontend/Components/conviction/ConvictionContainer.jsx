@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addConviction, fetchConvictions } from '../../actions/conviction_actions.js';
+import { createConviction, fetchConvictions } from '../../actions/conviction_actions.js';
 import ConvictionList from './ConvictionList.jsx';
 
 const mapStateToProps = state => ({
@@ -7,9 +7,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addConviction: (event) => {
+  createConviction: (event) => {
     event.preventDefault();
-    dispatch(addConviction(event.target.querySelector('input').value))
+    const data = $('form').serialize();
+    createConviction(data)(dispatch);
   },
   receiveConvictions: () => {
     event.preventDefault();
