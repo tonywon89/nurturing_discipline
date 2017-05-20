@@ -1,5 +1,11 @@
 import { connect } from 'react-redux';
-import { createConviction, fetchConvictions } from '../../actions/conviction_actions.js';
+
+import {
+  createConviction,
+  fetchConvictions,
+  deleteConviction
+} from '../../actions/conviction_actions.js';
+
 import ConvictionList from './ConvictionList.jsx';
 
 const mapStateToProps = state => ({
@@ -15,6 +21,10 @@ const mapDispatchToProps = dispatch => ({
   receiveConvictions: () => {
     event.preventDefault();
     fetchConvictions()
+  },
+  deleteConviction: (convictionId) => {
+    // console.log(convictionId);
+    deleteConviction(convictionId)(dispatch)
   }
 });
 

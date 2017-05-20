@@ -14,3 +14,12 @@ export const createConviction = (data) => (
     data
   })
 );
+
+export const deleteConviction = (convictionId) => (
+  $.ajax({
+    method: 'DELETE',
+    url: 'api/convictions',
+    dataType: 'json',
+    data: { convictionId }
+  })
+);

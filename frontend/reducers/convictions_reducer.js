@@ -1,5 +1,8 @@
 import merge from 'lodash/merge';
-import { RECEIVE_CONVICTION, RECEIVE_CONVICTIONS } from '../actions/conviction_actions.js';
+import {
+  RECEIVE_CONVICTION,
+  RECEIVE_CONVICTIONS,
+  REMOVE_CONVICTION } from '../actions/conviction_actions.js';
 
 const ConvictionsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -16,7 +19,9 @@ const ConvictionsReducer = (state = {}, action) => {
     );
     case(RECEIVE_CONVICTIONS):
       return action.convictions;
-    default:
+    case(REMOVE_CONVICTION):
+      return state.filter(conviction => conviction.id !== action.convictionId)
+     default:
       return state;
   }
 }

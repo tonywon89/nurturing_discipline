@@ -8,4 +8,5 @@ router.get('/', convictions_controller.conviction_list);
 
 router.post('/', convictions_controller.conviction_create);
 
+router.delete('/', convictions_controller.conviction_delete);
 module.exports = router;
