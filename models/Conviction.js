@@ -20,7 +20,8 @@ var ConvictionSchema = Schema(
       ref: 'User',
     },
 
-    date_added: { type: Date, default: Date.now }
+    date_added: { type: Date, default: Date.now },
+    date_deleted: { type: Date, default: null }
   }
 );
 

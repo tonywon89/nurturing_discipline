@@ -5,5 +5,8 @@
   "_user": {},
   "date_added": {
     "format": "date"
+  },
+  "date_deleted": {
+    "format": "date"
   }
 }

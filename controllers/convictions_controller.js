@@ -5,7 +5,7 @@ var Conviction = require('../models/Conviction');
 exports.conviction_list = function (req, res, next) {
   async.parallel({
     convictions: function(callback) {
-      Conviction.find({}, callback);
+      Conviction.find({ date_deleted: null }, callback);
     },
   }, function(err, results) {
       res.render('json/conviction/convictions', { error: err, data: results });
@@ -28,7 +28,7 @@ exports.conviction_create = function (req, res, next) {
 }
 
 exports.conviction_delete = function (req, res, next) {
-  Conviction.remove({ _id: req.body.convictionId }, function(err) {
+  Conviction.findByIdAndUpdate({ _id: req.body.convictionId }, { date_deleted: new Date() }, function(err, conviction) {
     if (err) return;
 
     // Send the convictionId to be removed form the store in the frontend

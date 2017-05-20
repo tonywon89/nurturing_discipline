@@ -19,57 +19,58 @@ mongoose.connect(mongoDB);
 var db = mongoose.connection;
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-var users = [];
+// Create default users
+// var users = [];
 
-function userCreate(first_name, last_name, email, date_added, callback) {
-	userDetail = {first_name: first_name , last_name: last_name, email: email, date_added: date_added }
+// function userCreate(first_name, last_name, email, date_added, callback) {
+// 	userDetail = {first_name: first_name , last_name: last_name, email: email, date_added: date_added }
 
-	var user = new User(userDetail);
+// 	var user = new User(userDetail);
 
-	user.save(function (err) {
-		if (err) {
-			callback(err, null)
-			return
-		}
-		console.log('New User: ' + user);
-		users.push(user)
-		callback(null, user)
-	});
-}
+// 	user.save(function (err) {
+// 		if (err) {
+// 			callback(err, null)
+// 			return
+// 		}
+// 		console.log('New User: ' + user);
+// 		users.push(user)
+// 		callback(null, user)
+// 	});
+// }
 
-function createUsers(cb) {
-	async.parallel([
-		function(callback) {
-			userCreate('Patrick', 'Rothfuss', 'p@rothfuss.com', '1992-04-06', callback);
-		},
-		function(callback) {
-			userCreate('Ben', 'Bova', 'b@bova.com', '1992-04-07', callback);
-		},
-		function(callback) {
-			userCreate('Isaac', 'Asimov', 'i@asimov.com', '1992-04-08', callback);
-		},
-		function(callback) {
-			userCreate('Bob', 'Billings', 'b@Billings.com', '1992-04-09', callback);
-		},
-	], cb);
-}
+// function createUsers(cb) {
+// 	async.parallel([
+// 		function(callback) {
+// 			userCreate('Patrick', 'Rothfuss', 'p@rothfuss.com', '1992-04-06', callback);
+// 		},
+// 		function(callback) {
+// 			userCreate('Ben', 'Bova', 'b@bova.com', '1992-04-07', callback);
+// 		},
+// 		function(callback) {
+// 			userCreate('Isaac', 'Asimov', 'i@asimov.com', '1992-04-08', callback);
+// 		},
+// 		function(callback) {
+// 			userCreate('Bob', 'Billings', 'b@Billings.com', '1992-04-09', callback);
+// 		},
+// 	], cb);
+// }
 
 
-async.series([
-		createUsers,
-],
-// optional callback
-function(err, results) {
-		if (err) {
-				console.log('FINAL ERR: ' + err);
-		}
-		else {
-			console.log('User Instances: ' + users);
+// async.series([
+// 		createUsers,
+// ],
+// // optional callback
+// function(err, results) {
+// 		if (err) {
+// 				console.log('FINAL ERR: ' + err);
+// 		}
+// 		else {
+// 			console.log('User Instances: ' + users);
 
-		}
-		//All done, disconnect from database
-		mongoose.connection.close();
-});
+// 		}
+// 		//All done, disconnect from database
+// 		mongoose.connection.close();
+// });
 
 
 /** =============== Creating Convictions. ================ **/
