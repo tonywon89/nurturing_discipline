@@ -23,3 +23,12 @@ export const deleteConviction = (convictionId) => (
     data: { convictionId }
   })
 );
+
+export const editConviction = (data) => (
+  $.ajax({
+    method: 'PATCH',
+    url: 'api/convictions',
+    dataType: 'json',
+    data
+  })
+);

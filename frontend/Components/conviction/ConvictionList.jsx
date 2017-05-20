@@ -2,13 +2,13 @@ import React from 'react';
 
 import ConvictionItem from './ConvictionItem.jsx'
 
-const ConvictionList = ({ convictions, createConviction, deleteConviction }) => {
+const ConvictionList = ({ convictions, createConviction, deleteConviction, editConviction }) => {
   return (
 
     <div>
       <ul>
         {convictions.map((conviction, idx) => (
-          <ConvictionItem key={idx} deleteConviction={deleteConviction} conviction={conviction} />
+          <ConvictionItem  key={idx} deleteConviction={deleteConviction} conviction={conviction} editConviction={editConviction} />
         )
         )}
       </ul>

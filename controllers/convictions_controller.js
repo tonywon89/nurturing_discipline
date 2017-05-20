@@ -22,6 +22,7 @@ exports.conviction_create = function (req, res, next) {
         }, callback);
     }
   }, function(err, results) {
+      console.log(results);
       res.render('json/conviction/conviction', { error: err, data: results.conviction });
   });
 }
@@ -33,6 +34,16 @@ exports.conviction_delete = function (req, res, next) {
     // Send the convictionId to be removed form the store in the frontend
     res.json({ convictionId: req.body.convictionId });
   })
+}
+
+exports.conviction_patch = function (req, res, next) {
+  var query = { _id: req.body.id };
+  // console.log(req.body);
+
+  Conviction.findByIdAndUpdate(req.body.id, {title: req.body.title, detailed_description: req.body.detailed_description }, { new: true }, function(err, conviction) {
+    console.log(conviction);
+    res.render('json/conviction/conviction', { error: err, data: conviction });
+  });
 }
 
 

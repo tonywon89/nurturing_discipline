@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
   createConviction,
   fetchConvictions,
-  deleteConviction
+  deleteConviction,
+  editConviction,
 } from '../../actions/conviction_actions.js';
 
 import ConvictionList from './ConvictionList.jsx';
@@ -23,8 +24,10 @@ const mapDispatchToProps = dispatch => ({
     fetchConvictions()
   },
   deleteConviction: (convictionId) => {
-    // console.log(convictionId);
     deleteConviction(convictionId)(dispatch)
+  },
+  editConviction: (data) => {
+    editConviction(data)(dispatch);
   }
 });
 
