@@ -6,6 +6,7 @@ import configureStore from './store.js';
 
 import { addConviction, fetchConvictions } from './actions/conviction_actions.js';
 import ConvictionContainer from './Components/conviction/ConvictionContainer.jsx';
+import Authentication from './Components/authentication/Authentication.jsx'
 
 const store = configureStore();
 
@@ -25,6 +26,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Authentication />
         <ConvictionContainer />
       </div>
     );

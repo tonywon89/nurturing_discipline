@@ -2,9 +2,7 @@ import React from 'react';
 
 import ConvictionItem from './ConvictionItem.jsx'
 
-const ConvictionList = ({ convictions, createConviction, deleteConviction, editConviction }) => {
-  return (
-
+const ConvictionList = ({ convictions, createConviction, deleteConviction, editConviction }) => (
     <div>
       <ul>
         {convictions.map((conviction, idx) => (
@@ -19,7 +17,6 @@ const ConvictionList = ({ convictions, createConviction, deleteConviction, editC
         <input type="submit" value="Add Conviction" />
       </form>
     </div>
-  )
-}
+)
 
 export default ConvictionList;
