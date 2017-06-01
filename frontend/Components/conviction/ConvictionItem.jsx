@@ -29,7 +29,6 @@ class ConvictionItem extends React.Component {
   }
 
   handleTitleChange(event) {
-    console.log(event.target);
     this.setState({ title: event.target.value });
   }
 
