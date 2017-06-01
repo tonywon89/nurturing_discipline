@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 import {
   login,
+  logout,
   receiveUser
 } from '../../actions/auth_actions.js';
 
@@ -14,6 +15,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   login: (creds) => {
     login(creds)(dispatch);
+  },
+
+  logout: () => {
+    logout()(dispatch);
   }
 });
 

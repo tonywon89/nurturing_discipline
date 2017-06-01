@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 
 import {
   RECEIVE_CURRENT_USER,
-  LOGOUT,
+  RECEIVE_LOGOUT,
   RECEIVE_ERRORS
 } from '../actions/auth_actions.js';
 
@@ -17,7 +17,7 @@ const AuthReducer = (state = _nullUser, action) => {
     case RECEIVE_CURRENT_USER:
       const currentUser = action.currentUser;
       return merge({}, _nullUser, { currentUser });
-    case LOGOUT:
+    case RECEIVE_LOGOUT:
       return _nullUser;
     case RECEIVE_ERRORS:
       const errors = action.errors;

@@ -1,5 +1,5 @@
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
-export const LOGOUT = "LOGOUT";
+export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 
@@ -10,8 +10,9 @@ export const receiveUser = (user) => ({
   currentUser: user
 });
 
-export const logout = () => ({
-  type: LOGOUT
+
+export const receiveLogout = () => ({
+  type: RECEIVE_LOGOUT
 });
 
 export const receiveUserErrors = ({ message }) => ({
@@ -23,6 +24,12 @@ export const receiveServerErrors = ({ error }) => ({
   type: RECEIVE_ERRORS,
   errors: error
 });
+
+export const logout = () => dispatch => {
+  // AuthAPIUtil.logout().then((data) => {
+  dispatch(receiveLogout());
+  // })
+}
 
 export const login = (creds) => dispatch => {
   AuthAPIUtil.login(creds).then((data) => {

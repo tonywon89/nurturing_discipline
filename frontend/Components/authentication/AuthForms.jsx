@@ -19,6 +19,7 @@ class AuthForms extends React.Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,6 +39,11 @@ class AuthForms extends React.Component {
   handleLoginSubmit(event) {
     event.preventDefault();
     this.props.login({ email: this.state.email, password: this.state.password });
+  }
+
+  handleLogout(event) {
+    event.preventDefault();
+    this.props.logout();
   }
 
   handleEmailChange(event) {
@@ -86,7 +92,7 @@ class AuthForms extends React.Component {
         return (
           <div>
             <p>{this.state.currentUser.email}</p>
-            <button>Logout</button>
+            <button onClick={this.handleLogout}>Logout</button>
           </div>
         );
       } else {
