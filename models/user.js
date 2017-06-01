@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
+var bcrypt = require('bcrypt');
 
 var UserSchema = Schema(
 	{
@@ -23,11 +24,11 @@ var UserSchema = Schema(
 			required: 'Email address is required',
 			match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
 		},
-    // password: {
-    //   type: String,
-    //   trim: true,
-    //   required: 'Password is required'
-    // },
+    password: {
+      type: String,
+      trim: true,
+      required: 'Password is required'
+    },
 		date_added: { type: Date, default: Date.now },
 	}
 );
@@ -35,6 +36,18 @@ var UserSchema = Schema(
 UserSchema.virtual('name').get(function () {
 	return this.last_name + ', ' + this.first_name;
 });
+
+var saltRounds = 10;
+
+UserSchema.methods.hashPassword = function (password) {
+  return bcrypt.hash(password, saltRounds)
+}
+
+UserSchema.methods.isValidPassword = function (password, hash) {
+  return bcrypt.compare(password, hash)
+};
+
+
 
 UserSchema.plugin(passportLocalMongoose);
 

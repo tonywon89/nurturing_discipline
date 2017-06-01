@@ -11,7 +11,8 @@ const _nullUser = {
   errors: []
 };
 
-const SessionReducer = (state = _nullUser, action) => {
+const AuthReducer = (state = _nullUser, action) => {
+  Object.freeze(state);
   switch(action.type) {
     case RECEIVE_CURRENT_USER:
       const currentUser = action.currentUser;
@@ -21,7 +22,9 @@ const SessionReducer = (state = _nullUser, action) => {
     case RECEIVE_ERRORS:
       const errors = action.errors;
       return merge({}, _nullUser, { errors });
-    default
+    default:
       return state;
   }
 }
+
+export default AuthReducer;

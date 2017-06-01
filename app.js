@@ -41,8 +41,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressValidator());
 
 
-// var JwtStrategy = require('passport-jwt').Strategy;
-// var ExtractJwt = require('passport-jwt').ExtractJwt
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/User.js');
 var jwt = require('jsonwebtoken');
@@ -57,66 +55,27 @@ var localStrategy = new LocalStrategy({
       if (err) { return done(err); }
 
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Incorrect email.' });
       }
 
-      // @TODO Add password handling
+      user.isValidPassword(password, user.password).then(function(res) {
+        if (res === false) {
+          return done(null, false, { message: 'Incorrect password.' });
+
+        }
+
+        return done(null, user);
+      });
+
+      // // @TODO Add password handling
       // if (!user.validPassword(password)) {
       //   return done(null, false, { message: 'Incorrect password.' });
       // }
-      return done(null, user);
     });
   }
 );
 
 passport.use(localStrategy);
-// var strategyFunction = function (passport) {
-//   var opts = {};
-//   opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
-//   opts.secretOrKey = "tonywon";
-//   passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-//     User.findOne({id: jwt_payload.id}, function(err, user) {
-//       if (err) {
-//         return done(err, false);
-//       }
-//       if (user) {
-//         done(null, user);
-//       } else {
-//         done(null, false);
-//       }
-//     });
-//   }));
-// }
-
-// strategyFunction(passport);
-
-// app.post('/authenticate', function(req, res) {
-//   // console.log(req.body);
-//   User.findOne({
-//     email: req.body.email
-//   }, function(err, user) {
-//     if (err) throw err;
-
-//     if (!user) {
-//       res.send({ success: false, message: 'Authentication failed. User not found.' });
-//     } else {
-//       // Check if password matches
-//       // user.comparePassword(req.body.password, function(err, isMatch) {
-//         if (!err) {
-//           // Create token if the password matched and no error was thrown
-//           var token = jwt.sign(user, "tonywon", {
-//             expiresIn: 10080 // in seconds
-//           });
-//           res.json({ success: true, token: 'JWT ' + token });
-//         } else {
-//           res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
-//         }
-//       // });
-//     }
-//   });
-// });
-
-// app.use(passport.session());
 
 // Routes
 app.use('/', index);

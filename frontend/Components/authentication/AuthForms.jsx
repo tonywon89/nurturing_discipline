@@ -4,11 +4,11 @@ class AuthForms extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      currentUser: props.authentication.currentUser,
       loginForm: false,
       registerForm: false,
       email: "tonywon89@gmail.com",
-      password: "123123",
+      password: "testingpassword",
       passwordConfirmation: "",
       firstName: "",
       lastName: ""
@@ -19,6 +19,10 @@ class AuthForms extends React.Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ currentUser: nextProps.authentication.currentUser });
   }
 
   openLoginForm(event) {
@@ -77,14 +81,24 @@ class AuthForms extends React.Component {
       </form>
     );
 
-    return (
-      <div>
-        {loginLink} <br/>
-        {registerLink} <br/>
-        {this.state.loginForm ? loginForm : ""}
-        {this.state.registerForm ? registerForm: ""}
-      </div>
-    );
+
+      if (this.state.currentUser) {
+        return (
+          <div>
+            <p>{this.state.currentUser.email}</p>
+            <button>Logout</button>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            {loginLink} <br/>
+            {registerLink} <br/>
+            {this.state.loginForm ? loginForm : ""}
+            {this.state.registerForm ? registerForm: ""}
+          </div>
+        );
+      }
   }
 }
 

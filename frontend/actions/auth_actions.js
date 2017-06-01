@@ -7,17 +7,32 @@ import * as AuthAPIUtil from '../api_utils/auth_api_util';
 
 export const receiveUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
-  user
+  currentUser: user
 });
 
 export const logout = () => ({
   type: LOGOUT
 });
 
+export const receiveUserErrors = ({ message }) => ({
+  type: RECEIVE_ERRORS,
+  errors: message
+});
+
+export const receiveServerErrors = ({ error }) => ({
+  type: RECEIVE_ERRORS,
+  errors: error
+});
+
 export const login = (creds) => dispatch => {
   AuthAPIUtil.login(creds).then((data) => {
-    console.log(data)
-    dispatch(receiveUser(data))
-  }
-  );
+    // Will have a message if there was an error
+    if (data.message) {
+      alert(data.message);
+    } else if (data.error) {
+      alert(data.error);
+    } else {
+      dispatch(receiveUser(data))
+    }
+  });
 };

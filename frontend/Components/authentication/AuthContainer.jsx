@@ -8,7 +8,7 @@ import {
 import AuthForms from './AuthForms.jsx';
 
 const mapStateToProps = state => ({
-
+  authentication: state.authentication
 });
 
 const mapDispatchToProps = dispatch => ({
