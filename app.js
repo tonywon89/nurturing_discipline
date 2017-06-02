@@ -58,7 +58,7 @@ var localStrategy = new LocalStrategy({
         return done(null, false, { message: 'Incorrect email.' });
       }
 
-      user.isValidPassword(password, user.password).then(function(res) {
+      User.isValidPassword(password, user.password).then(function(res) {
         if (res === false) {
           return done(null, false, { message: 'Incorrect password.' });
 

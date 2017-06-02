@@ -6,3 +6,12 @@ export const login = (data) => (
     data
   })
 );
+
+export const register = (data) => (
+  $.ajax({
+    method: 'POST',
+    url: 'api/auth/register',
+    dataType: 'json',
+    data
+  })
+);

@@ -10,7 +10,6 @@ export const receiveUser = (user) => ({
   currentUser: user
 });
 
-
 export const receiveLogout = () => ({
   type: RECEIVE_LOGOUT
 });
@@ -27,8 +26,19 @@ export const receiveServerErrors = ({ error }) => ({
 
 export const logout = () => dispatch => {
   // AuthAPIUtil.logout().then((data) => {
+  // @TODO: need to clear the session/cookie once this is ready
   dispatch(receiveLogout());
   // })
+}
+
+export const register = (creds) => dispatch => {
+  AuthAPIUtil.register(creds).then((data) => {
+    if (data.error) {
+      alert(data.error)
+    } else {
+      dispatch(receiveUser(data))
+    }
+  });
 }
 
 export const login = (creds) => dispatch => {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   login,
   logout,
-  receiveUser
+  register,
 } from '../../actions/auth_actions.js';
 
 import AuthForms from './AuthForms.jsx';
@@ -19,6 +19,10 @@ const mapDispatchToProps = dispatch => ({
 
   logout: () => {
     logout()(dispatch);
+  },
+
+  register: (creds) => {
+    register(creds)(dispatch);
   }
 });
 

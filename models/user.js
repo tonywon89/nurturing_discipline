@@ -39,15 +39,13 @@ UserSchema.virtual('name').get(function () {
 
 var saltRounds = 10;
 
-UserSchema.methods.hashPassword = function (password) {
+UserSchema.statics.hashPassword = function (password) {
   return bcrypt.hash(password, saltRounds)
 }
 
-UserSchema.methods.isValidPassword = function (password, hash) {
+UserSchema.statics.isValidPassword = function (password, hash) {
   return bcrypt.compare(password, hash)
 };
-
-
 
 UserSchema.plugin(passportLocalMongoose);
 
