@@ -5,13 +5,13 @@ var bcrypt = require('bcrypt');
 
 var UserSchema = Schema(
 	{
-		first_name: {
+		firstName: {
 			type: String,
 			trim: true,
 			required: true,
 			max: 100,
 		},
-		last_name: {
+		lastName: {
 			type: String,
 			required: true,
 			max: 100,
@@ -29,12 +29,12 @@ var UserSchema = Schema(
       trim: true,
       required: 'Password is required'
     },
-		date_added: { type: Date, default: Date.now },
+		dateAdded: { type: Date, default: Date.now },
 	}
 );
 
 UserSchema.virtual('name').get(function () {
-	return this.last_name + ', ' + this.first_name;
+	return this.lastName + ', ' + this.firstName;
 });
 
 var saltRounds = 10;

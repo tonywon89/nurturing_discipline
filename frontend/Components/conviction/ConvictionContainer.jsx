@@ -10,7 +10,8 @@ import {
 import ConvictionList from './ConvictionList.jsx';
 
 const mapStateToProps = state => ({
-  convictions: state.convictions
+  convictions: state.convictions,
+  authentication: state.authentication
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -19,15 +20,22 @@ const mapDispatchToProps = dispatch => ({
     const data = $('form').serialize();
     createConviction(data)(dispatch);
   },
+
   receiveConvictions: () => {
     event.preventDefault();
     fetchConvictions()
   },
+
   deleteConviction: (convictionId) => {
     deleteConviction(convictionId)(dispatch)
   },
+
   editConviction: (data) => {
     editConviction(data)(dispatch);
+  },
+
+  fetchConvictions: () => {
+    fetchConvictions()(dispatch);
   }
 });
 

@@ -20,6 +20,7 @@
     "debug": "~2.6.0",
     "express": "~4.14.1",
     "express-json-views": "^0.1.0",
+    "express-session": "^1.15.3",
     "express-validator": "^3.2.0",
     "jsonwebtoken": "^7.4.1",
     "jwt-simple": "^0.5.1",

@@ -11,7 +11,9 @@ exports.login = function (req, res, next) {
     } else if (info) {
       res.json(info);
     } else {
-      res.render('json/user/user', { error: err, data: user });
+      req.logIn(user, function (err) {
+        res.render('json/user/user', { error: err, data: user });
+      });
     }
   })(req, res, next);
 };
@@ -20,8 +22,8 @@ exports.register = function (req, res, next) {
   User.hashPassword(req.body.password).then(function (hashedPassword) {
     User.create(
     {
-      first_name: req.body.firstName,
-      last_name: req.body.lastName,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       email: req.body.email,
       password: hashedPassword
     },
@@ -35,6 +37,10 @@ exports.register = function (req, res, next) {
     }
   )
   });
-
-
 }
+
+exports.logout = function (req, res, next) {
+  req.logout();
+  res.json({ success: 1})
+}
+

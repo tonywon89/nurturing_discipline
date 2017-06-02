@@ -15,3 +15,12 @@ export const register = (data) => (
     data
   })
 );
+
+export const logout = () => (
+  $.ajax({
+    method: 'POST',
+    url: 'api/auth/logout',
+    dataType: 'json',
+  })
+);
+

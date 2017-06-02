@@ -25,10 +25,10 @@ export const receiveServerErrors = ({ error }) => ({
 });
 
 export const logout = () => dispatch => {
-  // AuthAPIUtil.logout().then((data) => {
+  AuthAPIUtil.logout().then((data) => {
   // @TODO: need to clear the session/cookie once this is ready
-  dispatch(receiveLogout());
-  // })
+    dispatch(receiveLogout());
+  })
 }
 
 export const register = (creds) => dispatch => {

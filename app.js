@@ -9,10 +9,10 @@ var expressValidator = require('express-validator');
 var viewEngine = require('express-json-views');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var session = require('express-session');
 
 /** Importing the different routes **/
 var index = require('./routes/index');
-var usersAPI = require('./routes/api/users');
 var convictionsAPI = require('./routes/api/convictions');
 var authenticationAPI = require('./routes/api/authentication');
 
@@ -39,7 +39,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressValidator());
-
+// app.use(session({ secret: 'keyboard cat' }));
+app.use(session({
+    secret: 'JesusIsLord',
+    name: 'JesusIsLord',
+    // store: sessionStore, // connect-mongo session store
+    proxy: true,
+    resave: true,
+    saveUninitialized: true
+}));
 
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/User.js');
@@ -66,20 +74,25 @@ var localStrategy = new LocalStrategy({
 
         return done(null, user);
       });
-
-      // // @TODO Add password handling
-      // if (!user.validPassword(password)) {
-      //   return done(null, false, { message: 'Incorrect password.' });
-      // }
     });
   }
 );
 
 passport.use(localStrategy);
 
+passport.serializeUser(function(user, done) {
+  console.log(user);
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
 // Routes
 app.use('/', index);
-app.use('/api/users', usersAPI);
 app.use('/api/convictions', convictionsAPI);
 app.use('/api/auth', authenticationAPI);
 
