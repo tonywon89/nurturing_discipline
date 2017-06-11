@@ -2,30 +2,43 @@ import React from 'react';
 
 import ConvictionItem from './ConvictionItem.jsx'
 
-const ConvictionList = ({ convictions, createConviction, deleteConviction, editConviction, fetchConvictions, authentication }) => {
-
-  if (!authentication.currentUser) {
-    return <div></div>;
+class ConvictionList extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  return (
-    <div>
-      <ul>
-        {convictions.map((conviction, idx) => (
-          <ConvictionItem  key={idx} deleteConviction={deleteConviction} conviction={conviction} editConviction={editConviction} />
-        )
-        )}
-      </ul>
-      <button onClick={fetchConvictions}>Fetch Convictions</button>
-      <form onSubmit={createConviction}>
-        <input type="text" name="conviction_title" placeholder="Conviction Title" /><br />
-        <textarea name="conviction_description"/> <br/>
-        <input type="submit" value="Add Conviction" />
-      </form>
-    </div>
-  );
-};
+  fetch(event) {
+    event.preventDefault();
+    const userId = this.props.authentication.currentUser.id;
+    this.props.fetchConvictions(userId);
+  }
+
+  render() {
+    const { convictions, createConviction, deleteConviction, editConviction, fetchConvictions, authentication } = this.props;
+
+    if (!authentication.currentUser) {
+
+      return <div></div>;
+    }
 
 
+    return (
+      <div>
+        <ul>
+          {convictions.map((conviction, idx) => (
+            <ConvictionItem  key={idx} deleteConviction={deleteConviction} conviction={conviction} editConviction={editConviction} />
+          )
+          )}
+        </ul>
+        <button onClick={this.fetch.bind(this)}>Fetch Convictions</button>
+        <form onSubmit={createConviction}>
+          <input type="text" name="conviction_title" placeholder="Conviction Title" /><br />
+          <textarea name="conviction_description"/> <br/>
+          <input type="submit" value="Add Conviction" />
+        </form>
+      </div>
+    );
+  }
+}
 
 export default ConvictionList;

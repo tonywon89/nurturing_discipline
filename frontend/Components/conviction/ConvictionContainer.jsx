@@ -34,8 +34,8 @@ const mapDispatchToProps = dispatch => ({
     editConviction(data)(dispatch);
   },
 
-  fetchConvictions: () => {
-    fetchConvictions()(dispatch);
+  fetchConvictions: (userId) => {
+    fetchConvictions(userId)(dispatch);
   }
 });
 

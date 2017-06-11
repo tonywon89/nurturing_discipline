@@ -1,8 +1,9 @@
-export const fetchConvictions = () => (
+export const fetchConvictions = (userId) => (
   $.ajax({
     method: 'GET',
     url: 'api/convictions',
-    dataType: 'json'
+    dataType: 'json',
+    data: { userId }
   })
 );
 

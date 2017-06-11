@@ -26,8 +26,8 @@ export const modifyConviction = (conviction) => ({
   conviction
 });
 
-export const fetchConvictions = () => dispatch => {
-  ConvictionAPIUtil.fetchConvictions().then(({ convictions }) =>
+export const fetchConvictions = (userId) => dispatch => {
+  ConvictionAPIUtil.fetchConvictions(userId).then(({ convictions }) =>
     dispatch(getConvictions(convictions))
   );
 }

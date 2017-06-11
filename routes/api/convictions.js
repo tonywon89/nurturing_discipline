@@ -10,10 +10,8 @@ function checkAuthenticated(req, res, next) {
     res.status(400).send("Not Authorized");
 
   } else {
-    console.log(req.user);
     next();
   }
-
 }
 
 router.get('/', checkAuthenticated, convictions_controller.conviction_list);

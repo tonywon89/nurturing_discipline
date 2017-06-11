@@ -81,7 +81,6 @@ var localStrategy = new LocalStrategy({
 passport.use(localStrategy);
 
 passport.serializeUser(function(user, done) {
-  console.log(user);
   done(null, user.id);
 });
 
