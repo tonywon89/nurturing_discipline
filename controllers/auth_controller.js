@@ -65,7 +65,12 @@ exports.register = function (req, res, next) {
       if (err) {
         res.json({ error: err });
       } else {
-        res.render('json/user/user', {error: err, data: user })
+        req.logIn(user, function (err) {
+          var token = addJWT(user);
+          // @TODO: Once sending over https, make sure { secure: true }
+          res.cookie('userToken', token, { httpOnly: true });
+          res.render('json/user/user', { error: err, data: user });
+        });
       }
     }
   )
