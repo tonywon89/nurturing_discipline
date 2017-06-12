@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import ConvictionsReducer from './convictions_reducer.js';
 import AuthReducer from './auth_reducer.js';
+import CsrfReducer from './csrf_reducer.js';
 
 const RootReducer = combineReducers({
   convictions: ConvictionsReducer,
-  authentication: AuthReducer
+  authentication: AuthReducer,
+  csrfToken: CsrfReducer,
 });
 
 export default RootReducer;

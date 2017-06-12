@@ -48,6 +48,7 @@ class ConvictionItem extends React.Component {
     if (editing) {
       editingForm = (
         <form onSubmit={this.handleSubmit}>
+          <input type="hidden" name="_csrf" value={this.props.csrfToken}/>
           <input type="text" name="conviction_title" placeholder="Conviction Title" value={this.state.title} onChange={this.handleTitleChange}/><br />
           <textarea name="conviction_description" value={this.state.detailed_description} onChange={this.handleDescriptionChange}/> <br/>
           <input type="submit" value="Submit" />

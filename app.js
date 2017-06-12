@@ -13,8 +13,9 @@ var session = require('express-session');
 
 /** Importing the different routes **/
 var index = require('./routes/index');
-var convictionsAPI = require('./routes/api/convictions');
-var authenticationAPI = require('./routes/api/authentication');
+var convictionsAPI = require('./routes/api/convictions.js');
+var authenticationAPI = require('./routes/api/authentication.js');
+var csrfAPI = require('./routes/api/csrf.js')
 
 var app = express();
 
@@ -94,6 +95,7 @@ passport.deserializeUser(function(id, done) {
 app.use('/', index);
 app.use('/api/convictions', convictionsAPI);
 app.use('/api/auth', authenticationAPI);
+app.use('/api/csrf', csrfAPI);
 
 // app.use('/auth', authentication)
 

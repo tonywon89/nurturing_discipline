@@ -6,6 +6,7 @@ import configureStore from './store.js';
 
 import { addConviction, fetchConvictions } from './actions/conviction_actions.js';
 import { login } from './actions/auth_actions.js';
+import { fetchCsrfToken } from './actions/csrf_actions.js';
 import ConvictionContainer from './Components/conviction/ConvictionContainer.jsx';
 import AuthContainer from './Components/authentication/AuthContainer.jsx'
 
@@ -22,6 +23,7 @@ const Root = () => (
 class App extends React.Component {
   componentWillMount() {
     store.dispatch(login({ initialLoad: 'true' }));
+    store.dispatch(fetchCsrfToken());
   }
 
   render() {

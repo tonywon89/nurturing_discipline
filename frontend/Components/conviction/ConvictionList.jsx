@@ -14,10 +14,9 @@ class ConvictionList extends React.Component {
   }
 
   render() {
-    const { convictions, createConviction, deleteConviction, editConviction, fetchConvictions, authentication } = this.props;
+    const { convictions, createConviction, deleteConviction, editConviction, fetchConvictions, authentication, csrfToken } = this.props;
 
     if (!authentication.currentUser) {
-
       return <div></div>;
     }
 
@@ -25,12 +24,13 @@ class ConvictionList extends React.Component {
       <div>
         <ul>
           {convictions.map((conviction, idx) => (
-            <ConvictionItem  key={idx} deleteConviction={deleteConviction} conviction={conviction} editConviction={editConviction} />
-          )
+            <ConvictionItem key={idx} deleteConviction={deleteConviction} conviction={conviction} editConviction={editConviction} csrfToken={csrfToken}/>
+            )
           )}
         </ul>
         <button onClick={this.fetch.bind(this)}>Fetch Convictions</button>
         <form onSubmit={createConviction}>
+          <input type="hidden" name="_csrf" value={this.props.csrfToken}/>
           <input type="text" name="conviction_title" placeholder="Conviction Title" /><br />
           <textarea name="conviction_description"/> <br/>
           <input type="submit" value="Add Conviction" />

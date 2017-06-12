@@ -11,7 +11,8 @@ import ConvictionList from './ConvictionList.jsx';
 
 const mapStateToProps = state => ({
   convictions: state.convictions,
-  authentication: state.authentication
+  authentication: state.authentication,
+  csrfToken: state.csrfToken
 });
 
 const mapDispatchToProps = dispatch => ({
