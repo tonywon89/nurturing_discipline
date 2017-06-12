@@ -15,8 +15,8 @@ function checkAuthenticated(req, res, next) {
 }
 
 router.get('/', checkAuthenticated, convictions_controller.conviction_list);
-router.post('/', convictions_controller.conviction_create);
-router.delete('/', convictions_controller.conviction_delete);
-router.patch('/', convictions_controller.conviction_patch);
+router.post('/', checkAuthenticated, convictions_controller.conviction_create);
+router.delete('/', checkAuthenticated, convictions_controller.conviction_delete);
+router.patch('/', checkAuthenticated, convictions_controller.conviction_patch);
 
 module.exports = router;

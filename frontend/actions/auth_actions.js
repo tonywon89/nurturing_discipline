@@ -4,6 +4,7 @@ export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 
 import * as AuthAPIUtil from '../api_utils/auth_api_util';
+import { getConvictions } from './conviction_actions.js';
 
 export const receiveUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
@@ -28,13 +29,14 @@ export const logout = () => dispatch => {
   AuthAPIUtil.logout().then((data) => {
   // @TODO: need to clear the session/cookie once this is ready
     dispatch(receiveLogout());
+    dispatch(getConvictions([]));
   })
 }
 
 export const register = (creds) => dispatch => {
   AuthAPIUtil.register(creds).then((data) => {
     if (data.error) {
-      alert(data.error)
+      console.log(data.error)
     } else {
       dispatch(receiveUser(data))
     }

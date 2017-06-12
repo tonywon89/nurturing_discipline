@@ -18,7 +18,8 @@ exports.conviction_create = function (req, res, next) {
       Conviction.create(
         {
           title: req.body.conviction_title,
-          detailed_description: req.body.conviction_description
+          detailed_description: req.body.conviction_description,
+          _user: req.user._id
         }, callback);
     }
   }, function(err, results) {

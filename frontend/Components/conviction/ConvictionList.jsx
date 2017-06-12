@@ -21,7 +21,6 @@ class ConvictionList extends React.Component {
       return <div></div>;
     }
 
-
     return (
       <div>
         <ul>
