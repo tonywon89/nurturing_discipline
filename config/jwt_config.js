@@ -1,4 +1,4 @@
-emodule.exports = {
+module.exports = {
   jwtSecret: "MySecretKeyToBeReplaced",
   jwtSession: {
     session: false
