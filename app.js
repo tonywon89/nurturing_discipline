@@ -57,14 +57,12 @@ var jwt = require('jsonwebtoken');
 app.use(passport.initialize());
 app.use(passport.session());
 
-var localStrategy = new LocalStrategy({
-    usernameField: 'email',
-  }, function(email, password, done) {
-    User.findOne({ email: email }, function(err, user) {
+var localStrategy = new LocalStrategy(function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
       if (err) { return done(err); }
 
       if (!user) {
-        return done(null, false, { message: 'Incorrect email.' });
+        return done(null, false, { message: 'Incorrect username.' });
       }
 
       User.isValidPassword(password, user.password).then(function(res) {

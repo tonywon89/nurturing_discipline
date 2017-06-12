@@ -41,7 +41,7 @@ class AuthForms extends React.Component {
     if (this.state.currentUser) {
       return (
         <div>
-          <p>{this.state.currentUser.email}</p>
+          <p>{this.state.currentUser.username}</p>
           <button onClick={this.handleLogout}>Logout</button>
         </div>
       );

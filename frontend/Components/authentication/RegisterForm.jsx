@@ -5,6 +5,7 @@ class RegisterForm extends React.Component {
     super(props);
     this.state = {
       email: "",
+      username: "",
       password: "",
       passwordConfirmation: "",
       firstName: "",
@@ -16,6 +17,7 @@ class RegisterForm extends React.Component {
     this.handlePassConfirmChange = this.handlePassConfirmChange.bind(this);
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
   }
 
@@ -37,25 +39,35 @@ class RegisterForm extends React.Component {
       return;
     }
 
+    if (this.state.username.trim() === "") {
+      alert("A username must be entered for registration");
+      return;
+    }
+
     if (this.state.password.trim() === "") {
       alert("A password must be entered for registration");
       return;
     }
 
     if (this.state.password.trim() !== this.state.passwordConfirmation) {
-      alert("The passwords don't match!");
+      alert("The passwords don't match.");
     }
 
     this.props.register({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     })
   }
 
   handleEmailChange(event) {
     this.setState({ email: event.target.value });
+  }
+
+  handleUsernameChange(event) {
+    this.setState({ username: event.target.value });
   }
 
   handlePasswordChange(event) {
@@ -83,6 +95,8 @@ class RegisterForm extends React.Component {
         <input type="text" name="last_name" placeholder="Last Name" value={this.state.lastName} onChange={this.handleLastNameChange} /><br/>
         <label>Email</label>
         <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} /><br/>
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleUsernameChange} /><br/>
         <label>Password</label>
         <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} /><br/>
         <label>Confirm Password</label>

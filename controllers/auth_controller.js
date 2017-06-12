@@ -9,8 +9,9 @@ function addJWT(user) {
     {
       id: user._id,
       email: user.email,
+      username: user.username,
       firstName: user.firstName,
-      lastName: user.lastName
+      lastName: user.lastName,
     },
     config.jwtSecret,
     {
@@ -18,12 +19,10 @@ function addJWT(user) {
     }
   );
 
-  // return Object.assign({}, user.toJSON(), { token: token });
   return token;
 }
 
 exports.login = function (req, res, next) {
-
   if (req.body.initialLoad === 'true') {
     if (req.cookies.userToken) {
       var decodedUser = jwt.verify(req.cookies.userToken, config.jwtSecret);
@@ -58,7 +57,8 @@ exports.register = function (req, res, next) {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      password: hashedPassword
+      username: req.body.username,
+      password: hashedPassword,
     },
 
     function(err, user) {
@@ -67,7 +67,7 @@ exports.register = function (req, res, next) {
       } else {
         req.logIn(user, function (err) {
           var token = addJWT(user);
-          // @TODO: Once sending over https, make sure { secure: true }
+          // @TODO: Once sending over https, need to add { secure: true }
           res.cookie('userToken', token, { httpOnly: true });
           res.render('json/user/user', { error: err, data: user });
         });

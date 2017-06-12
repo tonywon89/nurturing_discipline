@@ -4,17 +4,17 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "tonywon89@gmail.com",
+      username: "tonywon",
       password: "testingpassword",
     }
 
-    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
   }
 
-  handleEmailChange(event) {
-    this.setState({ email: event.target.value });
+  handleUsernameChange(event) {
+    this.setState({ username: event.target.value });
   }
 
   handlePasswordChange(event) {
@@ -23,14 +23,14 @@ class LoginForm extends React.Component {
 
   handleLoginSubmit(event) {
     event.preventDefault();
-    this.props.login({ email: this.state.email, password: this.state.password });
+    this.props.login({ username: this.state.username, password: this.state.password });
   }
 
   render() {
     const loginForm = (
       <form onSubmit={this.handleLoginSubmit}>
-        <label>Email</label>
-        <input type="text" name="email" placeholder="Email" onChange={this.handleEmailChange} value={this.state.email} />
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Username" onChange={this.handleUsernameChange} value={this.state.username} />
         <label>Password</label>
         <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
         <input type="submit" value="Login" />
