@@ -4,8 +4,8 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "tonywon",
-      password: "testingpassword",
+      username: "twon",
+      password: "curious123",
     }
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);

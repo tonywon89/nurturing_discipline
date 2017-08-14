@@ -2,6 +2,7 @@ import React from 'react';
 import LoginForm from './LoginForm.jsx'
 import RegisterForm from './RegisterForm.jsx'
 
+
 class AuthForms extends React.Component {
   constructor(props) {
     super(props);
@@ -41,16 +42,14 @@ class AuthForms extends React.Component {
     if (this.state.currentUser) {
       return (
         <div>
-          <p>{this.state.currentUser.username}</p>
-          <button onClick={this.handleLogout}>Logout</button>
+          {this.state.currentUser.username}  <i className="fa fa-caret-down"></i>    <button onClick={this.handleLogout}>Logout</button>
         </div>
       );
     } else {
       return (
         <div>
-          {loginLink} <br/>
+          {loginLink} <span className="divider"></span> {registerLink}
           {this.state.loginForm ? <LoginForm login={this.props.login} /> : ""}
-          {registerLink} <br/>
           {this.state.registerForm ? <RegisterForm register={this.props.register} /> : ""}
         </div>
       );

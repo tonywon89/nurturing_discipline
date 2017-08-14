@@ -4,7 +4,7 @@ export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 
 import * as AuthAPIUtil from '../api_utils/auth_api_util';
-import { getConvictions } from './conviction_actions.js';
+import { getConvictions, fetchConvictions } from './conviction_actions.js';
 
 export const receiveUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
@@ -51,7 +51,9 @@ export const login = (creds) => dispatch => {
     } else if (data.error) {
       alert(data.error);
     } else {
-      dispatch(receiveUser(data))
+      dispatch(receiveUser(data));
+      // @REFACTOR: update this once have other things to do
+      dispatch(fetchConvictions(data.id));
     }
   });
 };

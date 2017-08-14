@@ -1,6 +1,10 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Avenir Nex", Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+#root main{
+  margin-left: 20px;
 }
 
 a {
@@ -11,6 +15,79 @@ ul {
   list-style-type: none;
 }
 
+/*
+  =====================
+    Navbar
+  =====================
+*/
+
+/* Start clearfix */
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  clear: both;
+  background-color: #4990E2;
+}
+/* End clearfix */
+
+
+.navbar {
+  line-height: 50px;
+  color: #fff;
+}
+
+.navbar .navbar-left {
+  float: left;
+  margin-left: 2em;
+}
+
+.navbar .navbar-right {
+  float: right;
+  margin-right: 2em;
+  vertical-align: middle;
+}
+
+.navbar-logo {
+  font-size: 1.5em;
+}
+
+.navbar-logo .logo-text {
+  padding-left: 10px;
+}
+
+.navbar-logo .logo-text span {
+  color: #25DC82;
+  font-weight:bold;
+}
+
+.navbar-logo img {
+  width: 35px;
+  height: 35px;
+  vertical-align: middle;
+}
+
+.divider {
+  height: 20px;
+  width: 1px;
+  background: white;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+/*
+  =====================
+    Convictions
+  =====================
+*/
+
 .convictionTitle {
   font-size: 1.5em;
 }
@@ -19,3 +96,4 @@ ul {
   font-size: 0.6em;
   list-style-type: disc;
 }
+

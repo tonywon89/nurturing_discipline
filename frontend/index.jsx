@@ -8,7 +8,8 @@ import { addConviction, fetchConvictions } from './actions/conviction_actions.js
 import { login } from './actions/auth_actions.js';
 import { fetchCsrfToken } from './actions/csrf_actions.js';
 import ConvictionContainer from './Components/conviction/ConvictionContainer.jsx';
-import AuthContainer from './Components/authentication/AuthContainer.jsx'
+import AuthContainer from './Components/authentication/AuthContainer.jsx';
+import NavbarContainer from './Components/navbar/NavbarContainer.jsx';
 
 const store = configureStore();
 
@@ -29,8 +30,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <AuthContainer />
-        <ConvictionContainer />
+        <header>
+          <NavbarContainer />
+        </header>
+        <main>
+          <ConvictionContainer />
+        </main>
       </div>
     );
   }
