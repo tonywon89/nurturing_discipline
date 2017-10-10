@@ -52,28 +52,28 @@ class AuthForms extends React.Component {
     let menuItems = this.state.dropdownVisible ? (
       <div className="dropdown-list">
         <div key={1}>
-          <span>Profile</span>
+          Profile
         </div>
         <div key={2}>
-          <span>Settings</span>
+          Settings
         </div>
-        <div key={3}>
-          <span onClick={this.handleLogout}>Logout</span>
+        <div onClick={this.handleLogout} key={3}>
+          Logout
         </div>
       </div>
     ) : "";
     if (this.state.currentUser) {
       return (
         <div className="dropdown-container" onClick={this.toggleDropdown}>
-          <div>
+          <div className="nav-username">
             {this.state.currentUser.username} <i className="fa fa-caret-down"></i>
           </div>
 
             <CSSTransitionGroup
               transitionName="example"
               // transitionAppear={true}
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}
+              // transitionEnterTimeout={300}
+              // transitionLeaveTimeout={300}
               // transitionEnter={false}
               // transitionLeave={false}
               >

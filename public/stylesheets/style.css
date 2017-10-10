@@ -43,7 +43,7 @@ ul {
   position: relative;
   color: #fff;
   background: #4990E2;
-  height: 50px;
+  height: 40px;
 }
 
 .navbar .navbar-left {
@@ -102,63 +102,55 @@ ul {
 
 .dropdown-container .dropdown-list {
   position: absolute;
+  top: 30px;
   float:left;
   width: 100%;
-  background:black;
-  height: 40px;
-  border:solid 1px black;
+  background: white;
+  color: green;
 }
 
-.example-enter {
-  opacity: 0.01;
-   position: absolute;
-  float:left;
-  width: 100%;
-  background:black;
-  height: 40px;
-  border:solid 1px black;
+/*.example-enter {
+  height: 0;
 }
 
 .example-enter.example-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-  position: absolute;
-  float:left;
-  width: 100%;
-  background:black;
   height: 40px;
-  border:solid 1px black;
+  transition: height 100ms ease-in;
+
 }
 
 .example-leave {
-  opacity: 1;
-  position: absolute;
-  float:left;
-  width: 100%;
-  background:black;
   height: 40px;
-  border:solid 1px black;
 }
 
 .example-leave.example-leave-active {
-  opacity: 0.01;
-  position: absolute;
-  float:left;
-  width: 100%;
-  background:black;
-  height: 40px;
-  border:solid 1px black;
-  transition: opacity 300ms ease-in;
+  height: 0;
+  transition: height 100ms ease-in;
+}*/
+
+.example-enter {
+  transform: scale(1, 0.1);
+  transform-origin: top;
 }
 
-.example-appear {
-  opacity: 0.01;
+.example-enter.example-enter-active {
+  transform: scale(1, 1);
+  /*transform-origin: top;*/
+  transition: all .1s ease-in-out;
+
 }
 
-.example-appear.example-appear-active {
-  opacity: 1;
-  transition: opacity .5s ease-in;
+.example-leave {
+  transform: scale(1, 1);
+  transform-origin: top;
 }
+
+.example-leave.example-leave-active {
+  transform: scale(1, 0.1);
+  transition: all .1s ease-in-out;
+  transform-origin: top;
+}
+
 /*
   =====================
     Convictions
