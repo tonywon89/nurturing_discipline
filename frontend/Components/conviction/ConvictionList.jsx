@@ -28,7 +28,7 @@ class ConvictionList extends React.Component {
             )
           )}
         </ul>
-        <button onClick={this.fetch.bind(this)}>Fetch Convictions</button>
+
         <form onSubmit={createConviction}>
           <input type="hidden" name="_csrf" value={this.props.csrfToken}/>
           <input type="text" name="conviction_title" placeholder="Conviction Title" /><br />
