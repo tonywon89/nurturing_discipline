@@ -40,19 +40,28 @@ ul {
 
 
 .navbar {
-  line-height: 50px;
+  position: relative;
   color: #fff;
+  background: #4990E2;
+  height: 50px;
 }
 
 .navbar .navbar-left {
   float: left;
   margin-left: 2em;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+
 }
 
 .navbar .navbar-right {
   float: right;
   margin-right: 2em;
-  vertical-align: middle;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 0;
 }
 
 .navbar-logo {
@@ -81,6 +90,74 @@ ul {
   display: inline-block;
   vertical-align: middle;
   margin: 0 10px;
+}
+
+/*.dropdown-list {
+  display: none;
+}*/
+
+.dropdown-container {
+  cursor: pointer;
+}
+
+.dropdown-container .dropdown-list {
+  position: absolute;
+  float:left;
+  width: 100%;
+  background:black;
+  height: 40px;
+  border:solid 1px black;
+}
+
+.example-enter {
+  opacity: 0.01;
+   position: absolute;
+  float:left;
+  width: 100%;
+  background:black;
+  height: 40px;
+  border:solid 1px black;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+  position: absolute;
+  float:left;
+  width: 100%;
+  background:black;
+  height: 40px;
+  border:solid 1px black;
+}
+
+.example-leave {
+  opacity: 1;
+  position: absolute;
+  float:left;
+  width: 100%;
+  background:black;
+  height: 40px;
+  border:solid 1px black;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  position: absolute;
+  float:left;
+  width: 100%;
+  background:black;
+  height: 40px;
+  border:solid 1px black;
+  transition: opacity 300ms ease-in;
+}
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
 }
 /*
   =====================
