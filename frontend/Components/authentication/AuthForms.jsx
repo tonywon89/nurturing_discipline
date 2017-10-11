@@ -16,7 +16,8 @@ class AuthForms extends React.Component {
     this.toggleRegisterForm = this.toggleRegisterForm.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.toggleLoginForm = this.toggleLoginForm.bind(this);
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.showDropdown = this.showDropdown.bind(this);
+    this.hideDropdown = this.hideDropdown.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,19 +39,23 @@ class AuthForms extends React.Component {
     this.props.logout();
   }
 
-  toggleDropdown() {
+  showDropdown() {
     if (this.state.dropdownVisible === false) {
       this.setState({ dropdownVisible: true });
-    } else {
-      this.setState({ dropdownVisible: false });
+      document.addEventListener("click", this.hideDropdown);
     }
+  }
+
+  hideDropdown() {
+    this.setState({ dropdownVisible: false });
+    document.removeEventListener("click", this.hideDropdown);
   }
 
   render() {
     const loginLink = <a href="#" onClick={this.toggleLoginForm}>Login</a>;
     const registerLink = <a href="#" onClick={this.toggleRegisterForm}>Register</a>;
     let menuItems = this.state.dropdownVisible ? (
-      <div className="dropdown-list">
+      <div className="dropdown-list" onSelect={()=> null}>
         <div key={1}>
           Profile
         </div>
@@ -64,24 +69,21 @@ class AuthForms extends React.Component {
     ) : "";
     if (this.state.currentUser) {
       return (
-        <div className="dropdown-container" onClick={this.toggleDropdown}>
-          <div className="nav-username">
-            {this.state.currentUser.username} <i className="fa fa-caret-down"></i>
+        <div>
+          <div className="dropdown-container" onClick={this.showDropdown}>
+            <div className="nav-username">
+              {this.state.currentUser.username} <i className="fa fa-caret-down"></i>
+            </div>
           </div>
-
-            <CSSTransitionGroup
-              transitionName="example"
-              // transitionAppear={true}
-              // transitionEnterTimeout={300}
-              // transitionLeaveTimeout={300}
-              // transitionEnter={false}
-              // transitionLeave={false}
+          <CSSTransitionGroup
+              transitionName="nav-dropdown"
+              transitionEnterTimeout={300}
+              transitionLeaveTimeout={100}
               >
               {menuItems}
 
             </CSSTransitionGroup>
-
-        </div>
+      </div>
       );
     } else {
       return (

@@ -62,6 +62,7 @@ ul {
   transform: translateY(-50%);
   top: 50%;
   right: 0;
+  height: 100%;
 }
 
 .navbar-logo {
@@ -83,6 +84,14 @@ ul {
   vertical-align: middle;
 }
 
+.nav-username {
+  line-height: 40px;
+  width: 100%;
+  text-align:center;
+  padding: 0 1em;
+  /*vertical-align: middle;*/
+}
+
 .divider {
   height: 20px;
   width: 1px;
@@ -92,60 +101,53 @@ ul {
   margin: 0 10px;
 }
 
-/*.dropdown-list {
-  display: none;
-}*/
-
 .dropdown-container {
   cursor: pointer;
+  height: 100%;
 }
 
-.dropdown-container .dropdown-list {
-  position: absolute;
-  top: 30px;
+.dropdown-list {
+  margin-right: 0;
+  position: relative;
   float:left;
   width: 100%;
   background: white;
-  color: green;
+  color: black;
+  text-align: center;
+  cursor: pointer;
 }
 
-/*.example-enter {
-  height: 0;
+.dropdown-list div {
+  padding: 0.7em 1em 0.7em 1em;
+  font-size: 0.85em;
 }
 
-.example-enter.example-enter-active {
-  height: 40px;
-  transition: height 100ms ease-in;
-
+.dropdown-list div:hover {
+  background:  lightgrey;
 }
-
-.example-leave {
-  height: 40px;
-}
-
-.example-leave.example-leave-active {
-  height: 0;
-  transition: height 100ms ease-in;
-}*/
-
-.example-enter {
+/*
+  =====================
+    Navbar animation
+  =====================
+*/
+.nav-dropdown-enter {
   transform: scale(1, 0.1);
   transform-origin: top;
 }
 
-.example-enter.example-enter-active {
+.nav-dropdown-enter.nav-dropdown-enter-active {
   transform: scale(1, 1);
   /*transform-origin: top;*/
   transition: all .1s ease-in-out;
 
 }
 
-.example-leave {
+.nav-dropdown-leave {
   transform: scale(1, 1);
   transform-origin: top;
 }
 
-.example-leave.example-leave-active {
+.nav-dropdown-leave.nav-dropdown-leave-active {
   transform: scale(1, 0.1);
   transition: all .1s ease-in-out;
   transform-origin: top;
