@@ -87,7 +87,7 @@ class AuthForms extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div className="nav-username">
           {loginLink} <span className="divider"></span> {registerLink}
           {this.state.loginForm ? <LoginForm login={this.props.login} /> : ""}
           {this.state.registerForm ? <RegisterForm register={this.props.register} /> : ""}
