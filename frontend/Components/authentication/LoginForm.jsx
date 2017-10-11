@@ -23,6 +23,7 @@ class LoginForm extends React.Component {
 
   handleLoginSubmit(event) {
     event.preventDefault();
+    this.props.closeModal();
     this.props.login({ username: this.state.username, password: this.state.password });
   }
 

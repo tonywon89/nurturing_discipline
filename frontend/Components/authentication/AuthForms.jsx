@@ -2,6 +2,19 @@ import React from 'react';
 import LoginForm from './LoginForm.jsx'
 import RegisterForm from './RegisterForm.jsx'
 import { CSSTransitionGroup } from 'react-transition-group'
+import Modal from 'react-modal';
+
+// @TODO: change this to make it suit my needs
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 class AuthForms extends React.Component {
   constructor(props) {
@@ -10,28 +23,44 @@ class AuthForms extends React.Component {
       currentUser: props.authentication.currentUser,
       loginForm: false,
       registerForm: false,
-      dropdownVisible: false
+      dropdownVisible: false,
+
+      // Modal Code
+      modalIsOpen: false
     }
 
-    this.toggleRegisterForm = this.toggleRegisterForm.bind(this);
+    this.openRegisterForm = this.openRegisterForm.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-    this.toggleLoginForm = this.toggleLoginForm.bind(this);
+    this.openLoginForm = this.openLoginForm.bind(this);
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
+
+    // Modal Code
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ currentUser: nextProps.authentication.currentUser });
   }
 
-  toggleLoginForm(event) {
+  openLoginForm(event) {
     event.preventDefault();
-    this.setState({ loginForm: !this.state.loginForm })
+    this.setState({
+      loginForm: true,
+      modalIsOpen: true,
+      registerForm: false,
+    })
   }
 
-  toggleRegisterForm(event) {
+  openRegisterForm(event) {
     event.preventDefault();
-    this.setState({registerForm: !this.state.registerForm })
+    this.setState({
+      registerForm: true,
+      modalIsOpen: true,
+      loginForm: false,
+    });
   }
 
   handleLogout(event) {
@@ -51,18 +80,38 @@ class AuthForms extends React.Component {
     document.removeEventListener("click", this.hideDropdown);
   }
 
+ // Modal Code
+  openModal() {
+    this.setState({modalIsOpen: true});
+  }
+
+  afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // this.subtitle.style.color = '#f00';
+  }
+
+  closeModal() {
+    this.setState({
+      modalIsOpen: false,
+      registerForm: false,
+      loginForm: false
+    });
+  }
+
+  // End Modal Code
+
   render() {
-    const loginLink = <a href="#" onClick={this.toggleLoginForm}>Login</a>;
-    const registerLink = <a href="#" onClick={this.toggleRegisterForm}>Register</a>;
+    const loginLink = <a href="#" onClick={this.openLoginForm}>Login</a>;
+    const registerLink = <a href="#" onClick={this.openRegisterForm}>Register</a>;
     let menuItems = this.state.dropdownVisible ? (
       <div className="dropdown-list" onSelect={()=> null}>
-        <div key={1}>
+        <div>
           <i className="fa fa-user" aria-hidden="true"></i> Profile
         </div>
-        <div key={2}>
+        <div>
          <i className="fa fa-cog" aria-hidden="true"></i> Settings
         </div>
-        <div onClick={this.handleLogout} key={3}>
+        <div onClick={this.handleLogout}>
           <i className="fa fa-sign-out" aria-hidden="true"></i> Logout
         </div>
       </div>
@@ -89,8 +138,18 @@ class AuthForms extends React.Component {
       return (
         <div className="nav-username">
           {loginLink} <span className="divider"></span> {registerLink}
-          {this.state.loginForm ? <LoginForm login={this.props.login} /> : ""}
-          {this.state.registerForm ? <RegisterForm register={this.props.register} /> : ""}
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+
+          {this.state.loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} /> : ""}
+          {this.state.registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal}/> : ""}
+          {loginLink} <span className="divider"></span> {registerLink}
+          </Modal>
         </div>
       );
     }
