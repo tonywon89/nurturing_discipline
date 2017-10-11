@@ -63,6 +63,7 @@ ul {
   top: 50%;
   right: 0;
   height: 100%;
+  width: 100px;
 }
 
 .navbar-logo {
@@ -86,8 +87,7 @@ ul {
 
 .nav-username {
   line-height: 40px;
-  width: 100%;
-  text-align:center;
+  text-align:left;
   padding: 0 1em;
   /*vertical-align: middle;*/
 }
@@ -113,11 +113,15 @@ ul {
   width: 100%;
   background: white;
   color: black;
-  text-align: center;
+  text-align: left;
+  /*text-align: center;*/
   cursor: pointer;
+  /*@TODO: make the box look more appealing ;
+  /*border: 1px solid lightgrey;*/
 }
 
 .dropdown-list div {
+  width: 100px;
   padding: 0.7em 1em 0.7em 1em;
   font-size: 0.85em;
 }

@@ -57,13 +57,13 @@ class AuthForms extends React.Component {
     let menuItems = this.state.dropdownVisible ? (
       <div className="dropdown-list" onSelect={()=> null}>
         <div key={1}>
-          Profile
+          <i className="fa fa-user" aria-hidden="true"></i> Profile
         </div>
         <div key={2}>
-          Settings
+         <i className="fa fa-cog" aria-hidden="true"></i> Settings
         </div>
         <div onClick={this.handleLogout} key={3}>
-          Logout
+          <i className="fa fa-sign-out" aria-hidden="true"></i> Logout
         </div>
       </div>
     ) : "";
