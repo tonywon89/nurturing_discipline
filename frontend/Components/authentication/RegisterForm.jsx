@@ -102,6 +102,7 @@ class RegisterForm extends React.Component {
         <label>Confirm Password</label>
         <input type="password" name="password" value={this.state.passwordConfirmation} onChange={this.handlePassConfirmChange} /><br/>
         <input type="submit" value="Submit" />
+         <p style={{color: 'black', fontSize: '0.8em'}}>Already a member? <a onClick={this.props.openLoginForm}>Login</a></p>
       </form>
     );
   }

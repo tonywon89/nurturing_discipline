@@ -1,7 +1,13 @@
-Customize modal to look the way I want it to look
+Authentication:
 
-Refactor modal code to be more streamlined
+  -Customize modal to look the way I want it to look
+    -Add the user icon and the password icon to the login modal
+  -Refactor modal code to be more streamlined
+  -Google Login - Get this working
+  -Remember username or password
+  -Forgot username or password
+  -Remove first and last name requirement
 
-Google Login - Get this working
-
-When deleting conviction, need to have a confirmation to make sure they want to delete it
+Other:
+  -When deleting conviction, need to have a confirmation to make sure they want to delete it
+  -Make sure they are above 13 before they can use the app
