@@ -103,10 +103,11 @@ button::-moz-focus-inner {
 button,
 input[type="submit"] {
   background: #4990E2;
-  border: 0.5px solid gray;
+  border: 0.5px solid lightgrey;
   padding: 0.5em;
   color: white;
   font-size: 0.6em;
+  cursor: pointer;
 }
 
 
@@ -267,6 +268,52 @@ ul {
   transform: scale(1, 0.1);
   transition: all .1s ease-in-out;
   transform-origin: top;
+}
+
+/*
+  =====================
+    Auth Modal
+  =====================
+*/
+
+.modal-header {
+  text-align: center;
+  color: white;
+}
+
+.login-form {
+
+  color: white;
+}
+
+.login-form div {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.login-form input {
+  padding: 1em;
+  width: 100%;
+  box-sizing: border-box
+}
+
+.login-form input[type="submit"] {
+  background-color: black;
+}
+
+.forgot-link {
+  text-align: center;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #25DC82;
+  text-decoration: underline;
 }
 
 /*

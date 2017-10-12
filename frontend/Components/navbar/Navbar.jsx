@@ -11,7 +11,7 @@ class Navbar extends React.Component {
       <header className="navbar clearfix">
         <div className="navbar-left">
           <div className="navbar-logo">
-            <img src="/images/Logo.png" alt="Logo"/>
+            <img src="/images/Logo.png"/>
             <span className="logo-text">
               <span>Nurturing</span> Discipline
             </span>

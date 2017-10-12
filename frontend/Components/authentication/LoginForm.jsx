@@ -29,13 +29,17 @@ class LoginForm extends React.Component {
 
   render() {
     const loginForm = (
-      <form onSubmit={this.handleLoginSubmit}>
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Username" onChange={this.handleUsernameChange} value={this.state.username} />
-        <label>Password</label>
-        <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
-        <input type="submit" value="Login" />
-      </form>
+      <div>
+        <form className="login-form" onSubmit={this.handleLoginSubmit}>
+          <div>
+            <input type="text" required name="username" placeholder="Username" onChange={this.handleUsernameChange} value={this.state.username} />
+            <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+          </div>
+          <input type="submit" value="Login" />
+          <p style={{color: 'black', fontSize: '0.8em'}}>New Member? <a onClick={this.props.openRegisterForm}>Register</a></p>
+        </form>
+
+      </div>
     );
     return (
       <div>

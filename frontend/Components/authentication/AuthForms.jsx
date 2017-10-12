@@ -21,6 +21,8 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
+    background            : '#4990E2',
+    borderRadius          : '0'
   }
 };
 
@@ -153,10 +155,10 @@ class AuthForms extends React.Component {
             style={customStyles}
             contentLabel="Example Modal"
           >
-
-          {this.state.loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} /> : ""}
+          <h2 className="modal-header">Nurturing Discipline</h2>
+          {this.state.loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.openRegisterForm}/> : ""}
           {this.state.registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal}/> : ""}
-          {loginLink} <span className="divider"></span> {registerLink}
+          {loginLink}
           </Modal>
         </div>
       );
