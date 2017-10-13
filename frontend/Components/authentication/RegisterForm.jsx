@@ -68,18 +68,34 @@ class RegisterForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleRegisterSubmit}>
-        <label>Email</label>
-        <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} /><br/>
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleUsernameChange} /><br/>
-        <label>Password</label>
-        <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} /><br/>
-        <label>Confirm Password</label>
-        <input type="password" name="password" value={this.state.passwordConfirmation} onChange={this.handlePassConfirmChange} /><br/>
-        <input type="submit" value="Submit" />
-         <p style={{color: 'black', fontSize: '0.8em'}}>Already a member? <a onClick={this.props.openLoginForm}>Login</a></p>
-      </form>
+      <div>
+        <form className="auth-form" onSubmit={this.handleRegisterSubmit}>
+          <div>
+            <div className="input-field">
+              <input type="text" name="email" required value={this.state.email} onChange={this.handleEmailChange} />
+              <span className="floating-label">Email</span>
+            </div>
+
+            <div className="input-field">
+              <input type="text" name="username" required value={this.state.username} onChange={this.handleUsernameChange} />
+              <span className="floating-label">Username</span>
+            </div>
+
+            <div className="input-field">
+              <input type="password" required name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+              <span className="floating-label">Password</span>
+            </div>
+
+            <div className="input-field">
+              <input type="password" required name="password" value={this.state.passwordConfirmation} onChange={this.handlePassConfirmChange} />
+              <span className="floating-label">Confirm Password</span>
+            </div>
+          </div>
+
+          <input type="submit" value="Sign Up" />
+           <p className="auth-alt">Already a member? <a onClick={this.props.openLoginForm}>Login</a></p>
+        </form>
+      </div>
     );
   }
 }

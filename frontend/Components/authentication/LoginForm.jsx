@@ -4,10 +4,10 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "twon",
-      password: "curious123",
-      // username: "",
-      // password: "",
+      // username: "twon",
+      // password: "curious123",
+      username: "",
+      password: "",
     }
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -32,7 +32,7 @@ class LoginForm extends React.Component {
   render() {
     const loginForm = (
       <div>
-        <form className="login-form" onSubmit={this.handleLoginSubmit}>
+        <form className="auth-form" onSubmit={this.handleLoginSubmit}>
           <div>
             <div className="input-field">
               <input type="text" required name="username" onChange={this.handleUsernameChange} value={this.state.username} />
@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
             </div>
           </div>
           <input type="submit" value="Login" />
-          <p className='auth-alt'> New Member? <a onClick={this.props.openRegisterForm}>Register</a></p>
+          <p className="auth-alt"> New Member? <a onClick={this.props.openRegisterForm}>Register</a></p>
         </form>
 
       </div>
