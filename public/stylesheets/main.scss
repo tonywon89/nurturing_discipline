@@ -1,0 +1,54 @@
+
+@import './reset.scss';
+@import './navbar/navbar.scss';
+@import './auth.scss';
+
+a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #25DC82;
+  text-decoration: underline;
+}
+
+
+/*
+  Responsible for the animation for the placeholder
+*/
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label {
+  top: 5px;
+  left: 15px;
+  font-size: 0.7em;
+  opacity: 1;
+}
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  left: 20px;
+  top: 18px;
+  font-size: 1em;
+  transition: 0.2s ease all;
+  opacity: 0.7;
+  color: lightgrey;
+}
+
+/*
+  =====================
+    Convictions
+  =====================
+*/
+
+.convictionTitle {
+  font-size: 1.5em;
+}
+
+.convictionTitle .convictionDetail {
+  font-size: 0.6em;
+  list-style-type: disc;
+}
+

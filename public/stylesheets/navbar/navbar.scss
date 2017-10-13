@@ -1,0 +1,142 @@
+/*
+  =====================
+    Navbar
+  =====================
+*/
+
+/* Start clearfix */
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  clear: both;
+  background-color: #4990E2;
+}
+/* End clearfix */
+
+
+.navbar {
+  position: relative;
+  color: #fff;
+  background: #4990E2;
+  height: 40px;
+
+  .navbar-left {
+    float: left;
+    margin-left: 2em;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+  }
+
+  .navbar-right {
+    float: right;
+    margin-right: 2em;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    right: 0;
+    height: 100%;
+    width: 150px;
+  }
+}
+
+.navbar-logo {
+  font-size: 1.5em;
+
+  .logo-text {
+    padding-left: 10px;
+
+    span {
+      color: #25DC82;
+      font-weight:bold;
+    }
+  }
+
+  img {
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+  }
+}
+
+.nav-username {
+  line-height: 40px;
+  text-align:left;
+  padding: 0 1em;
+  /*vertical-align: middle;*/
+}
+
+.divider {
+  height: 20px;
+  width: 1px;
+  background: white;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+.dropdown-container {
+  cursor: pointer;
+  height: 100%;
+}
+
+.dropdown-list {
+  margin-right: 0;
+  position: relative;
+  float:left;
+  width: 100%;
+  background: white;
+  color: black;
+  text-align: left;
+  /*text-align: center;*/
+  cursor: pointer;
+  /*@TODO: make the box look more appealing ;
+  /*border: 1px solid lightgrey;*/
+
+  div {
+    width: 100px;
+    padding: 0.7em 1em 0.7em 1em;
+    font-size: 0.85em;
+
+    &:hover {
+      background: lightgrey;
+    }
+  }
+}
+
+/*
+  =====================
+    Navbar animation
+  =====================
+*/
+.nav-dropdown-enter {
+  transform: scale(1, 0.1);
+  transform-origin: top;
+
+  &.nav-dropdown-enter-active {
+    transform: scale(1, 1);
+    /*transform-origin: top;*/
+    transition: all .1s ease-in-out;
+
+  }
+}
+
+.nav-dropdown-leave {
+  transform: scale(1, 1);
+  transform-origin: top;
+
+  &.nav-dropdown-leave-active {
+    transform: scale(1, 0.1);
+    transition: all .1s ease-in-out;
+    transform-origin: top;
+  }
+
+}

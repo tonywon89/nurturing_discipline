@@ -8,12 +8,10 @@ var UserSchema = Schema(
 		firstName: {
 			type: String,
 			trim: true,
-			required: true,
 			max: 100,
 		},
 		lastName: {
 			type: String,
-			required: true,
 			max: 100,
 		},
 		email: {

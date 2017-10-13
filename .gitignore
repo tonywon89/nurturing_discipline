@@ -15,3 +15,6 @@
 bundle.js
 bundle.js.map
 test.js
+
+bundle.css
+bundle.css.map
