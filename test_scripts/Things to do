@@ -1,6 +1,5 @@
 Authentication:
 
-  -Refactor modal code to be more streamlined
   -Google Login - Get this working
   -Remember username or password
   -Forgot username or password
@@ -17,3 +16,4 @@ Finished Tasks:
   -Get rid of required firstName and last Name
   -Style the register form
   -Customize modal to look the way I want it to look
+  -Refactor modal code to be more streamlined
