@@ -9,7 +9,8 @@ import { login } from './actions/auth_actions.js';
 import { fetchCsrfToken } from './actions/csrf_actions.js';
 import ConvictionContainer from './Components/conviction/ConvictionContainer.jsx';
 import AuthContainer from './Components/authentication/AuthContainer.jsx';
-import NavbarContainer from './Components/navbar/NavbarContainer.jsx';
+import NavbarContainer from './Components/navigation/NavbarContainer.jsx';
+import SidebarContainer from './Components/navigation/SidebarContainer.jsx';
 
 const store = configureStore();
 
@@ -34,7 +35,10 @@ class App extends React.Component {
           <NavbarContainer />
         </header>
         <main>
-          <ConvictionContainer />
+          <SidebarContainer />
+          <div className="content">
+            <ConvictionContainer />
+          </div>
         </main>
       </div>
     );

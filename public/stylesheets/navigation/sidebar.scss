@@ -1,0 +1,36 @@
+  /*
+    @TODO: add different browser capabilities for the calc
+  */
+$sidebar-background-color: #DBEAEE;
+$sidebar-width: 200px;
+/* 40px is the width of the side bar */
+$sidebar-height: calc(100vh - 40px);
+
+.sidebar-container {
+  width: $sidebar-width;
+  height: $sidebar-height;
+  background: $sidebar-background-color;
+  position: fixed;
+  box-sizing: border-box;
+  padding-top: 3em;
+
+  a.sidebar-item {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.5em 0;
+    color: #9B9B9B;
+    border: 1px solid black;
+    box-sizing: border-box;
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.content {
+  width: calc(100vw - $sidebar-width);
+  margin-left: $sidebar-width;
+  padding-left: 3em;
+  padding-top: 2em;
+}
