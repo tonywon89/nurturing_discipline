@@ -1,115 +1,7 @@
 
 @import './reset.scss';
-
-/*
-  =====================
-    Navbar
-  =====================
-*/
-
-/* Start clearfix */
-.clearfix:before,
-.clearfix:after {
-  content: "";
-  display: table;
-}
-
-.clearfix:after {
-  clear: both;
-}
-
-.clearfix {
-  clear: both;
-  background-color: #4990E2;
-}
-/* End clearfix */
-
-
 @import './navbar/navbar.scss';
-/*
-  =====================
-    Navbar animation
-  =====================
-*/
-.nav-dropdown-enter {
-  transform: scale(1, 0.1);
-  transform-origin: top;
-}
-
-.nav-dropdown-enter.nav-dropdown-enter-active {
-  transform: scale(1, 1);
-  /*transform-origin: top;*/
-  transition: all .1s ease-in-out;
-
-}
-
-.nav-dropdown-leave {
-  transform: scale(1, 1);
-  transform-origin: top;
-}
-
-.nav-dropdown-leave.nav-dropdown-leave-active {
-  transform: scale(1, 0.1);
-  transition: all .1s ease-in-out;
-  transform-origin: top;
-}
-
-/*
-  =====================
-    Auth Modal
-  =====================
-*/
-
-.modal-header {
-  text-align: center;
-  font-size: 1.7em;
-  color: white;
-  margin-bottom: 1em;
-}
-
-.auth-form {
-  color: white;
-
-  > div {
-    width: 100%;
-    margin-bottom: 1em;
-  }
-
-  .input-field {
-    width: 100%;
-    position: relative;
-
-    input {
-      padding: 1.4em 1em 1em 1em;
-      // margin-bottom: 1em;
-      box-sizing: border-box;
-      border: none;
-      width: 100%;
-      background: #5D92BA;
-      color:white;
-      font-size: 1em;
-      margin-bottom: 0.2em;
-      border-bottom: 1px dotted rgba(250, 250, 250, .7);
-
-      &:focus {
-        background: #4a6ea8;
-      }
-    }
-  }
-
-  input[type="submit"] {
-    background-color: black;
-    padding: 1em;
-    box-sizing: border-box;
-    border: none;
-    width: 100%;
-    margin-bottom: 1em;
-  }
-}
-
-.forgot-link {
-  text-align: center;
-}
+@import './auth.scss';
 
 a {
   color: white;
@@ -122,13 +14,8 @@ a:hover {
   text-decoration: underline;
 }
 
-.auth-alt {
-  color: #000;
-  font-size: 0.8em;
-}
 
 /*
-  @TODO: Refactor this with class names
   Responsible for the animation for the placeholder
 */
 input:focus ~ .floating-label,

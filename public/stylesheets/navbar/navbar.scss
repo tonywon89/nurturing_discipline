@@ -35,36 +35,36 @@
     transform: translateY(-50%);
     top: 50%;
   }
-}
 
-.navbar .navbar-right {
-  float: right;
-  margin-right: 2em;
-  position: absolute;
-  transform: translateY(-50%);
-  top: 50%;
-  right: 0;
-  height: 100%;
-  width: 150px;
+  .navbar-right {
+    float: right;
+    margin-right: 2em;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    right: 0;
+    height: 100%;
+    width: 150px;
+  }
 }
 
 .navbar-logo {
   font-size: 1.5em;
-}
 
-.navbar-logo .logo-text {
-  padding-left: 10px;
-}
+  .logo-text {
+    padding-left: 10px;
 
-.navbar-logo .logo-text span {
-  color: #25DC82;
-  font-weight:bold;
-}
+    span {
+      color: #25DC82;
+      font-weight:bold;
+    }
+  }
 
-.navbar-logo img {
-  width: 35px;
-  height: 35px;
-  vertical-align: middle;
+  img {
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+  }
 }
 
 .nav-username {
@@ -100,14 +100,43 @@
   cursor: pointer;
   /*@TODO: make the box look more appealing ;
   /*border: 1px solid lightgrey;*/
+
+  div {
+    width: 100px;
+    padding: 0.7em 1em 0.7em 1em;
+    font-size: 0.85em;
+
+    &:hover {
+      background: lightgrey;
+    }
+  }
 }
 
-.dropdown-list div {
-  width: 100px;
-  padding: 0.7em 1em 0.7em 1em;
-  font-size: 0.85em;
+/*
+  =====================
+    Navbar animation
+  =====================
+*/
+.nav-dropdown-enter {
+  transform: scale(1, 0.1);
+  transform-origin: top;
+
+  &.nav-dropdown-enter-active {
+    transform: scale(1, 1);
+    /*transform-origin: top;*/
+    transition: all .1s ease-in-out;
+
+  }
 }
 
-.dropdown-list div:hover {
-  background:  lightgrey;
+.nav-dropdown-leave {
+  transform: scale(1, 1);
+  transform-origin: top;
+
+  &.nav-dropdown-leave-active {
+    transform: scale(1, 0.1);
+    transition: all .1s ease-in-out;
+    transform-origin: top;
+  }
+
 }

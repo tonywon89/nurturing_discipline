@@ -1,7 +1,5 @@
 Authentication:
 
-  -Customize modal to look the way I want it to look
-    -Style the register form
   -Refactor modal code to be more streamlined
   -Google Login - Get this working
   -Remember username or password
@@ -15,5 +13,7 @@ Other:
   -Make sure they are above 13 before they can use the app
 
 Finished Tasks:
-  -DONE - Get SASS working with webpack
-  -DONE - get rid of required firstName and last Name
+  -Get SASS working with webpack
+  -Get rid of required firstName and last Name
+  -Style the register form
+  -Customize modal to look the way I want it to look
