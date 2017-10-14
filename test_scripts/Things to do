@@ -10,10 +10,9 @@ Authentication:
 
 
 Sidebar Menu:
-  -Build sidebar menu to be displayed when the user is logged in
   -Have a link for convictions
-    -Lead to the convictions page where it displays the list and allows the user to see the convictions
-    -Style the Convictions to look more streamlined
+    -Sketch: Style the Convictions to look more streamlined
+    -Code: Implement style for conviction
   -Have a link for the work station
     -Have a carousel that displays the convictions one at a time
 
@@ -32,3 +31,5 @@ Finished Tasks:
   -Customize modal to look the way I want it to look
   -Refactor modal code to be more streamlined
   -Refactor CSS code to SASS
+  -Lead to the convictions page where it displays the list and allows the user to see the convictions
+  -Build sidebar menu to be displayed when the user is logged in

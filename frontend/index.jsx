@@ -27,7 +27,7 @@ const Root = () => (
             <Route path="/convictions" component={ConvictionContainer} />
           </div>
         </main>
-        <Route exact path ="/" component={App} />
+        <Route path ="/" component={App} />
       </div>
     </HashRouter>
   </Provider>

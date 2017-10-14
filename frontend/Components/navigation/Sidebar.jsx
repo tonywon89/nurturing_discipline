@@ -16,6 +16,10 @@ class Sidebar extends React.Component {
 
   render() {
 
+    if (!this.props.authentication.currentUser) {
+      return <div></div>;
+    }
+
     const sidebarLinks = sidebarMenuItems.map((item, idx) => (
       <SidebarItem key={idx} sidebarItemName={item.name} linkUrl={item.link} />
     ));

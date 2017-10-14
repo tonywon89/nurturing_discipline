@@ -57,15 +57,14 @@ class ConvictionItem extends React.Component {
     }
 
     return (
-      <li className="convictionTitle">
+      <li className="conviction-title">
         <b>{conviction.title}</b>
         <ul>
-          <li className="convictionDetail">{conviction.detailed_description}</li>
+          <li className="conviction-detail">{conviction.detailed_description}</li>
         </ul>
         <button onClick={this.delete.bind(this)}>Delete</button>
         <button onClick={this.edit.bind(this)}>Edit</button>
         {editingForm}
-         <hr />
       </li>
 
       )
