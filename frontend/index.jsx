@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, HashRouter, Link} from 'react-router-dom';
+import { Route, HashRouter, Link, IndexRoute} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store.js';
 
@@ -17,7 +17,18 @@ const store = configureStore();
 const Root = () => (
   <Provider store={store}>
     <HashRouter>
-      <Route exact path ="/" component={App} />
+      <div>
+        <header>
+          <NavbarContainer />
+        </header>
+        <main>
+          <SidebarContainer />
+          <div className="content">
+            <Route path="/convictions" component={ConvictionContainer} />
+          </div>
+        </main>
+        <Route exact path ="/" component={App} />
+      </div>
     </HashRouter>
   </Provider>
 );
@@ -31,15 +42,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <header>
-          <NavbarContainer />
-        </header>
-        <main>
-          <SidebarContainer />
-          <div className="content">
-            <ConvictionContainer />
-          </div>
-        </main>
       </div>
     );
   }
