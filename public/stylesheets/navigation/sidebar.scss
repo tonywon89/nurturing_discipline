@@ -4,13 +4,13 @@
 $sidebar-background-color: #DBEAEE;
 $sidebarWidth: 200px;
 /* 40px is the width of the side bar */
-$sidebar-height: calc(100vh - 40px);
+$sidebar-height: calc(100vh);
 
 .sidebar-container {
   width: $sidebarWidth;
   height: $sidebar-height;
   background: $sidebar-background-color;
-  position: fixed;
+  position: absolute;
   box-sizing: border-box;
   padding-top: 3em;
 

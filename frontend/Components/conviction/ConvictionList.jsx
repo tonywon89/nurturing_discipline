@@ -7,10 +7,16 @@ class ConvictionList extends React.Component {
     super(props);
 
     this.state = {
+      id: '',
+      title: '',
+      detailed_description: '',
+
       modalIsOpen: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
 
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -19,9 +25,12 @@ class ConvictionList extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.props);
-    this.props.createConviction(event);
-    this.setState({modalIsOpen: false});
+    if (!this.state.id) {
+      this.props.createConviction(this.state);
+    } else {
+      this.props.editConviction(this.state);
+    }
+    this.closeModal();
   }
 
   fetch(event) {
@@ -30,8 +39,24 @@ class ConvictionList extends React.Component {
     this.props.fetchConvictions(userId);
   }
 
-  openModal() {
-    this.setState({modalIsOpen: true});
+  handleTitleChange(event) {
+    this.setState({ title: event.target.value });
+  }
+
+  handleDescriptionChange(event) {
+    this.setState({ detailed_description: event.target.value });
+  }
+
+  openModal(data = { id: "", title: "", detailed_description: ""}) {
+
+    this.setState({
+      modalIsOpen: true,
+
+      id: data.id,
+      title: data.title,
+      detailed_description: data.detailed_description
+
+    });
   }
 
   afterOpenModal() {
@@ -41,6 +66,9 @@ class ConvictionList extends React.Component {
 
   closeModal() {
     this.setState({
+      id: "",
+      title: "",
+      detailed_description: "",
       modalIsOpen: false,
     });
   }
@@ -64,7 +92,8 @@ class ConvictionList extends React.Component {
 
           <ul>
             {convictions.map((conviction, idx) => (
-              <ConvictionItem key={idx} deleteConviction={deleteConviction} conviction={conviction} editConviction={editConviction} csrfToken={csrfToken}/>
+              <ConvictionItem key={idx} deleteConviction={deleteConviction} conviction={conviction} editConviction={editConviction} csrfToken={csrfToken}
+                openModal={this.openModal} afterOpenModal={this.afterOpenModal} closeModal={this.closeModal} handleSubmit={this.handleSubmit}/>
               )
             )}
           </ul>
@@ -87,12 +116,12 @@ class ConvictionList extends React.Component {
             contentLabel="Auth Modal"
           >
             <div>
-              <h5>Create Conviction</h5><br/>
+              <h5>Conviction</h5><br/>
               <form onSubmit={this.handleSubmit}>
                 <input type="hidden" name="_csrf" value={this.props.csrfToken}/>
-                <input type="text" name="conviction_title" placeholder="Conviction Title" /><br />
-                <textarea name="conviction_description"/> <br/>
-                <input type="submit" value="Add Conviction" />
+                <input type="text" name="conviction_title" placeholder="Conviction Title" value={this.state.title} onChange={this.handleTitleChange}/><br />
+                <textarea name="conviction_description" value={this.state.detailed_description} onChange={this.handleDescriptionChange}/> <br/>
+                <input type="submit" value="Submit" />
               </form>
             </div>
           </Modal>

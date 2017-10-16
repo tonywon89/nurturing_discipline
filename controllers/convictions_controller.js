@@ -13,12 +13,13 @@ exports.conviction_list = function (req, res, next) {
 }
 
 exports.conviction_create = function (req, res, next) {
+  console.log(req.body);
   async.parallel({
     conviction: function(callback) {
       Conviction.create(
         {
-          title: req.body.conviction_title,
-          detailed_description: req.body.conviction_description,
+          title: req.body.title,
+          detailed_description: req.body.detailed_description,
           _user: req.user._id
         }, callback);
     }

@@ -16,9 +16,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createConviction: (event) => {
-    event.preventDefault();
-    const data = $('form').serialize();
+  createConviction: (data) => {
     createConviction(data)(dispatch);
   },
 
