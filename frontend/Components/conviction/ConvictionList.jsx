@@ -21,15 +21,17 @@ class ConvictionList extends React.Component {
     }
 
     return (
-      <div className="conviction-container">
-        <h3>Convictions</h3>
-        <h5>The reasons why you decided to change</h5>
-        <ul>
-          {convictions.map((conviction, idx) => (
-            <ConvictionItem key={idx} deleteConviction={deleteConviction} conviction={conviction} editConviction={editConviction} csrfToken={csrfToken}/>
-            )
-          )}
-        </ul>
+      <div>
+        <div className="conviction-container">
+          <h3>Convictions</h3>
+          <h5>The reasons why you decided to change</h5>
+          <ul>
+            {convictions.map((conviction, idx) => (
+              <ConvictionItem key={idx} deleteConviction={deleteConviction} conviction={conviction} editConviction={editConviction} csrfToken={csrfToken}/>
+              )
+            )}
+          </ul>
+        </div>
 
         <form onSubmit={createConviction}>
           <input type="hidden" name="_csrf" value={this.props.csrfToken}/>

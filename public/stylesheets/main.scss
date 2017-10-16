@@ -80,12 +80,14 @@ input:not(:focus):valid ~ .floating-label {
   margin-bottom: 1em;
   padding: 1em;
   display: flex;
+
   .conviction-title {
     font-size: 1.5em;
   }
 
   .conviction-detail {
     font-size: 1em;
+    margin-top: 0.5em;
   }
 }
 
@@ -103,4 +105,36 @@ input:not(:focus):valid ~ .floating-label {
   &:hover .fa-times {
     color: red;
   }
+}
+
+/*
+  =====================
+    Modal
+  =====================
+*/
+
+.modal-content {
+  position: absolute;
+  border: 1px solid rgb(204, 204, 204);
+  overflow: auto;
+  outline: none;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: #5D92BA;
+  width: 300px;
+  border-radius: 0;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
 }

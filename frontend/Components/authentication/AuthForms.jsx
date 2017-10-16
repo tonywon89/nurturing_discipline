@@ -4,29 +4,6 @@ import RegisterForm from './RegisterForm.jsx'
 import { CSSTransitionGroup } from 'react-transition-group'
 import Modal from 'react-modal';
 
-// @TODO: change this to make it suit my needs
-const customStyles = {
-  overlay : {
-    position          : 'fixed',
-    top               : 0,
-    left              : 0,
-    right             : 0,
-    bottom            : 0,
-    backgroundColor   : 'rgba(0, 0, 0, 0.75)'
-  },
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-    background            : '#5D92BA',
-    width                 : '300px',
-    borderRadius          : '0'
-  }
-};
-
 class AuthForms extends React.Component {
   constructor(props) {
     super(props);
@@ -153,7 +130,16 @@ class AuthForms extends React.Component {
             isOpen={this.state.modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
-            style={customStyles}
+            className={{
+              base: "modal-content",
+              afterOpen: "modal-content",
+              beforeClose: "modal-content"
+            }}
+            overlayClassName={{
+              base: "modal-overlay",
+              afterOpen: "modal-overlay",
+              beforeClose: "modal-overlay"
+            }}
             contentLabel="Example Modal"
           >
           <h2 className="modal-header">Nurturing Discipline</h2>
