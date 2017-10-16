@@ -9,6 +9,7 @@ Authentication:
   -Forgot username or password
     -set up sending email
 
+  -Create close button in top right corner
 
 Sidebar Menu:
   -Have a link for the work station
@@ -20,6 +21,7 @@ Convictions:
     -for editing
     -for adding
   -popup confirmation prior to deleting
+  -tyle Create conviction
 
 Other:
   -Make spinning icon for loading the different pages

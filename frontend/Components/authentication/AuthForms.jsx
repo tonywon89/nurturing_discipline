@@ -140,7 +140,7 @@ class AuthForms extends React.Component {
               afterOpen: "modal-overlay",
               beforeClose: "modal-overlay"
             }}
-            contentLabel="Example Modal"
+            contentLabel="Auth Modal"
           >
           <h2 className="modal-header">Nurturing Discipline</h2>
           {this.state.loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.openRegisterForm}/> : ""}
