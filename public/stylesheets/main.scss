@@ -30,10 +30,12 @@ a:hover {
 h3 {
   font-size: 2.5em;
   font-weight: bold;
+  text-align: center;
 }
 
 h5 {
   font-size: 1.4em;
+  text-align: center;
 }
 
 /*
@@ -71,15 +73,34 @@ input:not(:focus):valid ~ .floating-label {
   }
 }
 
-.conviction-title {
-  font-size: 1.5em;
+.conviction-item {
+  font-size: 1em;
+
   border: 1px solid gray;
   margin-bottom: 1em;
   padding: 1em;
+  display: flex;
+  .conviction-title {
+    font-size: 1.5em;
+  }
+
   .conviction-detail {
-    font-size: 0.6em;
+    font-size: 1em;
   }
 }
 
+.edit-conviction-button,
+.delete-conviction-button {
+  display: block;
+  color: lightgrey;
+  padding: 0.25em;
+  margin-right: 1em;
 
+  &:hover .fa-pencil {
+    color: yellow;
+  }
 
+  &:hover .fa-times {
+    color: red;
+  }
+}

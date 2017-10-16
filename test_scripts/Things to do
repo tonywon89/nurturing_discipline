@@ -2,6 +2,7 @@ Authentication:
   -Incorrect informtion handling (password, username)
     -Right now, an alert pops up and closes the modal, when there should be a better error
   -Make more strict criteria for entering password
+  -Make so that any not logged in route goes back to the index route
 
   -Google Login - Get this working
   -Remember username or password
@@ -10,11 +11,15 @@ Authentication:
 
 
 Sidebar Menu:
-  -Have a link for convictions
-    -Sketch: Style the Convictions to look more streamlined
-    -Code: Implement style for conviction
   -Have a link for the work station
     -Have a carousel that displays the convictions one at a time
+
+Convictions:
+  -Code: Implement style for conviction
+  -Make the modal for the conviction
+    -for editing
+    -for adding
+  -popup confirmation prior to deleting
 
 Other:
   -Make spinning icon for loading the different pages
@@ -22,6 +27,10 @@ Other:
   -When deleting conviction, need to have a confirmation to make sure they want to delete it
   -Make sure they are above 13 before they can use the app
   -Make isomorphic with BrowserHistory
+
+
+
+
 
 
 Finished Tasks:
@@ -33,3 +42,5 @@ Finished Tasks:
   -Refactor CSS code to SASS
   -Lead to the convictions page where it displays the list and allows the user to see the convictions
   -Build sidebar menu to be displayed when the user is logged in
+  -Sketch: Style the Convictions to look more streamlined
+  -Have a link for convictions

@@ -57,13 +57,19 @@ class ConvictionItem extends React.Component {
     }
 
     return (
-      <li className="conviction-title">
-        <b>{conviction.title}</b>
-        <ul>
-          <li className="conviction-detail">{conviction.detailed_description}</li>
-        </ul>
-        <button onClick={this.delete.bind(this)}>Delete</button>
-        <button onClick={this.edit.bind(this)}>Edit</button>
+      <li className="conviction-item">
+
+        <div>
+          <a className="edit-conviction-button" onClick={this.delete.bind(this)}><i className="fa fa-times"></i></a>
+          <a className="delete-conviction-button" onClick={this.edit.bind(this)}><i  className="fa fa-pencil"></i></a>
+        </div>
+
+        <div>
+          <b className="conviction-title">{conviction.title}</b>
+          <p className="conviction-detail">{conviction.detailed_description}</p>
+        </div>
+
+
         {editingForm}
       </li>
 
