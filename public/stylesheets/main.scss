@@ -60,6 +60,14 @@ h5 {
     margin-bottom: 1em;
     background: #44c767;
     float: right;
+    width: 15px;
+    height: 15px;
+    box-shadow: border-box;
+    border-radius: 50%;
+
+    &:hover {
+      background: darken(#44c767, 5%);
+    }
   }
 }
 
@@ -137,7 +145,12 @@ h5 {
       margin-bottom: 1em;
     }
 
+    textarea {
+      resize: none;
+    }
+
     input {
+      text-overflow: ellipsis;
       font-size: 1.2em;
     }
 
