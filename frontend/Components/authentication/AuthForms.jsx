@@ -142,6 +142,9 @@ class AuthForms extends React.Component {
             }}
             contentLabel="Auth Modal"
           >
+          <div className="clearfix">
+            <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
+          </div>
           <h2 className="modal-header">Nurturing Discipline</h2>
           {this.state.loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.openRegisterForm}/> : ""}
           {this.state.registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal} openLoginForm={this.openLoginForm} /> : ""}

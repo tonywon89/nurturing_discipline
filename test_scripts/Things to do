@@ -9,25 +9,17 @@ Authentication:
   -Forgot username or password
     -set up sending email
 
-Modal:
-  -Create close button in top right corner
-
 Sidebar Menu:
   -Have a link for the work station
     -Have a carousel that displays the convictions one at a time
 
+Modal:
 Convictions:
-  -Code: Implement style for conviction
-  -popup confirmation prior to deleting
-  -When deleting conviction, need to have a confirmation to make sure they want to delete it
 
 Other:
   -Make spinning icon for loading the different pages
   -Make sure they are above 13 before they can use the app
   -Make isomorphic with BrowserHistory
-
-
-
 
 
 
@@ -47,3 +39,6 @@ Finished Tasks:
     -for adding
   -Sketch: style conviction modal
   -Code: style conviction modal
+  -When deleting conviction, need to have a confirmation to make sure they want to delete it
+  -Code: Implement basic style for conviction
+  -Create close button in top right corner

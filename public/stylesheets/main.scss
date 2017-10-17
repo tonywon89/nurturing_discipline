@@ -3,7 +3,7 @@
 @import './navigation/navbar.scss';
 @import './navigation/sidebar.scss';
 @import './auth.scss';
-
+@import './conviction.scss';
 
 html,
 body,
@@ -36,74 +36,6 @@ h3 {
 h5 {
   font-size: 1.4em;
   text-align: center;
-}
-
-/*
-  Responsible for the animation for the placeholder
-*/
-
-/*
-  =====================
-    Convictions
-  =====================
-*/
-
-.conviction-container {
-
-  h5 {
-    margin-bottom: 1em;
-  }
-
-  .create-conviction-button {
-    padding: 1em;
-    font-size: 1em;
-    margin-bottom: 1em;
-    background: #44c767;
-    float: right;
-    width: 15px;
-    height: 15px;
-    box-shadow: border-box;
-    border-radius: 50%;
-
-    &:hover {
-      background: darken(#44c767, 5%);
-    }
-  }
-}
-
-
-.conviction-item {
-  font-size: 1em;
-
-  border: 1px solid gray;
-  margin-bottom: 1em;
-  padding: 1em;
-  display: flex;
-
-  .conviction-title {
-    font-size: 1.5em;
-  }
-
-  .conviction-detail {
-    font-size: 1em;
-    margin-top: 0.5em;
-  }
-}
-
-.edit-conviction-button,
-.delete-conviction-button {
-  display: block;
-  color: lightgrey;
-  padding: 0.25em;
-  margin-right: 1em;
-
-  &:hover .fa-pencil {
-    color: yellow;
-  }
-
-  &:hover .fa-times {
-    color: red;
-  }
 }
 
 /*
@@ -178,7 +110,7 @@ h5 {
 
       input:focus ~ .floating-label,
       input:not(:focus):valid ~ .floating-label {
-        top: -10px;
+        top: -15px;
         left: 25px;
         font-size: 0.7em;
         opacity: 1;
@@ -200,8 +132,6 @@ h5 {
       }
     }
 
-
-
     input[type="submit"] {
       background: black;
       font-size: 1em;
@@ -211,6 +141,19 @@ h5 {
     textarea {
       height: 300px;
       border: none
+    }
+  }
+
+  .modal-close {
+    border: none;
+    background: none;
+    float: right;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding-bottom: 2em;
+
+    &:hover {
+      color: darken(white, 30%);
     }
   }
 }

@@ -1,0 +1,63 @@
+/*
+  =====================
+    Convictions
+  =====================
+*/
+
+.conviction-container {
+
+  h5 {
+    margin-bottom: 1em;
+  }
+
+  .create-conviction-button {
+    padding: 1em;
+    font-size: 1em;
+    margin-bottom: 1em;
+    background: #44c767;
+    float: right;
+    width: 15px;
+    height: 15px;
+    box-shadow: border-box;
+    border-radius: 50%;
+
+    &:hover {
+      background: darken(#44c767, 5%);
+    }
+  }
+}
+
+
+.conviction-item {
+  font-size: 1em;
+
+  border: 1px solid gray;
+  margin-bottom: 1em;
+  padding: 1em;
+  display: flex;
+
+  .conviction-title {
+    font-size: 1.5em;
+  }
+
+  .conviction-detail {
+    font-size: 1em;
+    margin-top: 0.5em;
+  }
+}
+
+.edit-conviction-button,
+.delete-conviction-button {
+  display: block;
+  color: lightgrey;
+  padding: 0.25em;
+  margin-right: 1em;
+
+  &:hover .fa-pencil {
+    color: yellow;
+  }
+
+  &:hover .fa-times {
+    color: red;
+  }
+}

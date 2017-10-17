@@ -8,7 +8,9 @@ class ConvictionItem extends React.Component {
 
   delete(event) {
     event.preventDefault();
-    this.props.deleteConviction(this.props.conviction.id);
+    if (confirm("Are you sure you want to delete this conviction? It cannot be undone!")) {
+      this.props.deleteConviction(this.props.conviction.id);
+    }
   }
 
   edit(event) {
