@@ -7,10 +7,10 @@ import configureStore from './store.js';
 import { addConviction, fetchConvictions } from './actions/conviction_actions.js';
 import { login } from './actions/auth_actions.js';
 import { fetchCsrfToken } from './actions/csrf_actions.js';
-import ConvictionContainer from './Components/conviction/ConvictionContainer.jsx';
+
 import AuthContainer from './Components/authentication/AuthContainer.jsx';
 import NavbarContainer from './Components/navigation/NavbarContainer.jsx';
-import SidebarContainer from './Components/navigation/SidebarContainer.jsx';
+import EnsureLoggedInContainer from './Components/authentication/EnsureLoggedInContainer.jsx';
 
 const store = configureStore();
 
@@ -18,16 +18,13 @@ const Root = () => (
   <Provider store={store}>
     <HashRouter>
       <div>
+        <Route component={App} />
         <header>
           <NavbarContainer />
         </header>
-        <main>
-          <SidebarContainer />
-          <div className="content">
-            <Route path="/convictions" component={ConvictionContainer} />
-          </div>
-        </main>
-        <Route path ="/" component={App} />
+
+          <Route component={EnsureLoggedInContainer}> </Route>
+
       </div>
     </HashRouter>
   </Provider>

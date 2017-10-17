@@ -3,6 +3,7 @@ import LoginForm from './LoginForm.jsx'
 import RegisterForm from './RegisterForm.jsx'
 import { CSSTransitionGroup } from 'react-transition-group'
 import Modal from 'react-modal';
+import { withRouter } from 'react-router';
 
 class AuthForms extends React.Component {
   constructor(props) {
@@ -54,6 +55,8 @@ class AuthForms extends React.Component {
   handleLogout(event) {
     event.preventDefault();
     this.props.logout();
+    this.props.history.push('/');
+
   }
 
   showDropdown() {
@@ -155,4 +158,4 @@ class AuthForms extends React.Component {
   }
 }
 
-export default AuthForms;
+export default withRouter(AuthForms);

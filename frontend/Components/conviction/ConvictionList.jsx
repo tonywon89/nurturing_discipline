@@ -76,10 +76,6 @@ class ConvictionList extends React.Component {
   render() {
     const { convictions, createConviction, deleteConviction, editConviction, fetchConvictions, authentication, csrfToken } = this.props;
 
-    if (!authentication.currentUser) {
-      return <div></div>;
-    }
-
     return (
       <div>
         <div className="conviction-container ">
