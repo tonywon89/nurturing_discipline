@@ -17,11 +17,9 @@ Sidebar Menu:
 
 Convictions:
   -Code: Implement style for conviction
-  -Make the modal for the conviction
-    -for editing
-    -for adding
   -popup confirmation prior to deleting
-  -tyle Create conviction
+  -Sketch: style conviction modal
+  -Code: style conviction modal
 
 Other:
   -Make spinning icon for loading the different pages
@@ -46,3 +44,6 @@ Finished Tasks:
   -Build sidebar menu to be displayed when the user is logged in
   -Sketch: Style the Convictions to look more streamlined
   -Have a link for convictions
+  -Make the modal for the conviction
+    -for editing
+    -for adding

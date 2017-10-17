@@ -38,6 +38,26 @@
         background: darken(#5D92BA, 15%)
       }
     }
+
+    input:focus ~ .floating-label,
+    input:not(:focus):valid ~ .floating-label {
+      top: 5px;
+      left: 15px;
+      font-size: 0.7em;
+      opacity: 1;
+    }
+
+    .floating-label {
+      position: absolute;
+      pointer-events: none;
+      left: 20px;
+      top: 18px;
+      font-size: 1em;
+      transition: 0.2s ease all;
+      opacity: 0.7;
+      color: lightgrey;
+    }
+
   }
 
   input[type="submit"] {
