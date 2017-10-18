@@ -89,8 +89,6 @@ exports.emailForgotPassword = function (req, res, next) {
     function (done) {
       crypto.randomBytes(20, function (err, buf) {
         var token = buf.toString('hex');
-        console.log("This is the token:");
-        console.log(token);
         done(err, token);
       })
     },
@@ -127,18 +125,76 @@ exports.emailForgotPassword = function (req, res, next) {
         subject: 'Reset Password: Nurturing Discipline',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+          'http://' + req.headers.host + '/#/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
-
-      smtpTransport.sendMail(mailOptions, function(err) {
-        done(err, 'done');
-      })
+      var err = null;
+      // smtpTransport.sendMail(mailOptions, function(err) {
+        done(err, user);
+      // });
     }
-  ], function(err) {
+  ], function(err, user) {
     if (err) return next(err);
-    res.json({success: 1});
+
+    // @TODO render the user template json
+    res.json({ user: user });
 
   })
 }
 
+exports.resetPassword = function (req, res, next) {
+  async.waterfall([
+    function (done) {
+      User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+
+        if (!user) {
+          return res.json({ error: "Password reset token is invalid or has expired"});
+        }
+
+        user.password = req.body.newPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+
+        user.save(function (err) {
+          // @TODO: consider if want to login the user or not
+          if (err) {
+            res.json({ error: err });
+          } else {
+            // req.logIn(user, function (err) {
+            //   var token = addJWT(user);
+            //   // @TODO: Once sending over https, need to add { secure: true }
+            //   res.cookie('userToken', token, { httpOnly: true });
+              done(err, user);
+          }
+        });
+      });
+
+    },
+    function(user, done) {
+      var smtpTransport = nodemailer.createTransport({
+        service: 'SendGrid',
+        auth: {
+          user: sendGridConfig.sendGrid.username,
+          pass: sendGridConfig.sendGrid.password,
+        }
+      });
+      var mailOptions = {
+        to: user.email,
+        from: 'home@nurturingdiscipline.com',
+        subject: 'Your password has been changed',
+        text: 'Hello,\n\n' +
+          'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+      };
+      var err = null;
+      // smtpTransport.sendMail(mailOptions, function(err) {
+        done(err, user);
+      // });
+    }
+
+  ], function(err, user) {
+    if (err) return next(err);
+    // console.log(user);
+    // @TODO render the user template json
+    res.json({ user: user });
+  })
+}

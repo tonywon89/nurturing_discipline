@@ -10,6 +10,8 @@ import { fetchCsrfToken } from './actions/csrf_actions.js';
 import AuthContainer from './Components/authentication/AuthContainer.jsx';
 import NavbarContainer from './Components/navigation/NavbarContainer.jsx';
 import EnsureLoggedInContainer from './Components/authentication/EnsureLoggedInContainer.jsx';
+import ResetPasswordForm from './Components/authentication/ResetPasswordForm.jsx';
+
 
 const store = configureStore();
 
@@ -20,6 +22,7 @@ const Root = () => (
         <header>
           <NavbarContainer />
         </header>
+        <Route path="/reset/:token" component={ResetPasswordForm} />
         <Route component={EnsureLoggedInContainer} />
       </div>
     </HashRouter>

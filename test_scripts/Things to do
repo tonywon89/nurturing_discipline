@@ -5,8 +5,9 @@ Authentication:
 
   -Google Login - Get this working
   -Remember username or password
-  -Forgot username or password
-    -set up sending email
+  -Forgot password
+    -Comment back in the mailing
+  -Forgot username
 
 Sidebar Menu:
   -Have a link for the work station
@@ -42,3 +43,4 @@ Finished Tasks:
   -Code: Implement basic style for conviction
   -Create close button in top right corner
   -Make so that any not logged in route goes back to the index route
+  -set up sending email

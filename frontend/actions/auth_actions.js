@@ -52,7 +52,7 @@ export const login = (creds) => dispatch => {
       alert(data.error);
     } else {
       dispatch(receiveUser(data));
-      // @REFACTOR: update this once have other things to do
+      // @TODO: update this once have other things to do
       dispatch(fetchConvictions(data.id));
     }
   });
@@ -62,5 +62,12 @@ export const emailResetPassword = (email) => dispatch => {
   AuthAPIUtil.emailResetPassword(email).then((data) => {
     alert("AUTH API UTIL RESET PASSWORD!")
     console.log(data);
+  })
+}
+
+export const resetPassword = (data) => dispatch => {
+  AuthAPIUtil.resetPassword(data).then((returnData) => {
+    alert("Password has been reset");
+    console.log(returnData);
   })
 }

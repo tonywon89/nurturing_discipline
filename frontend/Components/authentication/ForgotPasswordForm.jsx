@@ -5,7 +5,8 @@ class ForgotPasswordForm extends React.Component {
     super(props);
 
     this.state = {
-      email: "",
+      email: "investtwon89@gmail.com",
+      // email: "",
       submitted: false,
     }
 
@@ -40,7 +41,7 @@ class ForgotPasswordForm extends React.Component {
     );
 
     if (this.state.submitted) {
-      resetForm = <p>Instructions to reset your password have been sent to {this.state.email}.</p>
+      resetForm = <p>Instructions to reset your password have been sent to <span style={{color: "white", textDecoration: "underline"}}>{this.state.email}</span>.</p>
     }
 
     return (

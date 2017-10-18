@@ -28,7 +28,8 @@ class EnsureLoggedInContainer extends React.Component {
   componentDidUpdate() {
     const { dispatch, authentication, history, location } = this.props
 
-    if (!authentication.currentUser && location.pathname !== "/") {
+    if (!authentication.currentUser &&
+     location.pathname === "/convictions") {
       alert("You must be logged in to view that page");
       history.replace("/");
     }
@@ -50,10 +51,7 @@ class EnsureLoggedInContainer extends React.Component {
   }
 }
 
-// Grab a reference to the current URL. If this is a web app and you are
-// using React Router, you can use `ownProps` to find the URL. Other
-// platforms (Native) or routing libraries have similar ways to find
-// the current position in the app.
+
 function mapStateToProps(state, ownProps) {
   return {
     authentication: state.authentication,

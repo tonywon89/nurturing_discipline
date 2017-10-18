@@ -33,3 +33,12 @@ export const emailResetPassword = (email) => (
   })
 );
 
+export const resetPassword = (data) => (
+  $.ajax({
+    method: 'POST',
+    url: '/api/auth/resetpassword',
+    dataType: 'json',
+    data
+  })
+);
+
