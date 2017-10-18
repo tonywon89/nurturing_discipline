@@ -51,29 +51,27 @@ exports.login = function (req, res, next) {
 };
 
 exports.register = function (req, res, next) {
-  User.hashPassword(req.body.password).then(function (hashedPassword) {
-    User.create(
+  var user =  new User(
     {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       username: req.body.username,
-      password: hashedPassword,
-    },
+      password: req.body.password,
+    });
 
-    function(err, user) {
-      if (err) {
-        res.json({ error: err });
-      } else {
-        req.logIn(user, function (err) {
-          var token = addJWT(user);
-          // @TODO: Once sending over https, need to add { secure: true }
-          res.cookie('userToken', token, { httpOnly: true });
-          res.render('json/user/user', { error: err, data: user });
-        });
-      }
+  // There is a presave method in the user.js mongoose model schema, so it does not save the actual password.
+  user.save(function(err) {
+    if (err) {
+      res.json({ error: err });
+    } else {
+      req.logIn(user, function (err) {
+        var token = addJWT(user);
+        // @TODO: Once sending over https, need to add { secure: true }
+        res.cookie('userToken', token, { httpOnly: true });
+        res.render('json/user/user', { error: err, data: user });
+      });
     }
-  )
   });
 }
 
