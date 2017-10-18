@@ -4,6 +4,8 @@ var passport = require('passport');
 var jwt = require('jsonwebtoken');
 var config = require('../config/jwt_config.js');
 var crypto = require('crypto');
+var sendGridConfig = require('../config/send_grid_config.js');
+var nodemailer = require('nodemailer');
 
 function addJWT(user) {
   var token = jwt.sign(
@@ -92,6 +94,7 @@ exports.emailForgotPassword = function (req, res, next) {
         done(err, token);
       })
     },
+
     function (token, done) {
       User.findOne({ email: req.body.email }, function (err, user) {
         if (!user) {
@@ -109,6 +112,29 @@ exports.emailForgotPassword = function (req, res, next) {
       });
     },
 
+    function (token, user, done) {
+      var smtpTransport = nodemailer.createTransport({
+        service: 'SendGrid',
+        auth: {
+          user: sendGridConfig.sendGrid.username,
+          pass: sendGridConfig.sendGrid.password,
+        }
+      });
+
+      var mailOptions = {
+        to: user.email,
+        from: 'home@nurturingdiscipline.com',
+        subject: 'Reset Password: Nurturing Discipline',
+        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+      };
+
+      smtpTransport.sendMail(mailOptions, function(err) {
+        done(err, 'done');
+      })
+    }
   ], function(err) {
     if (err) return next(err);
     res.json({success: 1});
