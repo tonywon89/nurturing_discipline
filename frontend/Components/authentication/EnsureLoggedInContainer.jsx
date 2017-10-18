@@ -3,18 +3,33 @@ import { withRouter } from 'react-router';
 import { Route } from 'react-router-dom';
 import React from 'react';
 
-
 import SidebarContainer from '../navigation/SidebarContainer.jsx';
 import ConvictionContainer from '../conviction/ConvictionContainer.jsx';
 
-class EnsureLoggedInContainer extends React.Component {
-  componentDidMount() {
-    const { dispatch, authentication, history } = this.props
+import { login } from '../../actions/auth_actions.js';
+import { fetchCsrfToken } from '../../actions/csrf_actions.js';
 
-    if (!authentication.currentUser) {
-      // set the current url/path for future redirection (we use a Redux action)
-      // then redirect (we use a React Router method)
-      // dispatch(setRedirectUrl(currentURL))
+class EnsureLoggedInContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loaded: false
+    }
+  }
+
+  componentWillMount() {
+    const { dispatch } = this.props
+
+    dispatch(login({ initialLoad: 'true' }));
+    dispatch(fetchCsrfToken());
+  }
+
+  componentDidUpdate() {
+    const { dispatch, authentication, history, location } = this.props
+
+    if (!authentication.currentUser && location.pathname !== "/") {
+      alert("You must be logged in to view that page");
       history.replace("/");
     }
   }
@@ -27,10 +42,10 @@ class EnsureLoggedInContainer extends React.Component {
           <div className="content">
             <Route path="/convictions" component={ConvictionContainer} />
           </div>
-         </main>
-        )
+        </main>
+      );
     } else {
-      return null
+      return null;
     }
   }
 }

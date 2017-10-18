@@ -2,7 +2,6 @@ Authentication:
   -Incorrect informtion handling (password, username)
     -Right now, an alert pops up and closes the modal, when there should be a better error
   -Make more strict criteria for entering password
-  -Make so that any not logged in route goes back to the index route
 
   -Google Login - Get this working
   -Remember username or password
@@ -42,3 +41,4 @@ Finished Tasks:
   -When deleting conviction, need to have a confirmation to make sure they want to delete it
   -Code: Implement basic style for conviction
   -Create close button in top right corner
+  -Make so that any not logged in route goes back to the index route
