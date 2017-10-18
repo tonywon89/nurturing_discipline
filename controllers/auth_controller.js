@@ -3,6 +3,7 @@ var User = require('../models/User.js');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 var config = require('../config/jwt_config.js');
+var crypto = require('crypto');
 
 function addJWT(user) {
   var token = jwt.sign(
@@ -79,5 +80,39 @@ exports.logout = function (req, res, next) {
   req.logout();
   res.clearCookie('userToken');
   res.json({ success: 1})
+}
+
+exports.emailForgotPassword = function (req, res, next) {
+  async.waterfall([
+    function (done) {
+      crypto.randomBytes(20, function (err, buf) {
+        var token = buf.toString('hex');
+        console.log("This is the token:");
+        console.log(token);
+        done(err, token);
+      })
+    },
+    function (token, done) {
+      User.findOne({ email: req.body.email }, function (err, user) {
+        if (!user) {
+          return res.json({ error: "No User found" });
+        }
+
+        var expirationTime = Date.now() + 3600000; // 1 hour
+
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = expirationTime;
+
+        user.save(function(err) {
+          done(err, token, user);
+        });
+      });
+    },
+
+  ], function(err) {
+    if (err) return next(err);
+    res.json({success: 1});
+
+  })
 }
 

@@ -57,3 +57,10 @@ export const login = (creds) => dispatch => {
     }
   });
 };
+
+export const emailResetPassword = (email) => dispatch => {
+  AuthAPIUtil.emailResetPassword(email).then((data) => {
+    alert("AUTH API UTIL RESET PASSWORD!")
+    console.log(data);
+  })
+}

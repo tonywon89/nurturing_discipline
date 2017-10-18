@@ -10,7 +10,6 @@ var viewEngine = require('express-json-views');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
-var crypto = require('crypto');
 
 
 /** Importing the different routes **/

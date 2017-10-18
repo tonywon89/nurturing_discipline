@@ -4,6 +4,7 @@ import {
   login,
   logout,
   register,
+  emailResetPassword,
 } from '../../actions/auth_actions.js';
 
 import AuthForms from './AuthForms.jsx';
@@ -23,7 +24,11 @@ const mapDispatchToProps = dispatch => ({
 
   register: (creds) => {
     register(creds)(dispatch);
-  }
+  },
+
+  emailResetPassword: (email) => {
+    emailResetPassword(email)(dispatch);
+  },
 });
 
 export default connect(

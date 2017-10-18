@@ -65,12 +65,6 @@ UserSchema.virtual('name').get(function () {
 	return this.lastName + ', ' + this.firstName;
 });
 
-var saltRounds = 10;
-
-UserSchema.statics.hashPassword = function (password) {
-  return bcrypt.hash(password, saltRounds)
-}
-
 UserSchema.statics.isValidPassword = function (password, hash) {
   return bcrypt.compare(password, hash)
 };

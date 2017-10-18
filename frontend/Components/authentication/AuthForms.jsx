@@ -4,6 +4,7 @@ import RegisterForm from './RegisterForm.jsx'
 import { CSSTransitionGroup } from 'react-transition-group'
 import Modal from 'react-modal';
 import { withRouter } from 'react-router';
+import ForgotPasswordForm from './ForgotPasswordForm.jsx';
 
 class AuthForms extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class AuthForms extends React.Component {
       currentUser: props.authentication.currentUser,
       loginForm: false,
       registerForm: false,
+      forgotPasswordForm: false,
       dropdownVisible: false,
 
       // Modal Code
@@ -21,6 +23,7 @@ class AuthForms extends React.Component {
     this.openRegisterForm = this.openRegisterForm.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.openLoginForm = this.openLoginForm.bind(this);
+    this.openForgotPasswordForm = this.openForgotPasswordForm.bind(this);
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
 
@@ -40,6 +43,7 @@ class AuthForms extends React.Component {
       loginForm: true,
       modalIsOpen: true,
       registerForm: false,
+      forgotPasswordForm: false,
     })
   }
 
@@ -49,7 +53,18 @@ class AuthForms extends React.Component {
       registerForm: true,
       modalIsOpen: true,
       loginForm: false,
+      forgotPasswordForm: false,
     });
+  }
+
+  openForgotPasswordForm(event) {
+    event.preventDefault();
+    this.setState({
+      modalIsOpen: true,
+      registerForm: false,
+      loginForm: false,
+      forgotPasswordForm: true,
+    })
   }
 
   handleLogout(event) {
@@ -149,8 +164,9 @@ class AuthForms extends React.Component {
             <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
           </div>
           <h2 className="modal-header">Nurturing Discipline</h2>
-          {this.state.loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.openRegisterForm}/> : ""}
+          {this.state.loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.openRegisterForm} openForgotPasswordForm={this.openForgotPasswordForm} /> : ""}
           {this.state.registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal} openLoginForm={this.openLoginForm} /> : ""}
+          {this.state.forgotPasswordForm ? <ForgotPasswordForm emailResetPassword={this.props.emailResetPassword} closeModal={this.closeModal} /> : ""}
           </Modal>
         </div>
       );
