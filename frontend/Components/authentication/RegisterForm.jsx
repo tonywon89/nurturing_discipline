@@ -42,6 +42,7 @@ class RegisterForm extends React.Component {
 
     if (this.state.password.trim() !== this.state.passwordConfirmation) {
       alert("The passwords don't match.");
+      return;
     }
 
     this.props.closeModal();
@@ -92,7 +93,7 @@ class RegisterForm extends React.Component {
             </div>
 
             <div className="input-field">
-              <input type="password" required name="password" value={this.state.passwordConfirmation} onChange={this.handlePassConfirmChange} />
+              <input type="password" required name="passwordConfirmation" value={this.state.passwordConfirmation} onChange={this.handlePassConfirmChange} />
               <span className="floating-label">Confirm Password</span>
             </div>
           </div>

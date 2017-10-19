@@ -7,6 +7,9 @@ Authentication:
   -Remember username or password
   -Forgot password
     -Comment back in the mailing
+    -Figure out frontend responding to the different things
+    -style the reset password form
+    -Go to index and open login form
   -Forgot username
 
 Sidebar Menu:
@@ -44,3 +47,4 @@ Finished Tasks:
   -Create close button in top right corner
   -Make so that any not logged in route goes back to the index route
   -set up sending email
+  -Confirm Password
