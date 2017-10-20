@@ -24,12 +24,12 @@ export const logout = () => (
   })
 );
 
-export const emailResetPassword = (email) => (
+export const emailForgotAuthInfo = (data) => (
   $.ajax({
     method: 'POST',
-    url: 'api/auth/emailresetpassword',
+    url: 'api/auth/emailForgotAuthInfo',
     dataType: 'json',
-    data: { email: email }
+    data: { email: data.email, forgotUsername: data.forgotUsername, forgotPassword: data.forgotPassword }
   })
 );
 

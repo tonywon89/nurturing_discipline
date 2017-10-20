@@ -4,7 +4,7 @@ import {
   login,
   logout,
   register,
-  emailResetPassword,
+  emailForgotAuthInfo,
   clearSubmittedEmail,
 } from '../../actions/auth_actions.js';
 
@@ -27,8 +27,8 @@ const mapDispatchToProps = dispatch => ({
     register(creds)(dispatch);
   },
 
-  emailResetPassword: (email) => {
-    emailResetPassword(email)(dispatch);
+  emailForgotAuthInfo: (email) => {
+    emailForgotAuthInfo(email)(dispatch);
   },
 
   clearSubmittedEmail: () => {

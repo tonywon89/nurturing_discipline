@@ -31,13 +31,13 @@ export const receiveValidToken = () => ({
   type: RECEIVE_VALID_TOKEN
 });
 
-export const emailedResetPassword = (email) => ({
+export const emailedForgotAuthInfo = (email) => ({
   type: EMAILED_RESET_PASSWORD,
   email: email
 })
 
 export const clearSubmittedEmail = () => dispatch => {
-  dispatch(emailedResetPassword(null));
+  dispatch(emailedForgotAuthInfo(null));
 }
 
 export const logout = () => dispatch => {
@@ -73,10 +73,10 @@ export const login = (creds) => dispatch => {
 
 
 // @TODO: Change this to properly dispatch to the store and update the state this way
-export const emailResetPassword = (email) => dispatch => {
-  AuthAPIUtil.emailResetPassword(email).then((returnData) => {
+export const emailForgotAuthInfo = (email) => dispatch => {
+  AuthAPIUtil.emailForgotAuthInfo(email).then((returnData) => {
     if (returnData.success) {
-      dispatch(emailedResetPassword(returnData.email))
+      dispatch(emailedForgotAuthInfo(returnData.email))
     } else if (returnData.error) {
       dispatch(receiveUserErrors({message: returnData.errorMessage}));
     }

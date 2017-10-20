@@ -84,7 +84,7 @@ exports.logout = function (req, res, next) {
   res.json({ success: 1})
 }
 
-exports.emailForgotPassword = function (req, res, next) {
+exports.emailForgotAuthInfo = function (req, res, next) {
   async.waterfall([
     function (done) {
       crypto.randomBytes(20, function (err, buf) {
@@ -100,9 +100,12 @@ exports.emailForgotPassword = function (req, res, next) {
         }
 
         var expirationTime = Date.now() + 3600000; // 1 hour
+        console.log(req.body);
 
-        user.resetPasswordToken = token;
-        user.resetPasswordExpires = expirationTime;
+        if (req.body.forgotPassword === 'true') {
+          user.resetPasswordToken = token;
+          user.resetPasswordExpires = expirationTime;
+        }
 
         user.save(function(err) {
           done(err, token, user);
@@ -119,19 +122,23 @@ exports.emailForgotPassword = function (req, res, next) {
         }
       });
 
-      var mailOptions = {
-        to: user.email,
-        from: 'home@nurturingdiscipline.com',
-        subject: 'Reset Password: Nurturing Discipline',
-        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+      var forgotPasswordMessage = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/#/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+
+        var forgotUsernameMessage = 'Your username is ' + user.username +'.\n\n';
+
+      var mailOptions = {
+        to: user.email,
+        from: 'home@nurturingdiscipline.com',
+        subject: 'Login Credentials: Nurturing Discipline',
+        text: (req.body.forgotUsername ? forgotUsernameMessage : "") + (req.body.forgotPassword ? forgotPasswordMessage : "")
       };
       var err = null;
-      // smtpTransport.sendMail(mailOptions, function(err) {
+      smtpTransport.sendMail(mailOptions, function(err) {
         done(err, user);
-      // });
+      });
     }
   ], function(err, user) {
     if (err) return next(err);
