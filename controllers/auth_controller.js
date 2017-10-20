@@ -96,7 +96,7 @@ exports.emailForgotPassword = function (req, res, next) {
     function (token, done) {
       User.findOne({ email: req.body.email }, function (err, user) {
         if (!user) {
-          return res.json({ error: "No User found" });
+          return res.json({ error: 1, errorMessage: "No User user with that email has been found" });
         }
 
         var expirationTime = Date.now() + 3600000; // 1 hour
@@ -136,8 +136,7 @@ exports.emailForgotPassword = function (req, res, next) {
   ], function(err, user) {
     if (err) return next(err);
 
-    // @TODO render the user template json
-    res.json({ user: user });
+    res.json({ success: 1, email: user.email });
 
   })
 }

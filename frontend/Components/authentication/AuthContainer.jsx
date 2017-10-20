@@ -5,6 +5,7 @@ import {
   logout,
   register,
   emailResetPassword,
+  clearSubmittedEmail,
 } from '../../actions/auth_actions.js';
 
 import AuthForms from './AuthForms.jsx';
@@ -29,6 +30,10 @@ const mapDispatchToProps = dispatch => ({
   emailResetPassword: (email) => {
     emailResetPassword(email)(dispatch);
   },
+
+  clearSubmittedEmail: () => {
+    clearSubmittedEmail()(dispatch);
+  }
 });
 
 export default connect(

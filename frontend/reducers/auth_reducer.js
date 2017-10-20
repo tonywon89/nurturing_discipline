@@ -5,11 +5,15 @@ import {
   RECEIVE_LOGOUT,
   RECEIVE_ERRORS,
   RECEIVE_VALID_TOKEN,
+  EMAILED_RESET_PASSWORD
 } from '../actions/auth_actions.js';
 
 const _nullUser = {
   currentUser: null,
   validToken: false,
+
+  // For resetting password or obtaining email
+  submittedEmail: null,
   errors: []
 };
 
@@ -26,6 +30,8 @@ const AuthReducer = (state = _nullUser, action) => {
       return merge({}, state, { errors });
     case RECEIVE_VALID_TOKEN:
       return merge({}, state, { validToken: true })
+    case EMAILED_RESET_PASSWORD:
+      return (merge({}, state, { submittedEmail: action.email }))
     default:
       return state;
   }

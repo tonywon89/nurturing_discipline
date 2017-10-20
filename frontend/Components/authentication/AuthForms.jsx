@@ -97,10 +97,15 @@ class AuthForms extends React.Component {
   }
 
   closeModal() {
+    if (this.props.authentication.submittedEmail) {
+      this.props.clearSubmittedEmail();
+    }
+
     this.setState({
       modalIsOpen: false,
       registerForm: false,
-      loginForm: false
+      loginForm: false,
+      forgotPasswordForm: false,
     });
   }
 
@@ -166,7 +171,7 @@ class AuthForms extends React.Component {
           <h2 className="modal-header">Nurturing Discipline</h2>
           {this.state.loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.openRegisterForm} openForgotPasswordForm={this.openForgotPasswordForm} /> : ""}
           {this.state.registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal} openLoginForm={this.openLoginForm} /> : ""}
-          {this.state.forgotPasswordForm ? <ForgotPasswordForm emailResetPassword={this.props.emailResetPassword} closeModal={this.closeModal} /> : ""}
+          {this.state.forgotPasswordForm ? <ForgotPasswordForm emailResetPassword={this.props.emailResetPassword} submittedEmail={this.props.authentication.submittedEmail} closeModal={this.closeModal} /> : ""}
           </Modal>
         </div>
       );

@@ -2,8 +2,6 @@ import React from 'react';
 import Modal from 'react-modal';
 import ConvictionItem from './ConvictionItem.jsx'
 
-import { fetchConvictions } from '../../actions/conviction_actions.js';
-
 class ConvictionList extends React.Component {
   constructor(props) {
     super(props);

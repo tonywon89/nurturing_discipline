@@ -6,8 +6,6 @@ class ForgotPasswordForm extends React.Component {
 
     this.state = {
       email: "investtwon89@gmail.com",
-      // email: "",
-      submitted: false,
     }
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -21,7 +19,6 @@ class ForgotPasswordForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.emailResetPassword(this.state.email);
-    this.setState({ submitted: true });
   }
 
   render() {
@@ -40,8 +37,8 @@ class ForgotPasswordForm extends React.Component {
         </form>
     );
 
-    if (this.state.submitted) {
-      resetForm = <p>Instructions to reset your password have been sent to <span style={{color: "white", textDecoration: "underline"}}>{this.state.email}</span>.</p>
+    if (this.props.submittedEmail) {
+      resetForm = <p>Instructions to reset your password have been sent to <span style={{color: "white", textDecoration: "underline"}}>{this.props.submittedEmail}</span>.</p>
     }
 
     return (

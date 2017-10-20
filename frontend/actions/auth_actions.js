@@ -3,6 +3,7 @@ export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const RECEIVE_VALID_TOKEN = "RECEIVE_VALID_TOKEN";
+export const EMAILED_RESET_PASSWORD = "EMAILED_RESET_PASSWORD";
 
 import * as AuthAPIUtil from '../api_utils/auth_api_util';
 import { getConvictions, fetchConvictions } from './conviction_actions.js';
@@ -29,6 +30,15 @@ export const receiveServerErrors = ({ error }) => ({
 export const receiveValidToken = () => ({
   type: RECEIVE_VALID_TOKEN
 });
+
+export const emailedResetPassword = (email) => ({
+  type: EMAILED_RESET_PASSWORD,
+  email: email
+})
+
+export const clearSubmittedEmail = () => dispatch => {
+  dispatch(emailedResetPassword(null));
+}
 
 export const logout = () => dispatch => {
   AuthAPIUtil.logout().then((data) => {
@@ -64,9 +74,13 @@ export const login = (creds) => dispatch => {
 
 // @TODO: Change this to properly dispatch to the store and update the state this way
 export const emailResetPassword = (email) => dispatch => {
-  AuthAPIUtil.emailResetPassword(email).then((data) => {
-    alert("AUTH API UTIL RESET PASSWORD!")
-    console.log(data);
+  AuthAPIUtil.emailResetPassword(email).then((returnData) => {
+    if (returnData.success) {
+      dispatch(emailedResetPassword(returnData.email))
+    } else if (returnData.error) {
+      dispatch(receiveUserErrors({message: returnData.errorMessage}));
+    }
+    console.log(returnData);
   })
 }
 
