@@ -7,9 +7,8 @@ Authentication:
   -Remember username or password
   -Forgot password
     -Comment back in the mailing
-    -Figure out frontend responding to the different things
     -style the reset password form
-    -Go to index and open login form
+    -Go to index and open login form modal
   -Forgot username
 
 Sidebar Menu:
@@ -48,3 +47,5 @@ Finished Tasks:
   -Make so that any not logged in route goes back to the index route
   -set up sending email
   -Confirm Password
+    -Figure out frontend responding to the different things
+    -Check for valid token when mounted

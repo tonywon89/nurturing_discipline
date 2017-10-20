@@ -57,8 +57,6 @@ export const login = (creds) => dispatch => {
       alert(data.error);
     } else {
       dispatch(receiveUser(data));
-      // @TODO: update this once have other things to do
-      dispatch(fetchConvictions(data.id));
     }
   });
 };
@@ -84,10 +82,8 @@ export const resetPassword = (data) => dispatch => {
 export const checkValidToken = (token) => dispatch => {
   AuthAPIUtil.checkValidToken(token).then((returnData) => {
     if (returnData.success) {
-      alert("Reset Token is returned");
       dispatch(receiveValidToken());
     } else if (returnData.error) {
-      alert("Reset Token is invalid!")
       dispatch(receiveServerErrors({ error: returnData.errorMessage }));
     }
     console.log(returnData);

@@ -6,7 +6,8 @@ import React from 'react';
 
 import {
   resetPassword,
-  checkValidToken
+  checkValidToken,
+  logout,
 } from '../../actions/auth_actions.js';
 
 class ResetPasswordForm extends React.Component {
@@ -14,7 +15,6 @@ class ResetPasswordForm extends React.Component {
     super(props);
 
     this.state = {
-      validToken: props.authentication.validToken,
       newPassword: "",
       newPasswordConfirmation: ""
     }
@@ -25,15 +25,9 @@ class ResetPasswordForm extends React.Component {
   }
 
   componentDidMount() {
-    this.props.checkValidToken(this.props.match.params.token);
-  }
+    const { checkValidToken, match } = this.props;
 
-  componentWillReceiveProps(newProps) {
-    console.log(newProps);
-    if (!newProps.authentication.validToken) {
-      alert("Sorry, that token is invalid or expired. Please reset the password again");
-      this.props.history.replace("/");
-    }
+    checkValidToken(match.params.token);
   }
 
   handleSubmit(event) {
@@ -55,6 +49,7 @@ class ResetPasswordForm extends React.Component {
     }
 
     this.props.resetPassword(data);
+    this.props.logout();
     this.props.history.push("/");
   }
 
@@ -68,13 +63,23 @@ class ResetPasswordForm extends React.Component {
   }
 
   render() {
+    let content;
+    if (this.props.authentication.validToken) {
+      content = (
+
+          <form onSubmit={this.handleSubmit}>
+            <input type="password" name="newPassword" placeholder="New Password" required onChange={this.handlePasswordChange}/>
+            <input type="password" required name="passwordConfirmation" value={this.state.passwordConfirmation} onChange={this.handlePasswordConfirmChange} placeholder=" New Password Confirmation" />
+            <input type="submit" value="Reset Password" />
+          </form>
+
+      );
+    } else {
+      content = <p>Sorry, that token is invalid or expired. Please reset the password again</p>
+    }
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input type="password" name="newPassword" placeholder="New Password" required onChange={this.handlePasswordChange}/>
-          <input type="password" required name="passwordConfirmation" value={this.state.passwordConfirmation} onChange={this.handlePasswordConfirmChange} placeholder=" New Password Confirmation" />
-          <input type="submit" value="Reset Password" />
-        </form>
+      {content}
       </div>
     );
   }
@@ -91,7 +96,11 @@ const mapDispatchToProps = dispatch => ({
 
   checkValidToken: (token) => {
     checkValidToken(token)(dispatch);
-  }
+  },
+
+  logout: () => {
+    logout()(dispatch);
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ResetPasswordForm));

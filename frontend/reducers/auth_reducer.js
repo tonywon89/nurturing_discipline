@@ -18,14 +18,14 @@ const AuthReducer = (state = _nullUser, action) => {
   switch(action.type) {
     case RECEIVE_CURRENT_USER:
       const currentUser = action.currentUser;
-      return merge({}, _nullUser, { currentUser });
+      return merge({}, state, { currentUser });
     case RECEIVE_LOGOUT:
-      return _nullUser;
+      return merge({}, state, { currentUser : null });
     case RECEIVE_ERRORS:
       const errors = action.errors;
-      return merge({}, _nullUser, { errors });
+      return merge({}, state, { errors });
     case RECEIVE_VALID_TOKEN:
-      return merge({}, _nullUser, { validToken: true })
+      return merge({}, state, { validToken: true })
     default:
       return state;
   }

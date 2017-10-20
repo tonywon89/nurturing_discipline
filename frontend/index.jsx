@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, HashRouter, Link, IndexRoute} from 'react-router-dom';
+import { Route, HashRouter, Link, IndexRoute, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store.js';
 
@@ -19,15 +19,29 @@ const Root = () => (
   <Provider store={store}>
     <HashRouter>
       <div>
+        <App />
         <header>
           <NavbarContainer />
         </header>
-        <Route path="/reset/:token" component={ResetPasswordForm} />
-        <Route component={EnsureLoggedInContainer} />
+        <Switch>
+          <Route path="/reset/:token" component={ResetPasswordForm} />
+          <Route component={EnsureLoggedInContainer} />
+       </Switch>
       </div>
     </HashRouter>
   </Provider>
 );
+
+class App extends React.Component {
+  componentWillMount() {
+    store.dispatch(login({ initialLoad: 'true' }));
+    store.dispatch(fetchCsrfToken());
+  }
+
+  render() {
+    return null;
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   ReactDOM.render(<Root />, document.getElementById('root'));

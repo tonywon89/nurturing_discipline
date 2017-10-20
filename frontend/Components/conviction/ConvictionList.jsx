@@ -2,6 +2,8 @@ import React from 'react';
 import Modal from 'react-modal';
 import ConvictionItem from './ConvictionItem.jsx'
 
+import { fetchConvictions } from '../../actions/conviction_actions.js';
+
 class ConvictionList extends React.Component {
   constructor(props) {
     super(props);
@@ -23,6 +25,11 @@ class ConvictionList extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
+  componentDidMount() {
+    const userId = this.props.authentication.currentUser.id;
+    this.props.fetchConvictions(userId);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     if (!this.state.id) {
@@ -31,12 +38,6 @@ class ConvictionList extends React.Component {
       this.props.editConviction(this.state);
     }
     this.closeModal();
-  }
-
-  fetch(event) {
-    event.preventDefault();
-    const userId = this.props.authentication.currentUser.id;
-    this.props.fetchConvictions(userId);
   }
 
   handleTitleChange(event) {

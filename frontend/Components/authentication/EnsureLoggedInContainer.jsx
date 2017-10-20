@@ -10,21 +10,6 @@ import { login } from '../../actions/auth_actions.js';
 import { fetchCsrfToken } from '../../actions/csrf_actions.js';
 
 class EnsureLoggedInContainer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loaded: false
-    }
-  }
-
-  componentWillMount() {
-    const { dispatch } = this.props
-
-    dispatch(login({ initialLoad: 'true' }));
-    dispatch(fetchCsrfToken());
-  }
-
   componentDidUpdate() {
     const { dispatch, authentication, history, location } = this.props
 
