@@ -42,3 +42,12 @@ export const resetPassword = (data) => (
   })
 );
 
+export const checkValidToken = (token) => (
+  $.ajax({
+    method: 'GET',
+    url: '/api/auth/checkValidToken',
+    dataType: 'json',
+    data: { token: token }
+  })
+)
+

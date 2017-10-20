@@ -2,6 +2,7 @@ export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
+export const RECEIVE_VALID_TOKEN = "RECEIVE_VALID_TOKEN";
 
 import * as AuthAPIUtil from '../api_utils/auth_api_util';
 import { getConvictions, fetchConvictions } from './conviction_actions.js';
@@ -23,6 +24,10 @@ export const receiveUserErrors = ({ message }) => ({
 export const receiveServerErrors = ({ error }) => ({
   type: RECEIVE_ERRORS,
   errors: error
+});
+
+export const receiveValidToken = () => ({
+  type: RECEIVE_VALID_TOKEN
 });
 
 export const logout = () => dispatch => {
@@ -58,6 +63,8 @@ export const login = (creds) => dispatch => {
   });
 };
 
+
+// @TODO: Change this to properly dispatch to the store and update the state this way
 export const emailResetPassword = (email) => dispatch => {
   AuthAPIUtil.emailResetPassword(email).then((data) => {
     alert("AUTH API UTIL RESET PASSWORD!")
@@ -65,9 +72,26 @@ export const emailResetPassword = (email) => dispatch => {
   })
 }
 
+
+// @TODO: Change this to properly dispatch to the store and update the state this way
 export const resetPassword = (data) => dispatch => {
   AuthAPIUtil.resetPassword(data).then((returnData) => {
     alert("Password has been reset");
     console.log(returnData);
   })
 }
+
+export const checkValidToken = (token) => dispatch => {
+  AuthAPIUtil.checkValidToken(token).then((returnData) => {
+    if (returnData.success) {
+      alert("Reset Token is returned");
+      dispatch(receiveValidToken());
+    } else if (returnData.error) {
+      alert("Reset Token is invalid!")
+      dispatch(receiveServerErrors({ error: returnData.errorMessage }));
+    }
+    console.log(returnData);
+  })
+}
+
+

@@ -5,7 +5,8 @@ import { Route } from 'react-router-dom';
 import React from 'react';
 
 import {
-  resetPassword
+  resetPassword,
+  checkValidToken
 } from '../../actions/auth_actions.js';
 
 class ResetPasswordForm extends React.Component {
@@ -13,7 +14,7 @@ class ResetPasswordForm extends React.Component {
     super(props);
 
     this.state = {
-      // validToken: false,
+      validToken: props.authentication.validToken,
       newPassword: "",
       newPasswordConfirmation: ""
     }
@@ -23,10 +24,18 @@ class ResetPasswordForm extends React.Component {
     this.handlePasswordConfirmChange = this.handlePasswordConfirmChange.bind(this);
   }
 
-  // @TODO: check to see if the token is valid
   componentDidMount() {
-
+    this.props.checkValidToken(this.props.match.params.token);
   }
+
+  componentWillReceiveProps(newProps) {
+    console.log(newProps);
+    if (!newProps.authentication.validToken) {
+      alert("Sorry, that token is invalid or expired. Please reset the password again");
+      this.props.history.replace("/");
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
@@ -71,10 +80,18 @@ class ResetPasswordForm extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  authentication: state.authentication
+})
+
 const mapDispatchToProps = dispatch => ({
   resetPassword: (data) => {
     resetPassword(data)(dispatch);
+  },
+
+  checkValidToken: (token) => {
+    checkValidToken(token)(dispatch);
   }
 });
 
-export default connect(null, mapDispatchToProps)(withRouter(ResetPasswordForm));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ResetPasswordForm));

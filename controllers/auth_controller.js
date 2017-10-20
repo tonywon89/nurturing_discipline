@@ -148,7 +148,7 @@ exports.resetPassword = function (req, res, next) {
       User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 
         if (!user) {
-          return res.json({ error: "Password reset token is invalid or has expired"});
+          return res.json({error: 1, errorMessage: "Password reset token is invalid or has expired"});
         }
 
         user.password = req.body.newPassword;
@@ -197,4 +197,15 @@ exports.resetPassword = function (req, res, next) {
     // @TODO render the user template json
     res.json({ user: user });
   })
+}
+
+exports.checkValidToken = function (req, res, next) {
+  User.findOne({ resetPasswordToken: req.query.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+
+      if (!user) {
+        return res.json({ error: 1, errorMessage: "Password reset token is invalid or has expired"});
+      }
+
+      return res.json({ success: 1} )
+  });
 }

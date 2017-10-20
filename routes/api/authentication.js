@@ -11,4 +11,5 @@ router.post('/logout', auth_controller.logout);
 router.post('/emailresetpassword', auth_controller.emailForgotPassword);
 router.post('/resetpassword', auth_controller.resetPassword);
 
+router.get('/checkValidToken', auth_controller.checkValidToken);
 module.exports = router;
