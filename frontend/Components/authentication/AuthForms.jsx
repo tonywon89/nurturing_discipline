@@ -11,60 +11,18 @@ class AuthForms extends React.Component {
     super(props);
     this.state = {
       currentUser: props.authentication.currentUser,
-      loginForm: false,
-      registerForm: false,
-      forgotForm: false,
       dropdownVisible: false,
-
-      // Modal Code
-      modalIsOpen: false
     }
 
-    this.openRegisterForm = this.openRegisterForm.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-    this.openLoginForm = this.openLoginForm.bind(this);
-    this.openForgotForm = this.openForgotForm.bind(this);
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
 
-    // Modal Code
-    this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ currentUser: nextProps.authentication.currentUser });
-  }
-
-  openLoginForm(event) {
-    event.preventDefault();
-    this.setState({
-      loginForm: true,
-      modalIsOpen: true,
-      registerForm: false,
-      forgotForm: false,
-    })
-  }
-
-  openRegisterForm(event) {
-    event.preventDefault();
-    this.setState({
-      registerForm: true,
-      modalIsOpen: true,
-      loginForm: false,
-      forgotForm: false,
-    });
-  }
-
-  openForgotForm(event) {
-    event.preventDefault();
-    this.setState({
-      modalIsOpen: true,
-      registerForm: false,
-      loginForm: false,
-      forgotForm: true,
-    })
   }
 
   handleLogout(event) {
@@ -86,34 +44,15 @@ class AuthForms extends React.Component {
     document.removeEventListener("click", this.hideDropdown);
   }
 
- // Modal Code
-  openModal() {
-    this.setState({modalIsOpen: true});
-  }
 
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // this.subtitle.style.color = '#f00';
-  }
-
-  closeModal() {
+  closeModal(event) {
     if (this.props.authentication.submittedEmail) {
       this.props.clearSubmittedEmail();
     }
-
-    this.setState({
-      modalIsOpen: false,
-      registerForm: false,
-      loginForm: false,
-      forgotForm: false,
-    });
+    this.props.closeAuthModal(event);
   }
 
-  // End Modal Code
-
   render() {
-    const loginLink = <a href="#" onClick={this.openLoginForm}>Login</a>;
-    const registerLink = <a href="#" onClick={this.openRegisterForm}>Register</a>;
     let menuItems = this.state.dropdownVisible ? (
       <div className="dropdown-list" onSelect={()=> null}>
         <div>
@@ -146,11 +85,15 @@ class AuthForms extends React.Component {
       </div>
       );
     } else {
+      const loginLink = <a href="#" onClick={this.props.openLoginForm}>Login</a>;
+      const registerLink = <a href="#" onClick={this.props.openRegisterForm}>Register</a>;
+      const { modalIsOpen, registerForm, loginForm, forgotForm } = this.props.authentication.authModal
+
       return (
         <div className="nav-username">
           {loginLink} <span className="divider"></span> {registerLink}
           <Modal
-            isOpen={this.state.modalIsOpen}
+            isOpen={modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
             className={{
@@ -169,9 +112,9 @@ class AuthForms extends React.Component {
             <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
           </div>
           <h2 className="modal-header">Nurturing Discipline</h2>
-          {this.state.loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.openRegisterForm} openForgotForm={this.openForgotForm} /> : ""}
-          {this.state.registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal} openLoginForm={this.openLoginForm} /> : ""}
-          {this.state.forgotForm ? <ForgotForm emailForgotAuthInfo={this.props.emailForgotAuthInfo} submittedEmail={this.props.authentication.submittedEmail} closeModal={this.closeModal} /> : ""}
+          {loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.props.openRegisterForm} openForgotForm={this.props.openForgotForm} /> : ""}
+          {registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal} openLoginForm={this.props.openLoginForm} /> : ""}
+          {forgotForm ? <ForgotForm emailForgotAuthInfo={this.props.emailForgotAuthInfo} submittedEmail={this.props.authentication.submittedEmail} closeModal={this.closeModal} /> : ""}
           </Modal>
         </div>
       );

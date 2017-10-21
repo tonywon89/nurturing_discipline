@@ -133,7 +133,7 @@ exports.emailForgotAuthInfo = function (req, res, next) {
         to: user.email,
         from: 'home@nurturingdiscipline.com',
         subject: 'Login Credentials: Nurturing Discipline',
-        text: (req.body.forgotUsername ? forgotUsernameMessage : "") + (req.body.forgotPassword ? forgotPasswordMessage : "")
+        text: (req.body.forgotUsername === 'true' ? forgotUsernameMessage : "") + (req.body.forgotPassword === 'true' ? forgotPasswordMessage : "")
       };
       var err = null;
       smtpTransport.sendMail(mailOptions, function(err) {

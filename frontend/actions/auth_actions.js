@@ -4,6 +4,11 @@ export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const RECEIVE_VALID_TOKEN = "RECEIVE_VALID_TOKEN";
 export const EMAILED_RESET_PASSWORD = "EMAILED_RESET_PASSWORD";
+export const OPEN_LOGIN_FORM = "OPEN_LOGIN_FORM";
+export const OPEN_REGISTER_FORM = "OPEN_REGISTER_FORM";
+export const OPEN_FORGOT_FORM = "OPEN_FORGOT_FORM";
+export const CLOSE_AUTH_MODAL = "CLOSE_AUTH_MODAL";
+
 
 import * as AuthAPIUtil from '../api_utils/auth_api_util';
 import { getConvictions, fetchConvictions } from './conviction_actions.js';
@@ -39,6 +44,24 @@ export const emailedForgotAuthInfo = (email) => ({
 export const clearSubmittedEmail = () => dispatch => {
   dispatch(emailedForgotAuthInfo(null));
 }
+
+export const openLoginForm = () => dispatch => {
+  dispatch({ type: OPEN_LOGIN_FORM });
+}
+
+export const openRegisterForm = () => dispatch => {
+  dispatch({ type: OPEN_REGISTER_FORM });
+}
+
+export const openForgotForm = () => dispatch => {
+  dispatch({ type: OPEN_FORGOT_FORM });
+}
+
+export const closeAuthModal = () => dispatch => {
+  dispatch({ type: CLOSE_AUTH_MODAL });
+}
+
+
 
 export const logout = () => dispatch => {
   AuthAPIUtil.logout().then((data) => {
@@ -89,7 +112,6 @@ export const emailForgotAuthInfo = (email) => dispatch => {
 export const resetPassword = (data) => dispatch => {
   AuthAPIUtil.resetPassword(data).then((returnData) => {
     alert("Password has been reset");
-    console.log(returnData);
   })
 }
 
@@ -100,8 +122,5 @@ export const checkValidToken = (token) => dispatch => {
     } else if (returnData.error) {
       dispatch(receiveServerErrors({ error: returnData.errorMessage }));
     }
-    console.log(returnData);
   })
 }
-
-

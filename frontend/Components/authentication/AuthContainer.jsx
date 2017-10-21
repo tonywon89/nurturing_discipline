@@ -6,6 +6,10 @@ import {
   register,
   emailForgotAuthInfo,
   clearSubmittedEmail,
+  openLoginForm,
+  openRegisterForm,
+  openForgotForm,
+  closeAuthModal
 } from '../../actions/auth_actions.js';
 
 import AuthForms from './AuthForms.jsx';
@@ -33,6 +37,26 @@ const mapDispatchToProps = dispatch => ({
 
   clearSubmittedEmail: () => {
     clearSubmittedEmail()(dispatch);
+  },
+
+  openLoginForm: (event) => {
+    event.preventDefault();
+    openLoginForm()(dispatch);
+  },
+
+  openRegisterForm: (event) => {
+    event.preventDefault();
+    openRegisterForm()(dispatch);
+  },
+
+  openForgotForm: (event) => {
+    event.preventDefault();
+    openForgotForm()(dispatch);
+  },
+
+  closeAuthModal: (event) => {
+    event.preventDefault();
+    closeAuthModal()(dispatch);
   }
 });
 
