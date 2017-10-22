@@ -61,8 +61,6 @@ export const closeAuthModal = () => dispatch => {
   dispatch({ type: CLOSE_AUTH_MODAL });
 }
 
-
-
 export const logout = () => dispatch => {
   AuthAPIUtil.logout().then((data) => {
   // @TODO: need to clear the session/cookie once this is ready

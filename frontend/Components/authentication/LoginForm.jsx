@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
             </div>
           </div>
           <input type="submit" value="Login" />
-          <p className="auth-alt">Forgot Password? <a onClick={this.props.openForgotForm}>Reset Password</a></p>
+          <p className="auth-alt">Forgot <a onClick={this.props.openForgotForm}>Username Or Password</a></p>
           <p className="auth-alt"> New Member? <a onClick={this.props.openRegisterForm}>Register</a></p>
         </form>
 

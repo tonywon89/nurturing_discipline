@@ -11,18 +11,21 @@ class ForgotForm extends React.Component {
     }
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleToggleCheckbox = this.handleToggleCheckbox.bind(this);
+    this.toggleUsernameCheck = this.toggleUsernameCheck.bind(this);
+    this.togglePasswordCheck = this.togglePasswordCheck.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleToggleCheckbox(event) {
-    const target = event.target;
-    const value = target.checked
-    const name = target.name;
-
+  toggleUsernameCheck(event) {
     this.setState({
-      [name]: value,
-    });
+      forgotUsername: !this.state.forgotUsername,
+    })
+  }
+
+  togglePasswordCheck(event) {
+    this.setState({
+      forgotPassword: !this.state.forgotPassword,
+    })
   }
 
   handleEmailChange(event) {
@@ -54,13 +57,24 @@ class ForgotForm extends React.Component {
                 <input type="text" required name="email" onChange={this.handleEmailChange} value={this.state.email} />
                  <span className="floating-label">Account Email</span>
               </div>
+          </div>
+          <div>
+            <div className="checkbox-container">
+              <div className={"forgot-checkboxes" + (this.state.forgotUsername ? " checked" : "")} onClick={this.toggleUsernameCheck}>
+                <input type="checkbox" name="forgotUsername" checked={this.state.forgotUsername} onChange={this.toggleUsernameCheck}/>
+                <label onClick={this.toggleUsernameCheck} htmlFor="forgotUsername"></label>
+              </div>
+              <span>Forgot Username</span>
             </div>
-            <label>Forgot Username</label>
-            <input type="checkbox" name="forgotUsername" checked={this.state.forgotUsername} onChange={this.handleToggleCheckbox}/>
-
-            <label>Forgot Password</label>
-            <input type="checkbox" name="forgotPassword" checked={this.state.forgotPassword} onChange={this.handleToggleCheckbox}/>
-            <input type="submit" value="Reset Password" />
+            <div className="checkbox-container">
+              <div className={"forgot-checkboxes" + (this.state.forgotPassword ? " checked" : "")} onClick={this.togglePasswordCheck}>
+                <input type="checkbox" name="forgotPassword" checked={this.state.forgotPassword} onChange={this.togglePasswordCheck}/>
+                <label onClick={this.togglePasswordCheck} htmlFor="forgotPassword"></label>
+              </div>
+              <span>Forgot Password</span>
+            </div>
+          </div>
+          <input type="submit" value="Reset Password" />
         </form>
     );
 
