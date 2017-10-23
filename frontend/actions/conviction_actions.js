@@ -5,6 +5,7 @@ export const RECEIVE_CONVICTION = "RECEIVE_CONVICTION";
 export const MODIFY_CONVICTION = "MODIFY_CONVICTION";
 
 import * as ConvictionAPIUtil from '../api_utils/conviction_api_util';
+import { makeRequest, finishRequest } from './loading_actions.js';
 
 export const receiveConviction = (conviction) => ({
   type: RECEIVE_CONVICTION,
@@ -33,7 +34,10 @@ export const fetchConvictions = (userId) => dispatch => {
 }
 
 export const createConviction = (data) => dispatch => {
+  // makeRequest()(dispatch);
+
   ConvictionAPIUtil.createConviction(data).then(conviction => {
+    // finishRequest()(dispatch);
     dispatch(receiveConviction(conviction));
   })
 };

@@ -11,7 +11,7 @@ export const CLOSE_AUTH_MODAL = "CLOSE_AUTH_MODAL";
 
 import * as AuthAPIUtil from '../api_utils/auth_api_util';
 import { getConvictions, fetchConvictions } from './conviction_actions.js';
-import { finishRequest } from './loading_actions.js';
+import { makeRequest, finishRequest } from './loading_actions.js';
 
 export const receiveUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
@@ -80,6 +80,8 @@ export const register = (creds) => dispatch => {
 }
 
 export const login = (creds) => dispatch => {
+  makeRequest()(dispatch);
+
   AuthAPIUtil.login(creds).then((returnData) => {
     // Will have a message if there was an error
     if (returnData.message) {
@@ -90,6 +92,7 @@ export const login = (creds) => dispatch => {
       finishRequest()(dispatch);
     } else {
       dispatch(receiveUser(returnData));
+      finishRequest()(dispatch);
     }
   });
 };
@@ -100,7 +103,9 @@ export const emailForgotAuthInfo = (email) => dispatch => {
   AuthAPIUtil.emailForgotAuthInfo(email).then((returnData) => {
     if (returnData.success) {
       dispatch(emailedForgotAuthInfo(returnData.email))
+      finishRequest()(dispatch);
     } else if (returnData.error) {
+      finishRequest()(dispatch);
       dispatch(receiveUserErrors({message: returnData.errorMessage}));
     }
 
