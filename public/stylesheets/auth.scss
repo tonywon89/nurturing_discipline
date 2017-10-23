@@ -12,7 +12,7 @@
 }
 
 .error-notifications {
-  padding: 1em;
+  margin: 1em;
   color: white;
 
   .fa {
@@ -78,8 +78,6 @@
     }
   }
 
-
-
   .input-field {
     width: 100%;
     position: relative;
@@ -102,7 +100,8 @@
     }
 
     input:focus ~ .floating-label,
-    input:not(:focus):valid ~ .floating-label {
+    input:not(:focus):valid ~ .floating-label,
+    input[type="email"].valid ~ .floating-label {
       top: 5px;
       left: 15px;
       font-size: 0.7em;

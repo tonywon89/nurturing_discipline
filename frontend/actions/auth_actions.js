@@ -70,11 +70,12 @@ export const logout = () => dispatch => {
 }
 
 export const register = (creds) => dispatch => {
-  AuthAPIUtil.register(creds).then((data) => {
-    if (data.error) {
-      console.log(data.error)
+  AuthAPIUtil.register(creds).then((returnData) => {
+    if (returnData.error) {
+      dispatch(receiveUserErrors(returnData));
     } else {
-      dispatch(receiveUser(data))
+      dispatch(receiveUser(returnData))
+      closeAuthModal()(dispatch)
     }
   });
 }

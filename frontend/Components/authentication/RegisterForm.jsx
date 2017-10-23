@@ -13,6 +13,7 @@ class RegisterForm extends React.Component {
       username: "",
       password: "",
       passwordConfirmation: "",
+      errors: [],
     }
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -24,28 +25,27 @@ class RegisterForm extends React.Component {
 
   handleRegisterSubmit(event) {
     event.preventDefault();
-
+    let errors = []
     if (this.state.email.trim() === "") {
-      alert("An email must be entered for registration");
-      return;
+      errors.push("An email must be entered for registration");
     }
 
     if (this.state.username.trim() === "") {
-      alert("A username must be entered for registration");
-      return;
+      errors.push("A username must be entered for registration");
     }
 
     if (this.state.password.trim() === "") {
-      alert("A password must be entered for registration");
-      return;
+      errors.push("A password must be entered for registration");
     }
 
     if (this.state.password.trim() !== this.state.passwordConfirmation) {
-      alert("The passwords don't match.");
-      return;
+      errors.push("The passwords don't match");
     }
 
-    this.props.closeModal();
+    if (errors.length !== 0) {
+      this.setState({ errors });
+      return;
+    }
 
     this.props.register({
       firstName: this.state.firstName,
@@ -73,12 +73,26 @@ class RegisterForm extends React.Component {
   }
 
   render() {
+    let userErrors;
+
+    if (this.state.errors.length > 0) {
+      userErrors = this.state.errors.map((error, idx) => {
+        return (<li key={idx}><i className="fa fa-exclamation-circle" aria-hidden="true"></i> {error}</li>);
+      });
+    } else {
+      userErrors = null;
+    }
+
     return (
       <div>
+        <ul className="error-notifications">
+          {userErrors}
+        </ul>
+
         <form className="auth-form" onSubmit={this.handleRegisterSubmit}>
           <div>
             <div className="input-field">
-              <input type="text" name="email" required value={this.state.email} onChange={this.handleEmailChange} />
+              <input className={this.state.email !== "" ? "valid" : ""} type="email" name="email" required value={this.state.email} onChange={this.handleEmailChange} placeholder=" "/>
               <span className="floating-label">Email</span>
             </div>
 

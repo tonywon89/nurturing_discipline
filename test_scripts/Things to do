@@ -1,6 +1,6 @@
 Authentication:
   -Make more strict criteria for entering password
-  -Fix the different errors for registration
+  -Email confirmation for newly registered users
 
 Sidebar Menu:
   -Have a link for the work station
@@ -47,6 +47,7 @@ Finished Tasks:
   -Incorrect informtion handling (password, username)
     -Right now, an alert pops up and closes the modal, when there should be a better error
   -Style the login error messages
+  -Fix the different errors for registration
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now
