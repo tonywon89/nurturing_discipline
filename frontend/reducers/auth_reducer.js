@@ -18,6 +18,7 @@ const _nullUser = {
 
   // For resetting password or obtaining email
   submittedEmail: null,
+
   authModal: {
     modalIsOpen: false,
     registerForm: false,

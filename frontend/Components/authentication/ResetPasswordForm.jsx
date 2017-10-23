@@ -7,6 +7,7 @@ import React from 'react';
 import {
   resetPassword,
   checkValidToken,
+  openLoginForm,
   logout,
 } from '../../actions/auth_actions.js';
 
@@ -50,6 +51,7 @@ class ResetPasswordForm extends React.Component {
 
     this.props.resetPassword(data);
     this.props.logout();
+    this.props.openLoginForm(event);
     this.props.history.push("/");
   }
 
@@ -67,9 +69,18 @@ class ResetPasswordForm extends React.Component {
     if (this.props.authentication.validToken) {
       content = (
 
-          <form onSubmit={this.handleSubmit}>
-            <input type="password" name="newPassword" placeholder="New Password" required onChange={this.handlePasswordChange}/>
-            <input type="password" required name="passwordConfirmation" value={this.state.passwordConfirmation} onChange={this.handlePasswordConfirmChange} placeholder=" New Password Confirmation" />
+          <form className="auth-form" onSubmit={this.handleSubmit}>
+            <h5 style={{ color: 'black' }}>Reset Password</h5><br/>
+            <div>
+              <div className="input-field">
+                <input type="password" name="newPassword" required onChange={this.handlePasswordChange}/>
+                <span className="floating-label">New Password</span>
+              </div>
+              <div className="input-field">
+                <input type="password" required name="passwordConfirmation" value={this.state.passwordConfirmation} onChange={this.handlePasswordConfirmChange}  />
+                <span className="floating-label">New Password Confirmation</span>
+              </div>
+            </div>
             <input type="submit" value="Reset Password" />
           </form>
 
@@ -78,8 +89,9 @@ class ResetPasswordForm extends React.Component {
       content = <p>Sorry, that token is invalid or expired. Please reset the password again</p>
     }
     return (
-      <div>
-      {content}
+      <div className="reset-password-form">
+
+        {content}
       </div>
     );
   }
@@ -100,6 +112,11 @@ const mapDispatchToProps = dispatch => ({
 
   logout: () => {
     logout()(dispatch);
+  },
+
+  openLoginForm: (event) => {
+    event.preventDefault();
+    openLoginForm()(dispatch);
   },
 });
 

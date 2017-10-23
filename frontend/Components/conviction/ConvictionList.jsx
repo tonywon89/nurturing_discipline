@@ -114,6 +114,7 @@ class ConvictionList extends React.Component {
               <div className="clearfix">
                 <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
               </div>
+              <h5>Your Conviction</h5>
               <form onSubmit={this.handleSubmit}>
                 <input type="hidden" name="_csrf" value={this.props.csrfToken}/>
                 <div className="input-field">

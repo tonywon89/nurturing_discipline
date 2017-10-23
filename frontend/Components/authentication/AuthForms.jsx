@@ -114,7 +114,7 @@ class AuthForms extends React.Component {
           <h2 className="modal-header">Nurturing Discipline</h2>
           {loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.props.openRegisterForm} openForgotForm={this.props.openForgotForm} /> : ""}
           {registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal} openLoginForm={this.props.openLoginForm} /> : ""}
-          {forgotForm ? <ForgotForm emailForgotAuthInfo={this.props.emailForgotAuthInfo} submittedEmail={this.props.authentication.submittedEmail} closeModal={this.closeModal} /> : ""}
+          {forgotForm ? <ForgotForm emailForgotAuthInfo={this.props.emailForgotAuthInfo} submittedEmail={this.props.authentication.submittedEmail} clearSubmittedEmail={this.props.clearSubmittedEmail} closeModal={this.closeModal} /> : ""}
           </Modal>
         </div>
       );

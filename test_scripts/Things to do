@@ -4,10 +4,9 @@ Authentication:
   -Make more strict criteria for entering password
 
   -Google Login - Get this working
-  -Remember username or password
+
   -Forgot password
     -Comment back in the mailing
-    -style the reset password form
     -Go to index and open login form modal
 
 Sidebar Menu:
@@ -50,3 +49,5 @@ Finished Tasks:
     -Check for valid token when mounted
   -Forgot username
   -refactor modal state to redux flow
+  -Style the checkboxes for forgot user name and password
+  -Style Resend button

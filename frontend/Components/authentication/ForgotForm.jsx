@@ -34,6 +34,12 @@ class ForgotForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    if (this.props.submittedEmail) {
+      this.props.clearSubmittedEmail();
+      return;
+    }
+
     if (!this.state.forgotUsername && !this.state.forgotPassword) {
       alert("Please select either forgot password or forgot username");
       return;
@@ -74,15 +80,16 @@ class ForgotForm extends React.Component {
               <span>Forgot Password</span>
             </div>
           </div>
-          <input type="submit" value="Reset Password" />
+          <input type="submit" value="Submit" />
         </form>
     );
 
     if (this.props.submittedEmail) {
       resetForm = (
-        <div>
-        <p>An email with the relevant information has been sent to <span style={{color: "white", textDecoration: "underline"}}>{this.props.submittedEmail}</span>.</p><button onClick={this.handleSubmit}>Resend</button>
-        </div>)
+        <div className="auth-form">
+          <p style={{color: "black", marginBottom: "1em"}}>An email with the relevant information has been sent to <span style={{color: "white", textDecoration: "underline" }}>{this.props.submittedEmail}</span>.</p><button type="submit" onClick={this.handleSubmit}>Resend</button>
+        </div>
+      )
     }
 
     return (

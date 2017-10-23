@@ -113,7 +113,7 @@
 
   }
 
-  input[type="submit"] {
+  input[type="submit"], button[type="submit"] {
     background-color: black;
     padding: 1em;
     box-sizing: border-box;
@@ -131,4 +131,30 @@
   color: #000;
   font-size: 0.8em;
   margin-bottom: 0.8em;
+}
+
+.reset-password-form {
+  width: 100%;
+  display: block;
+
+  form {
+    position: absolute;
+    border: 1px solid rgb(204, 204, 204);
+    overflow: auto;
+    outline: none;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background: #5D92BA;
+    width: 300px;
+    border-radius: 0;
+
+    input {
+
+    }
+  }
 }
