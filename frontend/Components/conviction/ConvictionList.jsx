@@ -23,6 +23,11 @@ class ConvictionList extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
+  componentDidMount() {
+    const userId = this.props.authentication.currentUser.id;
+    this.props.fetchConvictions(userId);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     if (!this.state.id) {
@@ -31,12 +36,6 @@ class ConvictionList extends React.Component {
       this.props.editConviction(this.state);
     }
     this.closeModal();
-  }
-
-  fetch(event) {
-    event.preventDefault();
-    const userId = this.props.authentication.currentUser.id;
-    this.props.fetchConvictions(userId);
   }
 
   handleTitleChange(event) {
@@ -115,6 +114,7 @@ class ConvictionList extends React.Component {
               <div className="clearfix">
                 <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
               </div>
+              <h5>Your Conviction</h5>
               <form onSubmit={this.handleSubmit}>
                 <input type="hidden" name="_csrf" value={this.props.csrfToken}/>
                 <div className="input-field">

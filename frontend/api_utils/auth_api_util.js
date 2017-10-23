@@ -24,3 +24,30 @@ export const logout = () => (
   })
 );
 
+export const emailForgotAuthInfo = (data) => (
+  $.ajax({
+    method: 'POST',
+    url: 'api/auth/emailForgotAuthInfo',
+    dataType: 'json',
+    data: { email: data.email, forgotUsername: data.forgotUsername, forgotPassword: data.forgotPassword }
+  })
+);
+
+export const resetPassword = (data) => (
+  $.ajax({
+    method: 'POST',
+    url: '/api/auth/resetpassword',
+    dataType: 'json',
+    data
+  })
+);
+
+export const checkValidToken = (token) => (
+  $.ajax({
+    method: 'GET',
+    url: '/api/auth/checkValidToken',
+    dataType: 'json',
+    data: { token: token }
+  })
+)
+

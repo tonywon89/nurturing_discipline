@@ -165,3 +165,36 @@ h5 {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.75);
 }
+
+
+/*
+  =====================
+    Loading Icon
+  =====================
+*/
+
+.loading-icon {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.75);
+  top: 0;
+  left: 0;
+  &.hidden {
+    display: none;
+  }
+  &.active {
+    display: block
+  }
+
+  .fa-refresh {
+    position: absolute;
+    font-size: 5em;
+    color: lightgrey;
+    left: 50%;
+    top: 25%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+  }
+}

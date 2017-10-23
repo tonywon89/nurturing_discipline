@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, HashRouter, Link, IndexRoute} from 'react-router-dom';
+import { Route, HashRouter, Link, IndexRoute, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store.js';
 
@@ -10,6 +10,9 @@ import { fetchCsrfToken } from './actions/csrf_actions.js';
 import AuthContainer from './Components/authentication/AuthContainer.jsx';
 import NavbarContainer from './Components/navigation/NavbarContainer.jsx';
 import EnsureLoggedInContainer from './Components/authentication/EnsureLoggedInContainer.jsx';
+import ResetPasswordForm from './Components/authentication/ResetPasswordForm.jsx';
+import LoadingIcon from './Components/LoadingIcon.jsx';
+
 
 const store = configureStore();
 
@@ -17,14 +20,30 @@ const Root = () => (
   <Provider store={store}>
     <HashRouter>
       <div>
+        <App />
         <header>
           <NavbarContainer />
         </header>
-        <Route component={EnsureLoggedInContainer} />
+        <Switch>
+          <Route path="/reset/:token" component={ResetPasswordForm} />
+          <Route component={EnsureLoggedInContainer} />
+        </Switch>
+        <LoadingIcon />
       </div>
     </HashRouter>
   </Provider>
 );
+
+class App extends React.Component {
+  componentWillMount() {
+    store.dispatch(login({ initialLoad: 'true' }));
+    // store.dispatch(fetchCsrfToken());
+  }
+
+  render() {
+    return null;
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   ReactDOM.render(<Root />, document.getElementById('root'));

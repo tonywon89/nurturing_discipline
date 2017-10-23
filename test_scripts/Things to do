@@ -4,21 +4,18 @@ Authentication:
   -Make more strict criteria for entering password
 
   -Google Login - Get this working
-  -Remember username or password
-  -Forgot username or password
-    -set up sending email
+
 
 Sidebar Menu:
   -Have a link for the work station
     -Have a carousel that displays the convictions one at a time
 
-Modal:
-Convictions:
-
 Other:
-  -Make spinning icon for loading the different pages
   -Make sure they are above 13 before they can use the app
   -Make isomorphic with BrowserHistory
+
+
+Current Tasks:
 
 
 
@@ -42,3 +39,15 @@ Finished Tasks:
   -Code: Implement basic style for conviction
   -Create close button in top right corner
   -Make so that any not logged in route goes back to the index route
+  -set up sending email
+  -Confirm Password
+    -Figure out frontend responding to the different things
+    -Check for valid token when mounted
+  -Forgot username
+  -refactor modal state to redux flow
+  -Style the checkboxes for forgot user name and password
+  -Style Resend button
+  -Go to index and open login form modal
+  -Forgot password
+    -Comment back in the mailing
+  -Make spinning icon for loading the different pages

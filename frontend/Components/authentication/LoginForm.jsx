@@ -4,10 +4,10 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // username: "twon",
-      // password: "curious123",
-      username: "",
-      password: "",
+      username: "twon",
+      password: "curious123",
+      // username: "",
+      // password: "",
     }
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -25,7 +25,7 @@ class LoginForm extends React.Component {
 
   handleLoginSubmit(event) {
     event.preventDefault();
-    this.props.closeModal();
+    this.props.closeModal(event);
     this.props.login({ username: this.state.username, password: this.state.password });
   }
 
@@ -44,6 +44,7 @@ class LoginForm extends React.Component {
             </div>
           </div>
           <input type="submit" value="Login" />
+          <p className="auth-alt">Forgot <a onClick={this.props.openForgotForm}>Username Or Password</a></p>
           <p className="auth-alt"> New Member? <a onClick={this.props.openRegisterForm}>Register</a></p>
         </form>
 
