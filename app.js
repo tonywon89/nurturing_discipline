@@ -61,12 +61,12 @@ var localStrategy = new LocalStrategy(function(username, password, done) {
       if (err) { return done(err); }
 
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Incorrect username or password.' });
       }
 
       User.isValidPassword(password, user.password).then(function(res) {
         if (res === false) {
-          return done(null, false, { message: 'Incorrect password.' });
+          return done(null, false, { message: 'Incorrect username or password.' });
 
         }
 

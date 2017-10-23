@@ -30,7 +30,6 @@ class AuthForms extends React.Component {
     event.preventDefault();
     this.props.logout();
     this.props.history.push('/');
-    this.closeModal(event);
   }
 
   showDropdown() {
@@ -92,8 +91,8 @@ class AuthForms extends React.Component {
 
       let userErrors;
       if (this.props.authentication.errors !== null) {
-        userErrors = this.props.authentication.errors.map((error, idx) => {  
-          return (<li key={idx}>{error}</li>);
+        userErrors = this.props.authentication.errors.map((error, idx) => {
+          return (<li key={idx}><i className="fa fa-exclamation-circle" aria-hidden="true"></i> {error}</li>);
         });
       } else {
         userErrors = null;

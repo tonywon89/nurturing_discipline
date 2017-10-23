@@ -83,18 +83,18 @@ export const login = (creds) => dispatch => {
   makeRequest()(dispatch);
 
   AuthAPIUtil.login(creds).then((returnData) => {
-    console.log(returnData);
-    // Will have a message if there was an error
     if (returnData.message) {
-      // alert(returnData.message);
       dispatch(receiveUserErrors(returnData));
+
     } else if (returnData.error) {
-      alert(returnData.error);
+
+      dispatch(receiveUserErrors(returnData));
     } else if (returnData.notLoggedIn) {
 
     } else {
       dispatch(receiveUser(returnData));
-      // finishRequest()(dispatch);
+      closeAuthModal()(dispatch)
+
     }
 
     finishRequest()(dispatch);
@@ -107,13 +107,12 @@ export const emailForgotAuthInfo = (email) => dispatch => {
   AuthAPIUtil.emailForgotAuthInfo(email).then((returnData) => {
     if (returnData.success) {
       dispatch(emailedForgotAuthInfo(returnData.email))
-      finishRequest()(dispatch);
+
     } else if (returnData.error) {
-      finishRequest()(dispatch);
       dispatch(receiveUserErrors({message: returnData.errorMessage}));
     }
 
-    // console.log(returnData);
+    finishRequest()(dispatch);
   })
 }
 
