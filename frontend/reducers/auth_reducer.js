@@ -28,24 +28,30 @@ const _nullUser = {
     forgotForm: false,
   },
   loading: false,
-  errors: []
+  errors: null
 };
 
 const AuthReducer = (state = _nullUser, action) => {
   Object.freeze(state);
+
   switch(action.type) {
     case RECEIVE_CURRENT_USER:
       const currentUser = action.currentUser;
-      return merge({}, state, { currentUser, loading: false });
+      return merge({}, state, { currentUser, errors: null });
+
     case RECEIVE_LOGOUT:
-      return merge({}, state, { currentUser : null, loading: false });
+      return merge({}, state, { currentUser: null, errors: null });
+
     case RECEIVE_ERRORS:
       const errors = action.errors;
-      return merge({}, state, { errors, loading: false });
+      return merge({}, state, { errors });
+
     case RECEIVE_VALID_TOKEN:
-      return merge({}, state, { validToken: true, loading: false });
+      return merge({}, state, { validToken: true, errors: null });
+
     case EMAILED_RESET_PASSWORD:
-      return merge({}, state, { submittedEmail: action.email, loading: false });
+      return merge({}, state, { submittedEmail: action.email, errors: null });
+
     case OPEN_LOGIN_FORM:
       return merge({}, state, { authModal: {
         modalIsOpen: true,
@@ -53,6 +59,7 @@ const AuthReducer = (state = _nullUser, action) => {
         loginForm: true,
         forgotForm: false,
       }});
+
     case OPEN_REGISTER_FORM:
       return merge({}, state, { authModal: {
         modalIsOpen: true,
@@ -60,6 +67,7 @@ const AuthReducer = (state = _nullUser, action) => {
         loginForm: false,
         forgotForm: false,
       }});
+
     case OPEN_FORGOT_FORM:
       return merge({}, state, { authModal: {
         modalIsOpen: true,
@@ -74,11 +82,8 @@ const AuthReducer = (state = _nullUser, action) => {
         registerForm: false,
         loginForm: false,
         forgotForm: false,
-      }});
-    // case REQUEST_MADE:
-    //   return merge({}, state, { loading: true })
-    // case REQUEST_FINISHED:
-    //   return merge({}, state, { loading:  })
+      }, errors: null });
+
     default:
       return state;
   }

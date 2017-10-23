@@ -24,12 +24,12 @@ export const receiveLogout = () => ({
 
 export const receiveUserErrors = ({ message }) => ({
   type: RECEIVE_ERRORS,
-  errors: message
+  errors: [message]
 });
 
 export const receiveServerErrors = ({ error }) => ({
   type: RECEIVE_ERRORS,
-  errors: error
+  errors: [error]
 });
 
 export const receiveValidToken = () => ({
@@ -83,17 +83,21 @@ export const login = (creds) => dispatch => {
   makeRequest()(dispatch);
 
   AuthAPIUtil.login(creds).then((returnData) => {
+    console.log(returnData);
     // Will have a message if there was an error
     if (returnData.message) {
-      alert(returnData.message);
+      // alert(returnData.message);
+      dispatch(receiveUserErrors(returnData));
     } else if (returnData.error) {
       alert(returnData.error);
     } else if (returnData.notLoggedIn) {
-      finishRequest()(dispatch);
+
     } else {
       dispatch(receiveUser(returnData));
-      finishRequest()(dispatch);
+      // finishRequest()(dispatch);
     }
+
+    finishRequest()(dispatch);
   });
 };
 
