@@ -9,9 +9,9 @@ export const OPEN_REGISTER_FORM = "OPEN_REGISTER_FORM";
 export const OPEN_FORGOT_FORM = "OPEN_FORGOT_FORM";
 export const CLOSE_AUTH_MODAL = "CLOSE_AUTH_MODAL";
 
-
 import * as AuthAPIUtil from '../api_utils/auth_api_util';
 import { getConvictions, fetchConvictions } from './conviction_actions.js';
+import { finishRequest } from './loading_actions.js';
 
 export const receiveUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
@@ -80,14 +80,16 @@ export const register = (creds) => dispatch => {
 }
 
 export const login = (creds) => dispatch => {
-  AuthAPIUtil.login(creds).then((data) => {
+  AuthAPIUtil.login(creds).then((returnData) => {
     // Will have a message if there was an error
-    if (data.message) {
-      alert(data.message);
-    } else if (data.error) {
-      alert(data.error);
+    if (returnData.message) {
+      alert(returnData.message);
+    } else if (returnData.error) {
+      alert(returnData.error);
+    } else if (returnData.notLoggedIn) {
+      finishRequest()(dispatch);
     } else {
-      dispatch(receiveUser(data));
+      dispatch(receiveUser(returnData));
     }
   });
 };
@@ -101,7 +103,8 @@ export const emailForgotAuthInfo = (email) => dispatch => {
     } else if (returnData.error) {
       dispatch(receiveUserErrors({message: returnData.errorMessage}));
     }
-    console.log(returnData);
+
+    // console.log(returnData);
   })
 }
 

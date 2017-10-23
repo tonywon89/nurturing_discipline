@@ -9,13 +9,16 @@ import {
   openLoginForm,
   openRegisterForm,
   openForgotForm,
-  closeAuthModal
+  closeAuthModal,
+  makeAJAXRequest,
 } from '../../actions/auth_actions.js';
+
+import { makeRequest, finishRequest } from '../../actions/loading_actions.js';
 
 import AuthForms from './AuthForms.jsx';
 
 const mapStateToProps = state => ({
-  authentication: state.authentication
+  authentication: state.authentication,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -57,6 +60,14 @@ const mapDispatchToProps = dispatch => ({
   closeAuthModal: (event) => {
     event.preventDefault();
     closeAuthModal()(dispatch);
+  },
+
+  makeRequest: () => {
+    makeRequest()(dispatch);
+  },
+
+  finishRequest: () => {
+    finishRequest()(dispatch);
   }
 });
 

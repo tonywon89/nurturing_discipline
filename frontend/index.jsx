@@ -11,6 +11,7 @@ import AuthContainer from './Components/authentication/AuthContainer.jsx';
 import NavbarContainer from './Components/navigation/NavbarContainer.jsx';
 import EnsureLoggedInContainer from './Components/authentication/EnsureLoggedInContainer.jsx';
 import ResetPasswordForm from './Components/authentication/ResetPasswordForm.jsx';
+import LoadingIcon from './Components/LoadingIcon.jsx';
 
 
 const store = configureStore();
@@ -26,7 +27,8 @@ const Root = () => (
         <Switch>
           <Route path="/reset/:token" component={ResetPasswordForm} />
           <Route component={EnsureLoggedInContainer} />
-       </Switch>
+        </Switch>
+        <LoadingIcon />
       </div>
     </HashRouter>
   </Provider>

@@ -10,6 +10,8 @@ import {
   OPEN_REGISTER_FORM,
   OPEN_FORGOT_FORM,
   CLOSE_AUTH_MODAL,
+  REQUEST_MADE,
+  REQUEST_FINISHED,
 } from '../actions/auth_actions.js';
 
 const _nullUser = {
@@ -25,6 +27,7 @@ const _nullUser = {
     loginForm: false,
     forgotForm: false,
   },
+  loading: false,
   errors: []
 };
 
@@ -33,16 +36,16 @@ const AuthReducer = (state = _nullUser, action) => {
   switch(action.type) {
     case RECEIVE_CURRENT_USER:
       const currentUser = action.currentUser;
-      return merge({}, state, { currentUser });
+      return merge({}, state, { currentUser, loading: false });
     case RECEIVE_LOGOUT:
-      return merge({}, state, { currentUser : null });
+      return merge({}, state, { currentUser : null, loading: false });
     case RECEIVE_ERRORS:
       const errors = action.errors;
-      return merge({}, state, { errors });
+      return merge({}, state, { errors, loading: false });
     case RECEIVE_VALID_TOKEN:
-      return merge({}, state, { validToken: true });
+      return merge({}, state, { validToken: true, loading: false });
     case EMAILED_RESET_PASSWORD:
-      return merge({}, state, { submittedEmail: action.email });
+      return merge({}, state, { submittedEmail: action.email, loading: false });
     case OPEN_LOGIN_FORM:
       return merge({}, state, { authModal: {
         modalIsOpen: true,
@@ -72,6 +75,10 @@ const AuthReducer = (state = _nullUser, action) => {
         loginForm: false,
         forgotForm: false,
       }});
+    // case REQUEST_MADE:
+    //   return merge({}, state, { loading: true })
+    // case REQUEST_FINISHED:
+    //   return merge({}, state, { loading:  })
     default:
       return state;
   }

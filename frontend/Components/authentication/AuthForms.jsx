@@ -1,10 +1,11 @@
 import React from 'react';
 import LoginForm from './LoginForm.jsx'
 import RegisterForm from './RegisterForm.jsx'
+import ForgotForm from './ForgotForm.jsx';
+
 import { CSSTransitionGroup } from 'react-transition-group'
 import Modal from 'react-modal';
 import { withRouter } from 'react-router';
-import ForgotForm from './ForgotForm.jsx';
 
 class AuthForms extends React.Component {
   constructor(props) {
@@ -19,6 +20,10 @@ class AuthForms extends React.Component {
     this.hideDropdown = this.hideDropdown.bind(this);
 
     this.closeModal = this.closeModal.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.makeRequest();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -90,32 +95,42 @@ class AuthForms extends React.Component {
       const { modalIsOpen, registerForm, loginForm, forgotForm } = this.props.authentication.authModal
 
       return (
-        <div className="nav-username">
-          {loginLink} <span className="divider"></span> {registerLink}
-          <Modal
-            isOpen={modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            className={{
-              base: "modal-content",
-              afterOpen: "modal-content",
-              beforeClose: "modal-content"
-            }}
-            overlayClassName={{
-              base: "modal-overlay",
-              afterOpen: "modal-overlay",
-              beforeClose: "modal-overlay"
-            }}
-            contentLabel="Auth Modal"
-          >
-          <div className="clearfix">
-            <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
+        <div>
+          <div className="nav-username">
+            {loginLink} <span className="divider"></span> {registerLink}
+
+            <Modal
+              isOpen={modalIsOpen}
+              onAfterOpen={this.afterOpenModal}
+              onRequestClose={this.closeModal}
+              className={{
+                base: "modal-content",
+                afterOpen: "modal-content",
+                beforeClose: "modal-content"
+              }}
+              overlayClassName={{
+                base: "modal-overlay",
+                afterOpen: "modal-overlay",
+                beforeClose: "modal-overlay"
+              }}
+              contentLabel="Auth Modal"
+            >
+
+
+              <div className="clearfix">
+                <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
+              </div>
+
+              <h2 className="modal-header">Nurturing Discipline</h2>
+
+              {loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.props.openRegisterForm} openForgotForm={this.props.openForgotForm} /> : ""}
+
+              {registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal} openLoginForm={this.props.openLoginForm} /> : ""}
+
+              {forgotForm ? <ForgotForm emailForgotAuthInfo={this.props.emailForgotAuthInfo} submittedEmail={this.props.authentication.submittedEmail} clearSubmittedEmail={this.props.clearSubmittedEmail} closeModal={this.closeModal} /> : ""}
+
+            </Modal>
           </div>
-          <h2 className="modal-header">Nurturing Discipline</h2>
-          {loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.props.openRegisterForm} openForgotForm={this.props.openForgotForm} /> : ""}
-          {registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal} openLoginForm={this.props.openLoginForm} /> : ""}
-          {forgotForm ? <ForgotForm emailForgotAuthInfo={this.props.emailForgotAuthInfo} submittedEmail={this.props.authentication.submittedEmail} clearSubmittedEmail={this.props.clearSubmittedEmail} closeModal={this.closeModal} /> : ""}
-          </Modal>
         </div>
       );
     }

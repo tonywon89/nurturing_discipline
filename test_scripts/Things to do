@@ -5,21 +5,17 @@ Authentication:
 
   -Google Login - Get this working
 
-  -Forgot password
-    -Comment back in the mailing
-    -Go to index and open login form modal
 
 Sidebar Menu:
   -Have a link for the work station
     -Have a carousel that displays the convictions one at a time
 
-Modal:
-Convictions:
-
 Other:
-  -Make spinning icon for loading the different pages
   -Make sure they are above 13 before they can use the app
   -Make isomorphic with BrowserHistory
+
+
+Current Tasks:
 
 
 
@@ -51,3 +47,7 @@ Finished Tasks:
   -refactor modal state to redux flow
   -Style the checkboxes for forgot user name and password
   -Style Resend button
+  -Go to index and open login form modal
+  -Forgot password
+    -Comment back in the mailing
+  -Make spinning icon for loading the different pages

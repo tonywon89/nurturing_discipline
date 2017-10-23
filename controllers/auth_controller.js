@@ -32,6 +32,8 @@ exports.login = function (req, res, next) {
       req.logIn(decodedUser, function (err) {
         res.render('json/user/user', { error: err, data: decodedUser });
       });
+    } else {
+      res.json({ notLoggedIn: true })
     }
   } else {
 
@@ -166,11 +168,7 @@ exports.resetPassword = function (req, res, next) {
           if (err) {
             res.json({ error: err });
           } else {
-            // req.logIn(user, function (err) {
-            //   var token = addJWT(user);
-            //   // @TODO: Once sending over https, need to add { secure: true }
-            //   res.cookie('userToken', token, { httpOnly: true });
-              done(err, user);
+            done(err, user);
           }
         });
       });
@@ -192,9 +190,9 @@ exports.resetPassword = function (req, res, next) {
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
       };
       var err = null;
-      // smtpTransport.sendMail(mailOptions, function(err) {
+      smtpTransport.sendMail(mailOptions, function(err) {
         done(err, user);
-      // });
+      });
     }
 
   ], function(err, user) {
