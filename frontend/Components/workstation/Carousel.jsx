@@ -1,4 +1,5 @@
 import React from 'react';
+import CarouselCircle from './CarouselCircle.jsx';
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -7,12 +8,6 @@ class Carousel extends React.Component {
 
   render() {
 
-    const carouselCircles = this.props.convictions.map((conviction, idx) => {
-      return (
-        // TODO: make a class for the carousel circle to know which is active
-        <div className="carousel-circle" key={idx}></div>
-      );
-    })
 
     const { workstation, convictions } = this.props
 
@@ -20,6 +15,11 @@ class Carousel extends React.Component {
     // The complicated equation is because javascript handles negative modulo differently
     let currentIndex = ((workstation.currentCarouselIndex % convictions.length) + convictions.length) % convictions.length;
 
+    const carouselCircles = this.props.convictions.map((conviction, idx) => {
+      return (
+        <CarouselCircle key={idx} index={idx} currentIndex={currentIndex} setCarouselIndex={this.props.setCarouselIndex} />
+      );
+    })
     const currentConviction = (convictions.length > 0 ? convictions[currentIndex] : {
         title: "No Convictions yet. Make one soon!",
         detailed_description: "This is where you make the change"
@@ -36,7 +36,8 @@ class Carousel extends React.Component {
             {currentConviction.detailed_description}
           </div>
         </div>
-           <div className="carousel-caret-left" onClick={this.props.decreaseCarouselIndex}><i className="fa fa-chevron-left"></i></div>
+
+        <div className="carousel-caret-left" onClick={this.props.decreaseCarouselIndex}><i className="fa fa-chevron-left"></i></div>
         <div  className="carousel-caret-right" onClick={this.props.increaseCarouselIndex}><i className="fa fa-chevron-right"></i></div>
         <div className="carousel-circles">
           {carouselCircles}

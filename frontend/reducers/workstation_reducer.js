@@ -2,7 +2,8 @@ import merge from 'lodash/merge';
 
 import {
   INCREASE_CAROUSEL_INDEX,
-  DECREASE_CAROUSEL_INDEX
+  DECREASE_CAROUSEL_INDEX,
+  SET_CAROUSEL_INDEX
 } from "../actions/workstation_actions.js"
 
 const _default = {
@@ -14,9 +15,11 @@ const WorkStationReducer = (state = _default, action) => {
 
   switch(action.type) {
     case INCREASE_CAROUSEL_INDEX:
-      return merge({}, state, { currentCarouselIndex: state.currentCarouselIndex + 1})
+      return merge({}, state, { currentCarouselIndex: state.currentCarouselIndex + 1});
     case DECREASE_CAROUSEL_INDEX:
-      return merge({}, state, { currentCarouselIndex: state.currentCarouselIndex - 1})
+      return merge({}, state, { currentCarouselIndex: state.currentCarouselIndex - 1});
+    case SET_CAROUSEL_INDEX:
+      return merge({}, state, { currentCarouselIndex: action.newIndex })
     default:
       return state;
   }

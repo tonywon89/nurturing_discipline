@@ -3,8 +3,15 @@ Authentication:
   -Email confirmation for newly registered users
 
 Sidebar Menu:
-  -Have a link for the work station
-    -Have a carousel that displays the convictions one at a time
+  -style the active link to know which is the active sidebar
+  -Finish the other styles
+
+Workstation
+  -Carousel
+    -Make carousel circle component
+    -Make interval to cycle through the different convictions
+    -Style to account for overflow of text - Max character limit
+
 
 Other:
   -Make sure they are above 13 before they can use the app
@@ -48,6 +55,8 @@ Finished Tasks:
     -Right now, an alert pops up and closes the modal, when there should be a better error
   -Style the login error messages
   -Fix the different errors for registration
+  -Have a link for the work station
+    -Have a carousel that displays the convictions one at a time
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

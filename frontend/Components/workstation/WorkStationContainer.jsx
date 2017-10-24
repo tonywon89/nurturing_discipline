@@ -8,7 +8,8 @@ import {
 
 import {
   increaseCarouselIndex,
-  decreaseCarouselIndex
+  decreaseCarouselIndex,
+  setCarouselIndex,
 } from '../../actions/workstation_actions.js';
 
 const mapStateToProps = state => ({
@@ -29,6 +30,10 @@ const mapDispatchToProps = dispatch => ({
   decreaseCarouselIndex: () => {
     decreaseCarouselIndex()(dispatch)
   },
+
+  setCarouselIndex: (newIndex) => {
+    setCarouselIndex(newIndex)(dispatch);
+  }
 });
 
 export default connect(
