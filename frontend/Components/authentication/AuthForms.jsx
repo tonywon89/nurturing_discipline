@@ -22,10 +22,6 @@ class AuthForms extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-  componentWillMount() {
-    this.props.makeRequest();
-  }
-
   componentWillReceiveProps(nextProps) {
     this.setState({ currentUser: nextProps.authentication.currentUser });
   }
@@ -34,7 +30,6 @@ class AuthForms extends React.Component {
     event.preventDefault();
     this.props.logout();
     this.props.history.push('/');
-
   }
 
   showDropdown() {
@@ -94,6 +89,16 @@ class AuthForms extends React.Component {
       const registerLink = <a href="#" onClick={this.props.openRegisterForm}>Register</a>;
       const { modalIsOpen, registerForm, loginForm, forgotForm } = this.props.authentication.authModal
 
+      let userErrors;
+      if (this.props.authentication.errors !== null) {
+        userErrors = this.props.authentication.errors.map((error, idx) => {
+          return (<li key={idx}><i className="fa fa-exclamation-circle" aria-hidden="true"></i> {error}</li>);
+        });
+      } else {
+        userErrors = null;
+      }
+
+
       return (
         <div>
           <div className="nav-username">
@@ -123,6 +128,9 @@ class AuthForms extends React.Component {
 
               <h2 className="modal-header">Nurturing Discipline</h2>
 
+              <ul className="error-notifications">
+                {userErrors}
+              </ul>
               {loginForm ? <LoginForm login={this.props.login} closeModal={this.closeModal} openRegisterForm={this.props.openRegisterForm} openForgotForm={this.props.openForgotForm} /> : ""}
 
               {registerForm ? <RegisterForm register={this.props.register} closeModal={this.closeModal} openLoginForm={this.props.openLoginForm} /> : ""}

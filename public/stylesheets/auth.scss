@@ -11,6 +11,15 @@
   margin-bottom: 1em;
 }
 
+.error-notifications {
+  margin: 1em;
+  color: white;
+
+  .fa {
+    margin-right: 0.5em;
+  }
+}
+
 .auth-form {
   color: white;
 
@@ -69,8 +78,6 @@
     }
   }
 
-
-
   .input-field {
     width: 100%;
     position: relative;
@@ -93,7 +100,8 @@
     }
 
     input:focus ~ .floating-label,
-    input:not(:focus):valid ~ .floating-label {
+    input:not(:focus):valid ~ .floating-label,
+    input[type="email"].valid ~ .floating-label {
       top: 5px;
       left: 15px;
       font-size: 0.7em;

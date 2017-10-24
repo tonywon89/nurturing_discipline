@@ -24,12 +24,12 @@ export const receiveLogout = () => ({
 
 export const receiveUserErrors = ({ message }) => ({
   type: RECEIVE_ERRORS,
-  errors: message
+  errors: [message]
 });
 
 export const receiveServerErrors = ({ error }) => ({
   type: RECEIVE_ERRORS,
-  errors: error
+  errors: [error]
 });
 
 export const receiveValidToken = () => ({
@@ -70,11 +70,20 @@ export const logout = () => dispatch => {
 }
 
 export const register = (creds) => dispatch => {
-  AuthAPIUtil.register(creds).then((data) => {
-    if (data.error) {
-      console.log(data.error)
+  AuthAPIUtil.register(creds).then((returnData) => {
+
+    if (returnData.error) {
+      if (returnData.error.errors
+       && returnData.error.errors.email
+       && returnData.error.errors.email.message) {
+        dispatch(receiveUserErrors({ message: returnData.error.errors.email.message}));
+
+      } else {
+        dispatch(receiveUserErrors(returnData));
+      }
     } else {
-      dispatch(receiveUser(data))
+      dispatch(receiveUser(returnData))
+      closeAuthModal()(dispatch)
     }
   });
 }
@@ -83,17 +92,21 @@ export const login = (creds) => dispatch => {
   makeRequest()(dispatch);
 
   AuthAPIUtil.login(creds).then((returnData) => {
-    // Will have a message if there was an error
     if (returnData.message) {
-      alert(returnData.message);
+      dispatch(receiveUserErrors(returnData));
+
     } else if (returnData.error) {
-      alert(returnData.error);
+
+      dispatch(receiveUserErrors(returnData));
     } else if (returnData.notLoggedIn) {
-      finishRequest()(dispatch);
+
     } else {
       dispatch(receiveUser(returnData));
-      finishRequest()(dispatch);
+      closeAuthModal()(dispatch)
+
     }
+
+    finishRequest()(dispatch);
   });
 };
 
@@ -103,13 +116,12 @@ export const emailForgotAuthInfo = (email) => dispatch => {
   AuthAPIUtil.emailForgotAuthInfo(email).then((returnData) => {
     if (returnData.success) {
       dispatch(emailedForgotAuthInfo(returnData.email))
-      finishRequest()(dispatch);
+
     } else if (returnData.error) {
-      finishRequest()(dispatch);
       dispatch(receiveUserErrors({message: returnData.errorMessage}));
     }
 
-    // console.log(returnData);
+    finishRequest()(dispatch);
   })
 }
 

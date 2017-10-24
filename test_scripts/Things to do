@@ -1,10 +1,6 @@
 Authentication:
-  -Incorrect informtion handling (password, username)
-    -Right now, an alert pops up and closes the modal, when there should be a better error
   -Make more strict criteria for entering password
-
-  -Google Login - Get this working
-
+  -Email confirmation for newly registered users
 
 Sidebar Menu:
   -Have a link for the work station
@@ -14,10 +10,7 @@ Other:
   -Make sure they are above 13 before they can use the app
   -Make isomorphic with BrowserHistory
 
-
 Current Tasks:
-
-
 
 Finished Tasks:
   -Get SASS working with webpack
@@ -51,3 +44,10 @@ Finished Tasks:
   -Forgot password
     -Comment back in the mailing
   -Make spinning icon for loading the different pages
+  -Incorrect informtion handling (password, username)
+    -Right now, an alert pops up and closes the modal, when there should be a better error
+  -Style the login error messages
+  -Fix the different errors for registration
+
+Postponed Tasks
+  -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

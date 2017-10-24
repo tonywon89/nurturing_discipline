@@ -33,6 +33,7 @@ var UserSchema = Schema(
     password: {
       type: String,
       trim: true,
+      minLength: 8,
       required: 'Password is required'
     },
 		dateAdded: { type: Date, default: Date.now },
@@ -59,6 +60,8 @@ UserSchema.pre('save', function (next) {
       next();
     });
   });
+
+
 });
 
 UserSchema.virtual('name').get(function () {

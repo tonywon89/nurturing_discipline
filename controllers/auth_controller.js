@@ -6,6 +6,7 @@ var config = require('../config/jwt_config.js');
 var crypto = require('crypto');
 var sendGridConfig = require('../config/send_grid_config.js');
 var nodemailer = require('nodemailer');
+var _ = require('lodash');
 
 function addJWT(user) {
   var token = jwt.sign(
@@ -58,23 +59,39 @@ exports.login = function (req, res, next) {
 exports.register = function (req, res, next) {
   var user =  new User(
     {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
       email: req.body.email,
       username: req.body.username,
       password: req.body.password,
     });
 
-  // There is a presave method in the user.js mongoose model schema, so it does not save the actual password.
-  user.save(function(err) {
+
+  // Looks for existing email or username. If there is no unique, it will save the username and log in.
+  User.find({ $or: [{ email: user.email }, { username: user.username }] }, function (err, users) {
     if (err) {
-      res.json({ error: err });
+      return next(err);
+    } else if (users.length > 0) {
+      if (_.find(users, { email: user.email })){
+        return res.json({ error: 1, message: "Email is already taken" });
+      }
+
+      else if (_.find(users, { username: user.username })) {
+        return res.json({ error: 1, message: "Username is already taken" });
+      }
     } else {
-      req.logIn(user, function (err) {
-        var token = addJWT(user);
-        // @TODO: Once sending over https, need to add { secure: true }
-        res.cookie('userToken', token, { httpOnly: true });
-        res.render('json/user/user', { error: err, data: user });
+      // There is a presave method in the user.js mongoose model schema, so it does not save the actual password.
+      user.save(function(err) {
+
+        if (err) {
+          console.log(err);
+          res.json({ error: err });
+        } else {
+          req.logIn(user, function (err) {
+            var token = addJWT(user);
+            // @TODO: Once sending over https, need to add { secure: true }
+            res.cookie('userToken', token, { httpOnly: true });
+            res.render('json/user/user', { error: err, data: user });
+          });
+        }
       });
     }
   });
