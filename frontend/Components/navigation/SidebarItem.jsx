@@ -10,7 +10,6 @@ class SidebarItem extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    console.log(this.props);
     this.props.history.push(this.props.linkUrl);
   }
 

@@ -82,7 +82,6 @@ exports.register = function (req, res, next) {
       user.save(function(err) {
 
         if (err) {
-          console.log(err);
           res.json({ error: err });
         } else {
           req.logIn(user, function (err) {
@@ -119,7 +118,6 @@ exports.emailForgotAuthInfo = function (req, res, next) {
         }
 
         var expirationTime = Date.now() + 3600000; // 1 hour
-        console.log(req.body);
 
         if (req.body.forgotPassword === 'true') {
           user.resetPasswordToken = token;
@@ -181,7 +179,6 @@ exports.resetPassword = function (req, res, next) {
         user.resetPasswordExpires = undefined;
 
         user.save(function (err) {
-          // @TODO: consider if want to login the user or not
           if (err) {
             res.json({ error: err });
           } else {
@@ -214,9 +211,8 @@ exports.resetPassword = function (req, res, next) {
 
   ], function(err, user) {
     if (err) return next(err);
-    // console.log(user);
     // @TODO render the user template json
-    res.json({ user: user });
+    res.render('json/user/user', { error: err, data: user });
   })
 }
 

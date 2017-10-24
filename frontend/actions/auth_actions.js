@@ -110,9 +110,9 @@ export const login = (creds) => dispatch => {
   });
 };
 
-
-// @TODO: Change this to properly dispatch to the store and update the state this way
 export const emailForgotAuthInfo = (email) => dispatch => {
+  makeRequest()(dispatch);
+
   AuthAPIUtil.emailForgotAuthInfo(email).then((returnData) => {
     if (returnData.success) {
       dispatch(emailedForgotAuthInfo(returnData.email))

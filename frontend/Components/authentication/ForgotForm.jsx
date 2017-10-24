@@ -7,7 +7,7 @@ class ForgotForm extends React.Component {
     this.state = {
       email: "investtwon89@gmail.com",
       forgotUsername: false,
-      forgotPassword: false,
+      forgotPassword: true,
     }
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
