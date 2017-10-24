@@ -55,5 +55,8 @@ $sidebar-height: calc(100vh);
   box-sizing: border-box;
   width: calc(100vw - 200px);
   margin-left: $sidebarWidth;
-  padding: 2em 3em;
+
+  .conviction-container, {
+    padding: 2em 3em;
+  }
 }

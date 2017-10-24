@@ -1,0 +1,86 @@
+/*
+============================
+  Work Station
+============================
+*/
+
+
+.workstation-container {
+  // padding: 2em 3em;
+
+  .workstation-carousel {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background: #D7D297;
+
+    .carousel-caret-left,
+    .carousel-caret-right, {
+      font-size: 5em;
+      color: grey;
+      position: absolute;
+      top: 35%;
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    .carousel-caret-left {
+      left: 1em;
+    }
+
+    .carousel-caret-right {
+      right: 1em;
+    }
+
+    .carousel-content {
+      width: 75%;
+      text-align: center;
+      margin: auto;
+      padding-top: 3em;
+
+      .carousel-conviction-title {
+        font-size: 2.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .carousel-conviction-detail {
+        font-size: 1.5em;
+
+      }
+    }
+
+    .carousel-circles {
+      display: inline-block;
+      position: absolute;
+      width: 50%;
+      margin: auto;
+      bottom: 1em;
+      left: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+
+      .carousel-circle {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: lightgrey;
+        border: 1px solid grey;
+        margin: 0 0.2em;
+        cursor: pointer;
+
+        &.active {
+          background: white;
+        }
+
+        &:hover {
+          background: white;
+        }
+      }
+    }
+  }
+}
