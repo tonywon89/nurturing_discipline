@@ -71,8 +71,16 @@ export const logout = () => dispatch => {
 
 export const register = (creds) => dispatch => {
   AuthAPIUtil.register(creds).then((returnData) => {
+
     if (returnData.error) {
-      dispatch(receiveUserErrors(returnData));
+      if (returnData.error.errors
+       && returnData.error.errors.email
+       && returnData.error.errors.email.message) {
+        dispatch(receiveUserErrors({ message: returnData.error.errors.email.message}));
+
+      } else {
+        dispatch(receiveUserErrors(returnData));
+      }
     } else {
       dispatch(receiveUser(returnData))
       closeAuthModal()(dispatch)
