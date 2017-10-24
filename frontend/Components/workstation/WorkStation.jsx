@@ -18,7 +18,8 @@ class WorkStation extends React.Component {
           decreaseCarouselIndex={this.props.decreaseCarouselIndex}
           setCarouselIndex={this.props.setCarouselIndex}
           convictions={this.props.convictions}
-          workstation={this.props.workstation} />
+          workstation={this.props.workstation}
+          toggleCarouselCycle={this.props.toggleCarouselCycle}/>
       </div>
     );
   }

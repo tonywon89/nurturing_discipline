@@ -10,6 +10,7 @@ import {
   increaseCarouselIndex,
   decreaseCarouselIndex,
   setCarouselIndex,
+  toggleCarouselCycle,
 } from '../../actions/workstation_actions.js';
 
 const mapStateToProps = state => ({
@@ -33,7 +34,12 @@ const mapDispatchToProps = dispatch => ({
 
   setCarouselIndex: (newIndex) => {
     setCarouselIndex(newIndex)(dispatch);
-  }
+  },
+
+  toggleCarouselCycle: () => {
+    toggleCarouselCycle()(dispatch);
+  },
+
 });
 
 export default connect(
