@@ -11,11 +11,13 @@ class WorkStation extends React.Component {
   }
 
   render() {
-
-
     return (
       <div className="workstation-container">
-        <Carousel convictions={this.props.convictions}/>
+        <Carousel
+          increaseCarouselIndex={this.props.increaseCarouselIndex}
+          decreaseCarouselIndex={this.props.decreaseCarouselIndex}
+          convictions={this.props.convictions}
+          workstation={this.props.workstation} />
       </div>
     );
   }

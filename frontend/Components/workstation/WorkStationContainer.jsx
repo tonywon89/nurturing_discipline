@@ -6,15 +6,29 @@ import {
   fetchConvictions,
 } from '../../actions/conviction_actions.js';
 
+import {
+  increaseCarouselIndex,
+  decreaseCarouselIndex
+} from '../../actions/workstation_actions.js';
+
 const mapStateToProps = state => ({
   convictions: state.convictions,
-  authentication: state.authentication
+  authentication: state.authentication,
+  workstation: state.workstation,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchConvictions: (userId) => {
     fetchConvictions(userId)(dispatch);
-  }
+  },
+
+  increaseCarouselIndex: () => {
+    increaseCarouselIndex()(dispatch)
+  },
+
+  decreaseCarouselIndex: () => {
+    decreaseCarouselIndex()(dispatch)
+  },
 });
 
 export default connect(
