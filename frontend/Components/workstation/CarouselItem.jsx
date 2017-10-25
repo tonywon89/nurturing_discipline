@@ -7,8 +7,8 @@ class ConvictionTitle extends React.Component {
   componentWillAppear(callback) {
 
     const el = this.container;
-    TweenMax.fromTo(el, 0.5, {x: -400 }, {x: 0 });
-    TweenMax.fromTo(el, 1, {opacity: 0.1 }, { opacity: 1, onComplete: callback });
+    TweenMax.fromTo(el, 1.5, {opacity: 0.01 }, { opacity: 1, onComplete: callback });
+    TweenMax.fromTo(el, 1, {x: -400 }, {x: 0 });
   }
 
   render() {
@@ -26,8 +26,8 @@ class ConvictionTitle extends React.Component {
 class ConvictionDetail extends React.Component {
   componentWillAppear(callback) {
     const el = this.container;
-    TweenMax.fromTo(el, 0.5, {x: 400 }, {x: 0 });
-    TweenMax.fromTo(el, 1, {opacity: 0.1 }, { opacity: 1, onComplete: callback });
+    TweenMax.fromTo(el, 1.5, {opacity: 0.01 }, { opacity: 1, onComplete: callback });
+    TweenMax.fromTo(el, 1, {x: 400 }, {x: 0 });
   }
 
   render () {
@@ -40,14 +40,13 @@ class ConvictionDetail extends React.Component {
   }
 }
 
-
 class CarouselItem extends React.Component {
   render() {
     const { currentConviction } = this.props;
     return (
         <div className="carousel-content">
 
-          <TransitionGroup  key={currentConviction.id} >
+          <TransitionGroup key={currentConviction.id} >
             <ConvictionTitle currentConviction={currentConviction} />
           </TransitionGroup>
 

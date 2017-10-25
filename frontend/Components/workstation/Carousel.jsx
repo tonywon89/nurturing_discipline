@@ -2,6 +2,15 @@ import React from 'react';
 import CarouselCircle from './CarouselCircle.jsx';
 import CarouselItem from './CarouselItem.jsx';
 
+const resetCycle = (that) => {
+  if (that.state.intervalId !== null) {
+    clearInterval(that.state.intervalId);
+     const intervalId = setInterval(() => {
+      that.props.increaseCarouselIndex();
+    }, 10000);
+    that.setState({ intervalId: intervalId})
+  }
+}
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -10,6 +19,11 @@ class Carousel extends React.Component {
     this.state = {
       intervalId: null
     }
+
+    this.handleLeftClick = this.handleLeftClick.bind(this);
+    this.handleRightClick = this.handleRightClick.bind(this);
+    this.handleCircleClick = this.handleCircleClick.bind(this);
+    this.handleToggleClick = this.handleToggleClick.bind(this);
   }
 
   componentDidMount() {
@@ -44,13 +58,17 @@ class Carousel extends React.Component {
   }
 
   handleCircleClick(event) {
-    if (this.state.intervalId !== null) {
-      clearInterval(this.state.intervalId);
-       const intervalId = setInterval(() => {
-        this.props.increaseCarouselIndex();
-      }, 10000);
-      this.setState({ intervalId: intervalId})
-    }
+    resetCycle(this);
+  }
+
+  handleLeftClick(event) {
+    resetCycle(this);
+    this.props.decreaseCarouselIndex();
+  }
+
+  handleRightClick(event) {
+    resetCycle(this);
+    this.props.increaseCarouselIndex();
   }
 
   render() {
@@ -81,14 +99,14 @@ class Carousel extends React.Component {
     if (convictions.length > 0) {
       controls = (
         <div>
-          <div className="carousel-caret-left" onClick={this.props.decreaseCarouselIndex}><i className="fa fa-chevron-left"></i></div>
+          <div className="carousel-caret-left" onClick={this.handleLeftClick}><i className="fa fa-chevron-left"></i></div>
 
-          <div  className="carousel-caret-right" onClick={this.props.increaseCarouselIndex}><i className="fa fa-chevron-right"></i></div>
+          <div  className="carousel-caret-right" onClick={this.handleRightClick}><i className="fa fa-chevron-right"></i></div>
 
           <div className="carousel-circles">
             {carouselCircles}
           </div>
-          <div onClick={this.handleToggleClick.bind(this)} className="carousel-play-pause-button">
+          <div onClick={this.handleToggleClick} className="carousel-play-pause-button">
             {toggleButton}
           </div>
         </div>
