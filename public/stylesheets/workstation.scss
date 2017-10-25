@@ -13,6 +13,13 @@
     min-height: 250px;
     background: #D7D297;
 
+    h6 {
+      font-size: 3emem;
+      position: absolute;
+      left: 1em;
+      top: 1em;
+      font-weight: bold;
+    }
     .carousel-caret-left,
     .carousel-caret-right, {
       font-size: 5em;
@@ -103,41 +110,44 @@
     Carousel Conviction animation
   ===================================
 */
-.carousel-conviction-title-transition-enter {
-  position: relative;
-  left: -9em;
-  opacity: 0.01;
-
-  &.carousel-conviction-title-transition-enter-active {
-    opacity: 1;
-    left: 0;
-    transition: opacity 1000ms ease-in, left 500ms ease-in;;
-
-  }
-}
-
-// .carousel-conviction-title-transition-leave {
+// .carousel-conviction-title-transition-enter {
 //   position: relative;
-//   left: 0;
+//   // left: -9em;
 //   opacity: 0.01;
 
-//   &.carousel-conviction-title-transition-leave-active {
+//   &.carousel-conviction-title-transition-enter-active {
 //     opacity: 1;
-//     left: -9em;
-//     transition: opacity 1000ms ease-in, left 500ms ease-in;;
+//     // left: 0;
+//     transition: opacity 1000ms ease-in, left 500ms ease-in;
 
 //   }
 // }
 
-.carousel-conviction-detail-transition-enter {
-  position: relative;
-  right: -9em;
-  opacity: 0.01;
+// .carousel-conviction-title-transition-leave {
+//   opacity: 1;
+//   &.carousel-conviction-title-transition-leave-active {
+//     opacity: 0.01;
+//     transition: opacity 1000ms ease-in, right 500ms ease-in;
+//   }
+// }
 
-  &.carousel-conviction-detail-transition-enter-active {
-    opacity: 1;
-    right: 0;
-    transition: opacity 1000ms ease-in, right 500ms ease-in ;
+// .carousel-conviction-detail-transition-enter {
+//   position: relative;
+//   // right: -9em;
+//   opacity: 0.01;
 
-  }
-}
+//   &.carousel-conviction-detail-transition-enter-active {
+//     opacity: 1;
+//     // right: 0;
+//     transition: opacity 1000ms ease-in, right 500ms ease-in;
+
+//   }
+// }
+
+// .carousel-conviction-detail-transition-leave {
+//   opacity: 1;
+//   &.carousel-conviction-detail-transition-leave-active {
+//     opacity: 0.01;
+//     transition: opacity 1000ms ease-in, right 500ms ease-in;
+//   }
+// }

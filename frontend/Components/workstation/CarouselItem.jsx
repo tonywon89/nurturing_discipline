@@ -1,10 +1,45 @@
 import React from 'react';
-import { CSSTransitionGroup } from 'react-transition-group'
+import { TransitionGroup } from 'react-transition-group'
 
-// const CarouselItem = ({ currentConviction }) => (
+import { TweenMax } from 'gsap';
 
+class ConvictionTitle extends React.Component {
+  componentWillAppear(callback) {
 
-// );
+    const el = this.container;
+    TweenMax.fromTo(el, 0.5, {x: -400 }, {x: 0 });
+    TweenMax.fromTo(el, 1, {opacity: 0.1 }, { opacity: 1, onComplete: callback });
+  }
+
+  render() {
+
+    const { currentConviction } = this.props;
+    return (
+
+      <div key={currentConviction.id} className="carousel-conviction-title" ref={c => this.container = c}>
+        {currentConviction.title}
+      </div>
+    );
+  }
+}
+
+class ConvictionDetail extends React.Component {
+  componentWillAppear(callback) {
+    const el = this.container;
+    TweenMax.fromTo(el, 0.5, {x: 400 }, {x: 0 });
+    TweenMax.fromTo(el, 1, {opacity: 0.1 }, { opacity: 1, onComplete: callback });
+  }
+
+  render () {
+    const { currentConviction } = this.props;
+    return (
+        <div key={currentConviction.id} className="carousel-conviction-detail" ref={c => this.container = c}>
+            {currentConviction.detailed_description}
+        </div>
+    );
+  }
+}
+
 
 class CarouselItem extends React.Component {
   render() {
@@ -12,31 +47,13 @@ class CarouselItem extends React.Component {
     return (
         <div className="carousel-content">
 
-          <CSSTransitionGroup
-                  transitionName="carousel-conviction-title-transition"
-                  transitionEnterTimeout={1000}
-                  // transitionLeaveTimeout={1}
-                  transitionLeave={false}
-                  >
+          <TransitionGroup  key={currentConviction.id} >
+            <ConvictionTitle currentConviction={currentConviction} />
+          </TransitionGroup>
 
-            <div key={currentConviction.id} className="carousel-conviction-title">
-              {currentConviction.title}
-            </div>
-
-          </CSSTransitionGroup>
-
-          <CSSTransitionGroup
-                  transitionName="carousel-conviction-detail-transition"
-                  transitionEnterTimeout={1000}
-                  // transitionLeaveTimeout={1}
-                  transitionLeave={false}
-                  >
-
-            <div key={currentConviction.id} className="carousel-conviction-detail">
-              {currentConviction.detailed_description}
-            </div>
-
-          </CSSTransitionGroup>
+          <TransitionGroup key={currentConviction.title} >
+            <ConvictionDetail currentConviction={currentConviction} />
+          </TransitionGroup>
         </div>
     );
   }

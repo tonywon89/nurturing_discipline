@@ -77,7 +77,7 @@ class Carousel extends React.Component {
     }
     // BEGIN OMITTED
     let controls = null;
-
+    let header = null;
     if (convictions.length > 0) {
       controls = (
         <div>
@@ -93,14 +93,16 @@ class Carousel extends React.Component {
           </div>
         </div>
       );
+
+      header = <h6>Your Convictions</h6>;
     }
     // END OMITTED
+
     return (
       <div className="workstation-carousel">
+        {header}
         <CarouselItem currentConviction={currentConviction} />
-        <div onClick={this.handleToggleClick.bind(this)} className="carousel-play-pause-button">
-            {toggleButton}
-          </div>
+        {controls}
       </div>
     );
   }
