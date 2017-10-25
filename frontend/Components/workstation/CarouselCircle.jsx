@@ -2,7 +2,8 @@ import React from 'react';
 
 class CarouselCircle extends React.Component {
   handleClick(event) {
-    this.props.setCarouselIndex(this.props.index);
+    this.props.handleCircleClick(event);
+    this.props.setCarouselIndex(this.props.index)
   }
 
   render() {

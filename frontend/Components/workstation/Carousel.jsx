@@ -16,7 +16,7 @@ class Carousel extends React.Component {
     if (!this.state.intervalId && this.props.workstation.carouselCycleOn) {
       const intervalId = setInterval(() => {
         this.props.increaseCarouselIndex();
-      }, 3000);
+      }, 10000);
       this.setState({ intervalId: intervalId})
     } else if (!this.props.workstation.carouselCycleOn && this.state.intervalId) {
       clearInterval(this.state.intervalId)
@@ -38,7 +38,17 @@ class Carousel extends React.Component {
     } else {
       const intervalId = setInterval(() => {
         this.props.increaseCarouselIndex();
-      }, 3000);
+      }, 10000);
+      this.setState({ intervalId: intervalId})
+    }
+  }
+
+  handleCircleClick(event) {
+    if (this.state.intervalId !== null) {
+      clearInterval(this.state.intervalId);
+       const intervalId = setInterval(() => {
+        this.props.increaseCarouselIndex();
+      }, 10000);
       this.setState({ intervalId: intervalId})
     }
   }
@@ -50,7 +60,7 @@ class Carousel extends React.Component {
 
     const carouselCircles = this.props.convictions.map((conviction, idx) => {
       return (
-        <CarouselCircle key={idx} index={idx} currentIndex={currentIndex} setCarouselIndex={this.props.setCarouselIndex} />
+        <CarouselCircle handleCircleClick={this.handleCircleClick.bind(this)} key={idx} index={idx} currentIndex={currentIndex} setCarouselIndex={this.props.setCarouselIndex} />
       );
     })
     const currentConviction = (convictions.length > 0 ? convictions[currentIndex] : {
@@ -58,18 +68,22 @@ class Carousel extends React.Component {
         detailed_description: "This is where you make the change"
       });
 
+    // @TODO: Removing all the controls until can figure out how to cancel the animation for React CSS Transition Group
     let toggleButton;
     if (workstation.carouselCycleOn) {
       toggleButton = <i className="fa fa-pause-circle-o" aria-hidden="true"></i>
     } else {
       toggleButton = <i className="fa fa-play-circle-o" aria-hidden="true"></i>
     }
-
+    // BEGIN OMITTED
     let controls = null;
 
     if (convictions.length > 0) {
       controls = (
         <div>
+          <div className="carousel-caret-left" onClick={this.props.decreaseCarouselIndex}><i className="fa fa-chevron-left"></i></div>
+
+          <div  className="carousel-caret-right" onClick={this.props.increaseCarouselIndex}><i className="fa fa-chevron-right"></i></div>
 
           <div className="carousel-circles">
             {carouselCircles}
@@ -80,11 +94,13 @@ class Carousel extends React.Component {
         </div>
       );
     }
-
+    // END OMITTED
     return (
       <div className="workstation-carousel">
         <CarouselItem currentConviction={currentConviction} />
-        {controls}
+        <div onClick={this.handleToggleClick.bind(this)} className="carousel-play-pause-button">
+            {toggleButton}
+          </div>
       </div>
     );
   }
