@@ -1,23 +1,17 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
-var ConvictionSchema = Schema(
+var MilestoneSchema = Schema(
   {
-    title: {
+    content: {
       type: String,
       trim: true,
       required: true,
-      max: 140,
     },
-    detailed_description: {
-      type: String,
-      trim: true,
-      required: false,
-    },
+
     _user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     },
 
     date_added: { type: Date, default: Date.now },
@@ -25,6 +19,4 @@ var ConvictionSchema = Schema(
   }
 );
 
-module.exports = mongoose.model('Conviction', ConvictionSchema);
-
-
+module.exports = mongoose.model('Milestone', MilestoneSchema);

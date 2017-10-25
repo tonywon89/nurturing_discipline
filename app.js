@@ -16,7 +16,8 @@ var session = require('express-session');
 var index = require('./routes/index');
 var convictionsAPI = require('./routes/api/convictions.js');
 var authenticationAPI = require('./routes/api/authentication.js');
-var csrfAPI = require('./routes/api/csrf.js')
+var csrfAPI = require('./routes/api/csrf.js');
+var milestonesAPI = require('./routes/api/milestones.js');
 
 var app = express();
 
@@ -93,6 +94,7 @@ app.use('/', index);
 app.use('/api/convictions', convictionsAPI);
 app.use('/api/auth', authenticationAPI);
 app.use('/api/csrf', csrfAPI);
+app.use('/api/milestones', milestonesAPI);
 
 // app.use('/auth', authentication)
 

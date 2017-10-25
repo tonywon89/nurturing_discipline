@@ -5,7 +5,7 @@ const sidebarMenuItems = [
   { name: 'Home', link: 'home' },
   { name: 'Work Station', link: 'workstation' },
   { name: 'Convictions', link: 'convictions' },
-  { name: 'Brainstorm', link: 'brainstorm' }
+  { name: 'Milestones', link: 'milestone' }
 ];
 
 
