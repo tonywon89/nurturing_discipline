@@ -1,5 +1,7 @@
 import React from 'react';
 import CarouselCircle from './CarouselCircle.jsx';
+import CarouselItem from './CarouselItem.jsx';
+
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -68,8 +70,7 @@ class Carousel extends React.Component {
     if (convictions.length > 0) {
       controls = (
         <div>
-          <div className="carousel-caret-left" onClick={this.props.decreaseCarouselIndex}><i className="fa fa-chevron-left"></i></div>
-          <div  className="carousel-caret-right" onClick={this.props.increaseCarouselIndex}><i className="fa fa-chevron-right"></i></div>
+
           <div className="carousel-circles">
             {carouselCircles}
           </div>
@@ -82,21 +83,13 @@ class Carousel extends React.Component {
 
     return (
       <div className="workstation-carousel">
-
-        <div className="carousel-content">
-          <div className="carousel-conviction-title">
-            {currentConviction.title}
-          </div>
-          <div className="carousel-conviction-detail">
-            {currentConviction.detailed_description}
-          </div>
-        </div>
-
+        <CarouselItem currentConviction={currentConviction} />
         {controls}
-
       </div>
     );
   }
 }
+
+
 
 export default Carousel;
