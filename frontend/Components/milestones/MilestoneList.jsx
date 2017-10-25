@@ -1,5 +1,7 @@
 import React from 'react';
 
+import MilestoneItem from './MilestoneItem.jsx';
+
 class MilestoneList extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +12,10 @@ class MilestoneList extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchMilestones();
   }
 
   handleSubmit(event) {
@@ -31,6 +37,13 @@ class MilestoneList extends React.Component {
       <div className="milestone-container">
         <h3>Milestones</h3>
         <h5>The landposts of your progress</h5>
+
+        <ul>
+          {this.props.milestones.map((milestone, idx) => (
+            <MilestoneItem key={milestone.id} milestone={milestone} />
+            )
+          )}
+        </ul>
 
         <form onSubmit={this.handleSubmit}>
           <input type="text" placeholder="New Milestone" onChange={this.handleContentChange} value={this.state.contentValue}/>

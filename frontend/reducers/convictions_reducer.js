@@ -6,9 +6,8 @@ import {
   MODIFY_CONVICTION
 } from '../actions/conviction_actions.js';
 
-const ConvictionsReducer = (state = {}, action) => {
+const ConvictionsReducer = (state = [], action) => {
   Object.freeze(state);
-  let newState = merge({}, state);
 
   switch(action.type) {
     case RECEIVE_CONVICTION:

@@ -1,18 +1,23 @@
 import { connect } from 'react-redux';
 
 import {
-  createMilestone
+  createMilestone,
+  fetchMilestones,
 } from '../../actions/milestone_actions.js';
 
 import MilestoneList from './MilestoneList.jsx';
 
 const mapStateToProps = state => ({
-
+  milestones: state.milestones
 });
 
 const mapDispatchToProps = dispatch => ({
   createMilestone: (data) => {
     createMilestone(data)(dispatch);
+  },
+
+  fetchMilestones: () => {
+    fetchMilestones()(dispatch);
   }
 });
 

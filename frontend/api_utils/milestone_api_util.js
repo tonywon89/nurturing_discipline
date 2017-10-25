@@ -6,3 +6,11 @@ export const createMilestone = (data) => (
     data
   })
 );
+
+export const fetchMilestones = () => (
+  $.ajax({
+    method: 'GET',
+    url: 'api/milestones',
+    dataType: 'json'
+  })
+);
