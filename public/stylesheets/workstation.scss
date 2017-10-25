@@ -1,0 +1,153 @@
+/*
+============================
+  Work Station
+============================
+*/
+
+.workstation-container {
+
+
+  .workstation-carousel {
+    position: relative;
+    width: 100%;
+    min-height: 250px;
+    background: #D7D297;
+
+    h6 {
+      font-size: 3emem;
+      position: absolute;
+      left: 1em;
+      top: 1em;
+      font-weight: bold;
+    }
+    .carousel-caret-left,
+    .carousel-caret-right, {
+      font-size: 5em;
+      color: #4286f4;
+      position: absolute;
+      top: 35%;
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    .carousel-caret-left {
+      left: 1em;
+    }
+
+    .carousel-caret-right {
+      right: 1em;
+    }
+
+    .carousel-content {
+      width: 75%;
+      text-align: center;
+      margin: auto;
+      padding-top: 3em;
+
+      .carousel-conviction-title {
+        font-size: 2.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .carousel-conviction-detail {
+        font-size: 1.5em;
+        color: grey;
+      }
+    }
+
+    .carousel-circles {
+      display: inline-block;
+      position: absolute;
+      width: 50%;
+      margin: auto;
+      bottom: 1em;
+      left: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+
+      .carousel-circle {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: lightgrey;
+        border: 1px solid grey;
+        margin: 0 0.2em;
+        cursor: pointer;
+
+        &.active {
+          background: white;
+        }
+
+        &:hover {
+          background: white;
+        }
+      }
+    }
+
+    .carousel-play-pause-button {
+      font-size: 3em;
+      color: rgba(255, 255, 255, 0.5);
+      position: absolute;
+      top: 0.3em;
+      right: 2em;
+      cursor: pointer;
+
+      &:hover {
+        color: rgba(255, 255, 255, 1)
+      }
+    }
+  }
+}
+
+
+/*
+  ===================================
+    Carousel Conviction animation
+  ===================================
+*/
+// .carousel-conviction-title-transition-enter {
+//   position: relative;
+//   // left: -9em;
+//   opacity: 0.01;
+
+//   &.carousel-conviction-title-transition-enter-active {
+//     opacity: 1;
+//     // left: 0;
+//     transition: opacity 1000ms ease-in, left 500ms ease-in;
+
+//   }
+// }
+
+// .carousel-conviction-title-transition-leave {
+//   opacity: 1;
+//   &.carousel-conviction-title-transition-leave-active {
+//     opacity: 0.01;
+//     transition: opacity 1000ms ease-in, right 500ms ease-in;
+//   }
+// }
+
+// .carousel-conviction-detail-transition-enter {
+//   position: relative;
+//   // right: -9em;
+//   opacity: 0.01;
+
+//   &.carousel-conviction-detail-transition-enter-active {
+//     opacity: 1;
+//     // right: 0;
+//     transition: opacity 1000ms ease-in, right 500ms ease-in;
+
+//   }
+// }
+
+// .carousel-conviction-detail-transition-leave {
+//   opacity: 1;
+//   &.carousel-conviction-detail-transition-leave-active {
+//     opacity: 0.01;
+//     transition: opacity 1000ms ease-in, right 500ms ease-in;
+//   }
+// }

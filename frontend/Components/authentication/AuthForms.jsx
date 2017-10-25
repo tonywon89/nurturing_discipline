@@ -65,7 +65,7 @@ class AuthForms extends React.Component {
           <i className="fa fa-sign-out" aria-hidden="true"></i> Logout
         </div>
       </div>
-    ) : "";
+    ) : null;
     if (this.state.currentUser) {
       return (
         <div>

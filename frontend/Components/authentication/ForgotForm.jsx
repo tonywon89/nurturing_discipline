@@ -35,6 +35,7 @@ class ForgotForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    // Goes back to the form to resubmit their email
     if (this.props.submittedEmail) {
       this.props.clearSubmittedEmail();
       return;

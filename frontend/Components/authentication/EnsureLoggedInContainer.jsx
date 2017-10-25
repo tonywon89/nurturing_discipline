@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, Switch } from 'react-router';
 import { Route } from 'react-router-dom';
 import React from 'react';
 
 import SidebarContainer from '../navigation/SidebarContainer.jsx';
 import ConvictionContainer from '../conviction/ConvictionContainer.jsx';
+import WorkStationContainer from '../workstation/WorkStationContainer.jsx';
 
 import { login } from '../../actions/auth_actions.js';
 import { fetchCsrfToken } from '../../actions/csrf_actions.js';
@@ -26,7 +27,10 @@ class EnsureLoggedInContainer extends React.Component {
         <main>
           <SidebarContainer />
           <div className="content">
-            <Route path="/convictions" component={ConvictionContainer} />
+            <Switch>
+              <Route path="/convictions" component={ConvictionContainer} />
+              <Route path="/workstation" component={WorkStationContainer} />
+            </Switch>
           </div>
         </main>
       );

@@ -37,7 +37,7 @@ const Root = () => (
 class App extends React.Component {
   componentWillMount() {
     store.dispatch(login({ initialLoad: 'true' }));
-    // store.dispatch(fetchCsrfToken());
+    store.dispatch(fetchCsrfToken());
   }
 
   render() {
