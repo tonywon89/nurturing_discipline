@@ -38,9 +38,9 @@ class MilestoneList extends React.Component {
         <h3>Milestones</h3>
         <h5>The landposts of your progress</h5>
 
-        <ul>
+        <ul className="milestone-list">
           {this.props.milestones.map((milestone, idx) => (
-            <MilestoneItem key={milestone.id} milestone={milestone} />
+            <MilestoneItem key={milestone.id} milestone={milestone} parent={true} />
             )
           )}
         </ul>

@@ -1,3 +1,31 @@
 .milestone-container {
   padding: 2em;
+
+  .milestone-item {
+    margin-left: 2em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    font-weight: bold;
+
+    .item {
+      padding: 1em;
+      border: 1px solid black;
+
+    }
+
+    .fa {
+      margin-right: 1em;
+      cursor: pointer;
+    }
+
+  }
+  .task-item {
+    margin-left: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: 1px solid black;
+    padding: 1em;
+    font-weight: normal;
+  }
+
 }
