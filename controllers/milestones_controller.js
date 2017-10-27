@@ -3,11 +3,8 @@ var Milestone = require('../models/Milestone.js');
 var mongoose = require('mongoose');
 
 exports.milestone_list = function (req, res, next) {
-  Milestone.find({ _user: req.user._id, _parent: null, date_deleted: null }).populate({path:'sub_milestones',
-    populate: { path: 'sub_milestones' }
-  }).exec(function(err, results) {
-
-    res.render('json/milestone/milestones', { error: err, data: { milestones: results }})
+  Milestone.find({ _user: req.user._id, _parent: null, date_deleted: null }).exec(function(err, results) {
+      res.render('json/milestone/milestones', { error: err, data: { milestones: results }});
   });
 }
 
@@ -27,7 +24,6 @@ exports.milestone_create = function (req, res, next) {
 }
 
 exports.sub_milestone_create = function (req, res, next) {
-  // console.log(req.body['parentMilestone']);
   var subMilestone = new Milestone({
     _id: new mongoose.Types.ObjectId(),
     content: req.body.subMilestoneContent,
@@ -36,14 +32,14 @@ exports.sub_milestone_create = function (req, res, next) {
   });
 
   subMilestone.save(function(err) {
-    // res.render('json/milestone/milestone', { error: err, data: subMilestone})
-      Milestone.findByIdAndUpdate(
-        req.body.parentMilestone,
-        {$push: { sub_milestones: subMilestone._id}},
-        {safe: true, upsert: true, new : true},
-        function(err, milestone) {
-          res.render('json/milestone/milestone', { error: err, data: milestone})
-    });
-  })
+    Milestone.findByIdAndUpdate(
+      req.body.parentMilestone,
+      {$push: { sub_milestones: subMilestone._id}},
+      {safe: true, upsert: true, new : true},
+      function(err, milestone) {
+        res.render('json/milestone/milestone', { error: err, data: milestone})
+      }
+    );
+  });
 }
 

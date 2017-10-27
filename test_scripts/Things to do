@@ -3,33 +3,34 @@ Authentication:
   -Email confirmation for newly registered users
 
 Sidebar Menu:
-  -style the active link to know which is the active sidebar
   -Finish the other styles
+  -style the active link to know which is the active sidebar
 
 Workstation
   -Carousel
     -Style to account for overflow of text - Max character limit
     -Make a setting to allow them how long it takes to cycle each time
-    -Change the font style and size for the convictions
+
+Milestones:
+-How do you do joins and multiple queries with mongoose and mongoDB?
+  -Need to learn this for the finding sub milestones and their related task
+
+-Here is how I plan to tackle the problem of building certain items:
+  -First, build the creation and deletions of Milestones
+  -Next, add the buttons to create sub-milestones (come up with a better term for this)
+  -For each milestone, build a general task button, that allows them to work on the item without having specific task items
+
+
+Convictions:
+  Make a default where there are no convictions to display a button that will allow it to be shown
+
 
 Other:
-  -MOve current CSS transition group to more modern one
   -Make sure they are above 13 before they can use the app
   -Make isomorphic with BrowserHistory
 
 Current Tasks:
-  -Add transition between each conviction
 
-
-
-
-
-
-
-Leftover The carets code:
-      <div className="carousel-caret-left" onClick={this.props.decreaseCarouselIndex}><i className="fa fa-chevron-left"></i></div>
-
-      <div  className="carousel-caret-right" onClick={this.props.increaseCarouselIndex}><i className="fa fa-chevron-right"></i></div>
 
 
 
@@ -73,6 +74,9 @@ Finished Tasks:
     -Have a carousel that displays the convictions one at a time
   -Make carousel circle component
   -Make interval to cycle through the different convictions
+  -Add transition between each conviction
+  -Change the font style and size for the convictions
+  -Sketch: Design the milestones page
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

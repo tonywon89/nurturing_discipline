@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var mongooseAutopopulate = require("mongoose-autopopulate")
 
 var MilestoneSchema = Schema(
   {
@@ -26,18 +27,12 @@ var MilestoneSchema = Schema(
       ref: 'User'
     },
 
-    sub_milestones: [{ type: Schema.Types.ObjectId, ref: 'Milestone' }],
+    sub_milestones: [{ type: Schema.Types.ObjectId, ref: 'Milestone', autopopulate: true }],
 
     date_added: { type: Date, default: Date.now },
     date_deleted: { type: Date, default: null }
   }
 );
 
-// MilestoneSchema.add({
-//   sub_milestones: [
-
-//     MilestoneSchema
-//   ]
-// });
-
+MilestoneSchema.plugin(mongooseAutopopulate);
 module.exports = mongoose.model('Milestone', MilestoneSchema);
