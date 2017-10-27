@@ -8,10 +8,18 @@ export const fetchMilestones = () => dispatch => {
   MilestoneAPIUtil.fetchMilestones().then(({ milestones }) => {
     dispatch({ type: RECEIVE_MILESTONES, milestones})
   });
-}
+};
 
 export const createMilestone = (data) => dispatch => {
   MilestoneAPIUtil.createMilestone(data).then((milestone) => {
     dispatch({ type: RECEIVE_MILESTONE, milestone })
   });
-}
+};
+
+export const createSubMilestone = (data) => dispatch => {
+  console.log("This is the data");
+  console.log(data);
+  MilestoneAPIUtil.createSubMilestone(data).then((milestone) => {
+    alert("THIS HAS BEEN CREATED");
+  })
+};

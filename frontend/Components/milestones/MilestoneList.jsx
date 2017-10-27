@@ -32,18 +32,20 @@ class MilestoneList extends React.Component {
     this.setState({ contentValue: event.target.value })
   }
   render() {
-
+    // console..log(test);
     return (
       <div className="milestone-container">
         <h3>Milestones</h3>
         <h5>The landposts of your progress</h5>
 
-        <ul className="milestone-list">
-          {this.props.milestones.map((milestone, idx) => (
-            <MilestoneItem key={milestone.id} milestone={milestone} parent={true} />
-            )
+        <div className="milestone-list">
+          {this.props.milestones.map((milestone, idx) => {
+            console.log(milestone);
+            return (<MilestoneItem key={milestone.id} milestone={milestone} parent={true} createSubMilestone={this.props.createSubMilestone} />);
+          }
+
           )}
-        </ul>
+        </div>
 
         <form onSubmit={this.handleSubmit}>
           <input type="text" placeholder="New Milestone" onChange={this.handleContentChange} value={this.state.contentValue}/>

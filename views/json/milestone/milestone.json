@@ -2,6 +2,10 @@
   "id": {},
   "content": {},
   "_user": {},
+  "sub_milestones": {
+    "view": "json/milestone/milestone"
+  },
+  "_parent": {},
   "date_added": {
     "format": "date"
   },

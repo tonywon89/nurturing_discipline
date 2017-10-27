@@ -14,3 +14,12 @@ export const fetchMilestones = () => (
     dataType: 'json'
   })
 );
+
+export const createSubMilestone = (data) => (
+  $.ajax({
+    method: 'POST',
+    url: 'api/milestones/submilestones',
+    dataType:'json',
+    data
+  })
+);
