@@ -7,8 +7,6 @@ class MilestoneItem extends React.Component {
     super(props);
 
     this.state = {
-      expanded: false,
-      parent: props.parent,
       subMilestoneContent: ""
     }
 
@@ -18,22 +16,33 @@ class MilestoneItem extends React.Component {
   }
 
   handleExpand(event) {
-    this.setState({ expanded: !this.state.expanded });
+    const { milestone } = this.props;
+
+    const data = {
+      id: milestone.id,
+      content: milestone.content,
+      expanded: !milestone.expanded
+    };
+
+    this.props.updateMilestone(data);
   }
 
   handleSubMilestoneSubmit(event) {
     event.preventDefault();
 
-    console.log("THIS IS THE FORM SUBMITTING");
-    console.log(this.props.milestone);
+    const { milestone } = this.props;
 
     const data = {
       subMilestoneContent: this.state.subMilestoneContent,
-      parentMilestone: this.props.milestone.id
+      parentMilestone: milestone.id
     }
 
-    // console.log(data);
     this.props.createSubMilestone(data);
+    this.props.updateMilestone({
+      id: milestone.id,
+      content: milestone.content,
+      expanded: true,
+    });
 
   }
 
@@ -42,26 +51,30 @@ class MilestoneItem extends React.Component {
   }
 
   render() {
-    // console.log("THIS IS IT");
-    // console.log(this.props.milestone);
     let expandedContent = null;
-    let generalTaskItem = null;
-    if (this.state.expanded && this.state.parent) {
-      expandedContent = this.props.milestone.sub_milestones.map((milestone, idx) => {
+    const { milestone } = this.props;
+
+    if (milestone.expanded && this.props.parent) {
+
+
+      expandedContent = milestone.sub_milestones.map((subMilestone, idx) => {
         return (
-            <MilestoneItem key={milestone.id + idx} parent={false} milestone={milestone} parent={milestone.sub_milestones && milestone.sub_milestones.length > 0 ? true : false }createSubMilestone={this.props.createSubMilestone}/>
+            <MilestoneItem key={milestone.id + idx} milestone={subMilestone} parent={subMilestone.sub_milestones && subMilestone.sub_milestones.length > 0 ? true : false } createSubMilestone={this.props.createSubMilestone} updateMilestone={this.props.updateMilestone}/>
           );
       });
     }
 
-    if (this.state.expanded) {
-      generalTaskItem = (<TaskItem parentMilestone={this.props.milestone}/>)
+    let expandButton = null;
+
+    if (this.props.parent) {
+      expandButton = (<i onClick={this.handleExpand} className={"fa fa-chevron-" + (milestone.expanded ? "down" : "right")}></i>);
     }
 
     return (
       <div className="milestone-item">
         <div className="item">
-          <i onClick={this.handleExpand} className={"fa fa-chevron-" + (this.state.expanded ? "down" : "right")}></i>{this.props.milestone.content}
+        {expandButton} {milestone.content}
+
           <form onSubmit={this.handleSubMilestoneSubmit}>
             <input type="text" onChange={this.handleSubMilestoneChange} value={this.state.subMilestoneContent} placeholder="Sub milestone" />
             <input type="submit" value="Create SubMilestone" />
@@ -69,7 +82,7 @@ class MilestoneItem extends React.Component {
 
         </div>
         {expandedContent}
-        {generalTaskItem}
+
       </div>
     );
   }

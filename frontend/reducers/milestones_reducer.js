@@ -17,7 +17,7 @@ const MilestonesReducer = (state = [], action) => {
         ]
       );
     case RECEIVE_MILESTONES:
-      return action.milestones
+      return action.milestones;
     default:
       return state;
   }

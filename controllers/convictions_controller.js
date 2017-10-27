@@ -37,8 +37,6 @@ exports.conviction_delete = function (req, res, next) {
 }
 
 exports.conviction_patch = function (req, res, next) {
-  var query = { _id: req.body.id };
-
   Conviction.findByIdAndUpdate(
     req.body.id,
     {title: req.body.title, detailed_description: req.body.detailed_description },

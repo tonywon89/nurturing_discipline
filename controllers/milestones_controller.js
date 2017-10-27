@@ -35,11 +35,25 @@ exports.sub_milestone_create = function (req, res, next) {
     Milestone.findByIdAndUpdate(
       req.body.parentMilestone,
       {$push: { sub_milestones: subMilestone._id}},
-      {safe: true, upsert: true, new : true},
       function(err, milestone) {
-        res.render('json/milestone/milestone', { error: err, data: milestone})
+
+        Milestone.find({ _user: req.user._id, _parent: null, date_deleted: null }, function(err, results) {
+          res.render('json/milestone/milestones', { error: err, data: { milestones: results }});
+        });
       }
     );
   });
+}
+
+exports.milestone_patch = function (req, res, next) {
+  Milestone.findByIdAndUpdate(
+    req.body.id,
+    {content: req.body.content, expanded: req.body.expanded },
+    function(err, milestone) {
+      Milestone.find({ _user: req.user._id, _parent: null, date_deleted: null }).exec(function(err, results) {
+        res.render('json/milestone/milestones', { error: err, data: { milestones: results }});
+      });
+    }
+  )
 }
 

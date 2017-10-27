@@ -16,6 +16,11 @@ var MilestoneSchema = Schema(
     //   enum: ['time', 'count']
     // }
 
+    expanded: {
+      type: Boolean,
+      default: false,
+    },
+
     _parent: {
       type: Schema.Types.ObjectId,
       ref: 'Milestone',

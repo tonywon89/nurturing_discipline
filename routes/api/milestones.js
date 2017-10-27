@@ -15,4 +15,5 @@ router.post('/', api_helpers.checkAuthenticated, csrfProtection, milestones_cont
 
 router.post('/submilestones', api_helpers.checkAuthenticated, csrfProtection, milestones_controller.sub_milestone_create);
 
+router.patch('/', api_helpers.checkAuthenticated, csrfProtection, milestones_controller.milestone_patch)
 module.exports = router;

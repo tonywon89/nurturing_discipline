@@ -17,9 +17,17 @@ export const createMilestone = (data) => dispatch => {
 };
 
 export const createSubMilestone = (data) => dispatch => {
-  console.log("This is the data");
-  console.log(data);
-  MilestoneAPIUtil.createSubMilestone(data).then((milestone) => {
-    alert("THIS HAS BEEN CREATED");
+  MilestoneAPIUtil.createSubMilestone(data).then(({ milestones }) => {
+    dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
   })
 };
+
+// export const deleteMilestone = (data) => dispatch => {
+
+// }
+
+export const updateMilestone = (data) => dispatch => {
+  MilestoneAPIUtil.updateMilestone(data).then(({ milestones }) => {
+    dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
+  })
+}

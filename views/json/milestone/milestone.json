@@ -6,6 +6,7 @@
     "view": "json/milestone/milestone"
   },
   "_parent": {},
+  "expanded": {},
   "date_added": {
     "format": "date"
   },
