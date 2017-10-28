@@ -12,13 +12,9 @@ Workstation
     -Make a setting to allow them how long it takes to cycle each time
 
 Milestones:
--How do you do joins and multiple queries with mongoose and mongoDB?
-  -Need to learn this for the finding sub milestones and their related task
 
--Here is how I plan to tackle the problem of building certain items:
-  -First, build the creation and deletions of Milestones
-  -Next, add the buttons to create sub-milestones (come up with a better term for this)
-  -For each milestone, build a general task button, that allows them to work on the item without having specific task items
+  -Refactor UI into a modal for creating new Milestones
+  Click a play button to start the titme
 
 
 Convictions:
@@ -30,6 +26,10 @@ Other:
   -Make isomorphic with BrowserHistory
 
 Current Tasks:
+
+    modification
+
+
 
 
 
@@ -77,6 +77,14 @@ Finished Tasks:
   -Add transition between each conviction
   -Change the font style and size for the convictions
   -Sketch: Design the milestones page
-
+  -How do you do joins and multiple queries with mongoose and mongoDB?
+  -Need to learn this for the finding sub milestones and their related task
+  -Next, add the buttons to create sub-milestones (come up with a better term for this)
+  -For each milestone, build a general task button, that allows them to work on the item without having specific task items
+  - Work on expanded to send to server each time it expands
+  - Work on expanding reading from the properties
+  - Fetch all milestones again
+  - Creation of Milestones
+  - deletions of milestones
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

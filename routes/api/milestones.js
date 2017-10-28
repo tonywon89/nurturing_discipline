@@ -11,9 +11,10 @@ router.get('/', api_helpers.checkAuthenticated, milestones_controller.milestone_
 
 router.post('/', api_helpers.checkAuthenticated, csrfProtection, milestones_controller.milestone_create);
 
-// Submilestones
-
-router.post('/submilestones', api_helpers.checkAuthenticated, csrfProtection, milestones_controller.sub_milestone_create);
-
 router.patch('/', api_helpers.checkAuthenticated, csrfProtection, milestones_controller.milestone_patch)
 module.exports = router;
+
+router.delete('/', api_helpers.checkAuthenticated, csrfProtection, milestones_controller.milestone_delete)
+
+// Submilestones
+router.post('/submilestones', api_helpers.checkAuthenticated, csrfProtection, milestones_controller.sub_milestone_create);

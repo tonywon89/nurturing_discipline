@@ -31,3 +31,9 @@ export const updateMilestone = (data) => dispatch => {
     dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
   })
 }
+
+export const deleteMilestone = (data) => dispatch => {
+  MilestoneAPIUtil.deleteMilestone(data).then(({ milestones }) => {
+    dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
+  });
+}

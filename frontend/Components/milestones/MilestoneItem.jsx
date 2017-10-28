@@ -13,6 +13,7 @@ class MilestoneItem extends React.Component {
     this.handleExpand = this.handleExpand.bind(this);
     this.handleSubMilestoneSubmit = this.handleSubMilestoneSubmit.bind(this);
     this.handleSubMilestoneChange = this.handleSubMilestoneChange.bind(this);
+    this.handleDeleteMilestone = this.handleDeleteMilestone.bind(this);
   }
 
   handleExpand(event) {
@@ -50,31 +51,44 @@ class MilestoneItem extends React.Component {
     this.setState({ subMilestoneContent: event.target.value });
   }
 
+  handleDeleteMilestone(event) {
+
+    this.props.deleteMilestone(this.props.milestone)
+  }
+
   render() {
     let expandedContent = null;
     const { milestone } = this.props;
 
-    if (milestone.expanded && this.props.parent) {
+    if (milestone.expanded && this.props.isParent) {
 
 
       expandedContent = milestone.sub_milestones.map((subMilestone, idx) => {
         return (
-            <MilestoneItem key={milestone.id + idx} milestone={subMilestone} parent={subMilestone.sub_milestones && subMilestone.sub_milestones.length > 0 ? true : false } createSubMilestone={this.props.createSubMilestone} updateMilestone={this.props.updateMilestone}/>
+            <MilestoneItem
+              key={milestone.id + idx}
+              milestone={subMilestone}
+              isParent={subMilestone.sub_milestones && subMilestone.sub_milestones.length > 0 ? true : false }
+              createSubMilestone={this.props.createSubMilestone}
+              updateMilestone={this.props.updateMilestone}
+              deleteMilestone={this.props.deleteMilestone}
+              />
           );
       });
     }
 
     let expandButton = null;
 
-    if (this.props.parent) {
+    if (this.props.isParent) {
       expandButton = (<i onClick={this.handleExpand} className={"fa fa-chevron-" + (milestone.expanded ? "down" : "right")}></i>);
     }
 
     return (
       <div className="milestone-item">
         <div className="item">
-        {expandButton} {milestone.content}
-
+          {expandButton}
+          {milestone.content}
+          <i onClick={this.handleDeleteMilestone} className="fa fa-trash-o"></i>
           <form onSubmit={this.handleSubMilestoneSubmit}>
             <input type="text" onChange={this.handleSubMilestoneChange} value={this.state.subMilestoneContent} placeholder="Sub milestone" />
             <input type="submit" value="Create SubMilestone" />

@@ -2,10 +2,14 @@ var async = require('async');
 var Milestone = require('../models/Milestone.js');
 var mongoose = require('mongoose');
 
-exports.milestone_list = function (req, res, next) {
+var getAllMilestones = function (req, res, next) {
   Milestone.find({ _user: req.user._id, _parent: null, date_deleted: null }).exec(function(err, results) {
       res.render('json/milestone/milestones', { error: err, data: { milestones: results }});
   });
+}
+
+exports.milestone_list = function (req, res, next) {
+  getAllMilestones(req, res, next);
 }
 
 exports.milestone_create = function (req, res, next) {
@@ -35,11 +39,9 @@ exports.sub_milestone_create = function (req, res, next) {
     Milestone.findByIdAndUpdate(
       req.body.parentMilestone,
       {$push: { sub_milestones: subMilestone._id}},
-      function(err, milestone) {
 
-        Milestone.find({ _user: req.user._id, _parent: null, date_deleted: null }, function(err, results) {
-          res.render('json/milestone/milestones', { error: err, data: { milestones: results }});
-        });
+      function(err, milestone) {
+        getAllMilestones(req, res, next);
       }
     );
   });
@@ -50,10 +52,28 @@ exports.milestone_patch = function (req, res, next) {
     req.body.id,
     {content: req.body.content, expanded: req.body.expanded },
     function(err, milestone) {
-      Milestone.find({ _user: req.user._id, _parent: null, date_deleted: null }).exec(function(err, results) {
-        res.render('json/milestone/milestones', { error: err, data: { milestones: results }});
-      });
+      getAllMilestones(req, res, next);
     }
   )
 }
 
+exports.milestone_delete = function (req, res, next) {
+  Milestone.findByIdAndUpdate(req.body.id, { date_deleted: new Date() }, function(err, milestone) {
+
+    Milestone.findOne({ _id: milestone._parent}, function(err, parentMilestone) {
+
+      if (parentMilestone) {
+        parentMilestone.sub_milestones.remove(milestone._id);
+
+        parentMilestone.save(function(err) {
+          getAllMilestones(req, res, next);
+        })
+      } else {
+        getAllMilestones(req, res, next);
+      }
+
+    })
+  })
+
+
+}

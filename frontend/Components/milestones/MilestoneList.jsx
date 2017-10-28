@@ -39,7 +39,16 @@ class MilestoneList extends React.Component {
 
         <div className="milestone-list">
           {this.props.milestones.map((milestone, idx) => {
-            return (<MilestoneItem key={milestone.id} milestone={milestone}parent={milestone.sub_milestones && milestone.sub_milestones.length > 0 ? true : false } createSubMilestone={this.props.createSubMilestone} updateMilestone={this.props.updateMilestone} />);
+            return (
+              <MilestoneItem
+                key={milestone.id}
+                milestone={milestone}
+                isParent={milestone.sub_milestones && milestone.sub_milestones.length > 0 ? true : false }
+                createSubMilestone={this.props.createSubMilestone}
+                updateMilestone={this.props.updateMilestone}
+                deleteMilestone={this.props.deleteMilestone}
+                />
+              );
           }
 
           )}
