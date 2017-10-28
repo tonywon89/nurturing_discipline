@@ -7,13 +7,18 @@ class MilestoneItem extends React.Component {
     super(props);
 
     this.state = {
-      subMilestoneContent: ""
+      subMilestoneContent: "",
+      milestoneContent: props.milestone.content,
+      edit: false,
     }
 
     this.handleExpand = this.handleExpand.bind(this);
     this.handleSubMilestoneSubmit = this.handleSubMilestoneSubmit.bind(this);
     this.handleSubMilestoneChange = this.handleSubMilestoneChange.bind(this);
     this.handleDeleteMilestone = this.handleDeleteMilestone.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.handleEditChange = this.handleEditChange.bind(this);
+    this.handleEditSubmit = this.handleEditSubmit.bind(this);
   }
 
   handleExpand(event) {
@@ -22,7 +27,7 @@ class MilestoneItem extends React.Component {
     const data = {
       id: milestone.id,
       content: milestone.content,
-      expanded: !milestone.expanded
+      expanded: !milestone.expanded,
     };
 
     this.props.updateMilestone(data);
@@ -47,13 +52,35 @@ class MilestoneItem extends React.Component {
 
   }
 
+  handleEditSubmit(event) {
+    event.preventDefault();
+
+    const { milestone } = this.props;
+
+    const data = {
+      id: milestone.id,
+      content: this.state.milestoneContent,
+      expanded: milestone.expanded,
+    };
+
+    this.props.updateMilestone(data);
+    this.setState({ edit: false});
+  }
+
   handleSubMilestoneChange(event) {
     this.setState({ subMilestoneContent: event.target.value });
   }
 
   handleDeleteMilestone(event) {
-
     this.props.deleteMilestone(this.props.milestone)
+  }
+
+  toggleEdit(event) {
+    this.setState({ edit: true});
+  }
+
+  handleEditChange(event) {
+    this.setState({ milestoneContent: event.target.value})
   }
 
   render() {
@@ -83,11 +110,22 @@ class MilestoneItem extends React.Component {
       expandButton = (<i onClick={this.handleExpand} className={"fa fa-chevron-" + (milestone.expanded ? "down" : "right")}></i>);
     }
 
+    let milestoneContent = (<span onClick={this.toggleEdit}>{milestone.content}</span>);
+
+    if (this.state.edit) {
+      milestoneContent = (
+        <form onSubmit={this.handleEditSubmit }>
+          <input type="text" onChange={this.handleEditChange} value={this.state.milestoneContent} />
+          <input type="submit" value="Save"/>
+        </form>
+      );
+    }
+
     return (
       <div className="milestone-item">
         <div className="item">
           {expandButton}
-          {milestone.content}
+          {milestoneContent}
           <i onClick={this.handleDeleteMilestone} className="fa fa-trash-o"></i>
           <form onSubmit={this.handleSubMilestoneSubmit}>
             <input type="text" onChange={this.handleSubMilestoneChange} value={this.state.subMilestoneContent} placeholder="Sub milestone" />
