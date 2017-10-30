@@ -118,6 +118,7 @@ class MilestoneItem extends React.Component {
               updateMilestone={this.props.updateMilestone}
               deleteMilestone={this.props.deleteMilestone}
               createTask={this.props.createTask}
+              updateTask={this.props.updateTask}
               deleteTask={this.props.deleteTask}
               />
           );
@@ -129,7 +130,7 @@ class MilestoneItem extends React.Component {
     if (milestone.expanded) {
       taskItems = milestone.tasks.map((task, idx) => {
         return (
-          <TaskItem key={task.id} task={task} deleteTask={this.props.deleteTask}/>
+          <TaskItem key={task.id} task={task} deleteTask={this.props.deleteTask} updateTask={this.props.updateTask}/>
           )
       });
     }

@@ -58,4 +58,13 @@ export const deleteTask = (data) => (
     dataType: 'json',
     data
   })
-)
+);
+
+export const updateTask = (data) => (
+  $.ajax({
+    method: 'PATCH',
+    url: 'api/milestones/tasks',
+    dataType: 'json',
+    data
+  })
+);

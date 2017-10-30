@@ -7,6 +7,7 @@ import {
   updateMilestone,
   deleteMilestone,
   createTask,
+  updateTask,
   deleteTask,
 } from '../../actions/milestone_actions.js';
 
@@ -41,9 +42,13 @@ const mapDispatchToProps = dispatch => ({
     createTask(data)(dispatch);
   },
 
+  updateTask: (data) => {
+    updateTask(data)(dispatch);
+  },
+
   deleteTask: (data) => {
     deleteTask(data)(dispatch);
-  }
+  },
 });
 
 export default connect(
