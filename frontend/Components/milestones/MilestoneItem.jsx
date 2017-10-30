@@ -10,6 +10,7 @@ class MilestoneItem extends React.Component {
       subMilestoneContent: "",
       milestoneContent: props.milestone.content,
       edit: false,
+      taskName: "",
     }
 
     this.handleExpand = this.handleExpand.bind(this);
@@ -19,6 +20,8 @@ class MilestoneItem extends React.Component {
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleEditChange = this.handleEditChange.bind(this);
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
+    this.handleTaskNameChange = this.handleTaskNameChange.bind(this);
+    this.handleCreateTaskSubmit = this.handleCreateTaskSubmit.bind(this);
   }
 
   handleExpand(event) {
@@ -76,11 +79,26 @@ class MilestoneItem extends React.Component {
   }
 
   toggleEdit(event) {
-    this.setState({ edit: true});
+    this.setState({ edit: !this.state.edit});
   }
 
   handleEditChange(event) {
     this.setState({ milestoneContent: event.target.value})
+  }
+
+  handleTaskNameChange(event) {
+    this.setState({ taskName: event.target.value });
+  }
+
+  handleCreateTaskSubmit(event) {
+    event.preventDefault();
+
+    const data = {
+      name: this.state.taskName,
+      milestoneId: this.props.milestone.id,
+    }
+
+    this.props.createTask(data);
   }
 
   render() {
@@ -99,27 +117,39 @@ class MilestoneItem extends React.Component {
               createSubMilestone={this.props.createSubMilestone}
               updateMilestone={this.props.updateMilestone}
               deleteMilestone={this.props.deleteMilestone}
+              createTask={this.props.createTask}
               />
           );
       });
     }
 
-    let expandButton = null;
+    let taskItems = null;
 
-    if (this.props.isParent) {
-      expandButton = (<i onClick={this.handleExpand} className={"fa fa-chevron-" + (milestone.expanded ? "down" : "right")}></i>);
+    if (milestone.expanded) {
+      taskItems = milestone.tasks.map((task, idx) => {
+        return (
+          <TaskItem key={task.id} task={task} />
+          )
+      });
     }
+
+    let expandButton = (<i onClick={this.handleExpand} className={"fa fa-chevron-" + (milestone.expanded ? "down" : "right")}></i>);
+
 
     let milestoneContent = (<span onClick={this.toggleEdit}>{milestone.content}</span>);
 
     if (this.state.edit) {
       milestoneContent = (
-        <form onSubmit={this.handleEditSubmit }>
-          <input type="text" onChange={this.handleEditChange} value={this.state.milestoneContent} />
-          <input type="submit" value="Save"/>
-        </form>
+        <div>
+          <form style={{display: "inline"}} onSubmit={this.handleEditSubmit }>
+            <input type="text" onChange={this.handleEditChange} value={this.state.milestoneContent} />
+            <input type="submit" value="Save"/>
+          </form>
+          <i className="fa fa-times" onClick={this.toggleEdit}></i>
+        </div>
       );
     }
+
 
     return (
       <div className="milestone-item">
@@ -127,14 +157,19 @@ class MilestoneItem extends React.Component {
           {expandButton}
           {milestoneContent}
           <i onClick={this.handleDeleteMilestone} className="fa fa-trash-o"></i>
+
           <form onSubmit={this.handleSubMilestoneSubmit}>
             <input type="text" onChange={this.handleSubMilestoneChange} value={this.state.subMilestoneContent} placeholder="Sub milestone" />
             <input type="submit" value="Create SubMilestone" />
           </form>
 
+          <form onSubmit={this.handleCreateTaskSubmit}>
+            <input type="text" onChange={this.handleTaskNameChange} value={this.state.taskName} placeholder="New Task" />
+            <input type="submit" value="Create task" />
+          </form>
         </div>
         {expandedContent}
-
+        {taskItems}
       </div>
     );
   }

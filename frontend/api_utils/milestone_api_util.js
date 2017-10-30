@@ -41,3 +41,12 @@ export const deleteMilestone = (data) => (
     data
   })
 );
+
+export const createTask = (data) => (
+  $.ajax({
+    method: 'POST',
+    url: 'api/milestones/tasks',
+    dataType: 'json',
+    data
+  })
+);

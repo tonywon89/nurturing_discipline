@@ -5,6 +5,9 @@
   "sub_milestones": {
     "view": "json/milestone/milestone"
   },
+  "tasks": {
+    "view": "json/milestone/task"
+  },
   "_parent": {},
   "expanded": {},
   "date_added": {

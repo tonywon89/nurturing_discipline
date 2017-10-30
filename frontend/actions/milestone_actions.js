@@ -22,10 +22,6 @@ export const createSubMilestone = (data) => dispatch => {
   })
 };
 
-// export const deleteMilestone = (data) => dispatch => {
-
-// }
-
 export const updateMilestone = (data) => dispatch => {
   MilestoneAPIUtil.updateMilestone(data).then(({ milestones }) => {
     dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
@@ -34,6 +30,12 @@ export const updateMilestone = (data) => dispatch => {
 
 export const deleteMilestone = (data) => dispatch => {
   MilestoneAPIUtil.deleteMilestone(data).then(({ milestones }) => {
+    dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
+  });
+}
+
+export const createTask = (data) => dispatch => {
+  MilestoneAPIUtil.createTask(data).then(({ milestones }) => {
     dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
   });
 }

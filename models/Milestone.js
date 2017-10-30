@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var mongooseAutopopulate = require("mongoose-autopopulate")
+var Task = require('./Task.js');
 
 var MilestoneSchema = Schema(
   {
@@ -32,7 +33,22 @@ var MilestoneSchema = Schema(
       ref: 'User'
     },
 
-    sub_milestones: [{ type: Schema.Types.ObjectId, ref: 'Milestone', autopopulate: true }],
+    sub_milestones: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Milestone',
+        // Fills in the sub milestones/landmarks
+        autopopulate: true
+      }
+    ],
+
+    tasks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Task',
+        autopopulate: true,
+      }
+    ],
 
     date_added: { type: Date, default: Date.now },
     date_deleted: { type: Date, default: null }

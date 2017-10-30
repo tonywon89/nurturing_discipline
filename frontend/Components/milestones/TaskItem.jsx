@@ -4,7 +4,7 @@ class TaskItem extends React.Component {
   render() {
     return (
       <div className="task-item">
-        General Task for "{this.props.parentMilestone.content}"
+        {this.props.task.name}
       </div>
     );
   }
