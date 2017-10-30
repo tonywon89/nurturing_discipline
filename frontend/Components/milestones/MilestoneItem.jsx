@@ -138,16 +138,22 @@ class MilestoneItem extends React.Component {
     let expandButton = (<i onClick={this.handleExpand} className={"fa fa-chevron-" + (milestone.expanded ? "down" : "right")}></i>);
 
 
-    let milestoneContent = (<span onClick={this.toggleEdit}>{milestone.content}</span>);
+    let milestoneContent = (
+      <span className="milestone-content">
+        {milestone.content}
+        <i className="fa fa-pencil" onClick={this.toggleEdit}></i>
+        <i onClick={this.handleDeleteMilestone} className="fa fa-trash-o"></i>
+      </span>);
 
     if (this.state.edit) {
       milestoneContent = (
-        <div>
-          <form style={{display: "inline"}} onSubmit={this.handleEditSubmit }>
-            <input type="text" onChange={this.handleEditChange} value={this.state.milestoneContent} />
-            <input type="submit" value="Save"/>
+        <div className="modify-milestone-container" >
+          <form className="modify-milestone-form" onSubmit={this.handleEditSubmit }>
+            <input type="text" onChange={this.handleEditChange} value={this.state.milestoneContent} size={this.state.milestoneContent.length}/>
+            <button type="submit"><i className="fa fa-check"></i></button>
+            <i className="fa fa-times" onClick={this.toggleEdit}></i>
           </form>
-          <i className="fa fa-times" onClick={this.toggleEdit}></i>
+
         </div>
       );
     }
@@ -158,7 +164,7 @@ class MilestoneItem extends React.Component {
         <div className="item">
           {expandButton}
           {milestoneContent}
-          <i onClick={this.handleDeleteMilestone} className="fa fa-trash-o"></i>
+
 
           <form onSubmit={this.handleSubMilestoneSubmit}>
             <input type="text" onChange={this.handleSubMilestoneChange} value={this.state.subMilestoneContent} placeholder="Sub milestone" />

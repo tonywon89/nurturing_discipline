@@ -54,9 +54,9 @@ class TaskItem extends React.Component {
 
     if (this.state.edit) {
       taskContent = (
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.handleNameChange} value={this.state.name} />
-          <input type="submit" value="Save" />
+        <form className="modify-task-form" onSubmit={this.handleSubmit}>
+          <input type="text" onChange={this.handleNameChange} value={this.state.name} size={this.state.name.length}/>
+          <button type="submit"><i className="fa fa-check"></i></button>
           <i className="fa fa-times" onClick={this.toggleEdit} ></i>
         </form>
       );
