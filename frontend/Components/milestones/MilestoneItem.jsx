@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from 'react-modal';
 
 import TaskItem from './TaskItem.jsx';
 
@@ -11,6 +12,8 @@ class MilestoneItem extends React.Component {
       milestoneContent: props.milestone.content,
       edit: false,
       taskName: "",
+
+      modalIsOpen: false,
     }
 
     this.handleExpand = this.handleExpand.bind(this);
@@ -22,6 +25,10 @@ class MilestoneItem extends React.Component {
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
     this.handleTaskNameChange = this.handleTaskNameChange.bind(this);
     this.handleCreateTaskSubmit = this.handleCreateTaskSubmit.bind(this);
+
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleExpand(event) {
@@ -53,6 +60,7 @@ class MilestoneItem extends React.Component {
       expanded: true,
     });
 
+    this.closeModal();
   }
 
   handleEditSubmit(event) {
@@ -99,6 +107,27 @@ class MilestoneItem extends React.Component {
     }
 
     this.props.createTask(data);
+    this.closeModal();
+  }
+
+  openModal(event) {
+    event.preventDefault();
+
+    this.setState({
+      modalIsOpen: true,
+    })
+  }
+
+  afterOpenModal() {
+
+  }
+
+  closeModal() {
+    this.setState({
+      modalIsOpen: false,
+      subMilestoneContent: "",
+      taskName: "",
+    })
   }
 
   render() {
@@ -140,9 +169,14 @@ class MilestoneItem extends React.Component {
 
     let milestoneContent = (
       <span className="milestone-content">
-        {milestone.content}
-        <i className="fa fa-pencil" onClick={this.toggleEdit}></i>
-        <i onClick={this.handleDeleteMilestone} className="fa fa-trash-o"></i>
+        <div>
+          {milestone.content}
+          <i className="fa fa-pencil" onClick={this.toggleEdit}></i>
+          <i onClick={this.handleDeleteMilestone} className="fa fa-trash-o"></i>
+        </div>
+        <div>
+          <i onClick={this.openModal} className="fa fa-plus"></i>
+        </div>
       </span>);
 
     if (this.state.edit) {
@@ -165,16 +199,40 @@ class MilestoneItem extends React.Component {
           {expandButton}
           {milestoneContent}
 
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            className={{
+              base: "modal-content",
+              afterOpen: "milestone-item-form",
+              beforeClose: "modal-content"
+            }}
+            overlayClassName={{
+              base: "modal-overlay",
+              afterOpen: "modal-overlay",
+              beforeClose: "modal-overlay",
+            }}
+            contentLabel="Milestone Item Modal"
+          >
+            <div>
+              <div className="clearfix">
+                <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
+              </div>
+              <h5 style={{ marginBottom: "1em" }}>Create for "{this.props.milestone.content}"</h5>
 
-          <form onSubmit={this.handleSubMilestoneSubmit}>
-            <input type="text" onChange={this.handleSubMilestoneChange} value={this.state.subMilestoneContent} placeholder="Sub milestone" />
-            <input type="submit" value="Create SubMilestone" />
-          </form>
+              <form className="create-submilestone-task-form" onSubmit={this.handleSubMilestoneSubmit}>
+                <input type="text" onChange={this.handleSubMilestoneChange} value={this.state.subMilestoneContent} placeholder="New Landmark / Submilestone" />
+                <input type="submit" value="Create Landmark" />
+              </form>
+              <hr />
+              <form className="create-submilestone-task-form" onSubmit={this.handleCreateTaskSubmit}>
+                <input type="text" onChange={this.handleTaskNameChange} value={this.state.taskName} placeholder="New Task" />
+                <input type="submit" value="Create Task" />
+              </form>
+            </div>
+          </Modal>
 
-          <form onSubmit={this.handleCreateTaskSubmit}>
-            <input type="text" onChange={this.handleTaskNameChange} value={this.state.taskName} placeholder="New Task" />
-            <input type="submit" value="Create task" />
-          </form>
         </div>
         {expandedContent}
         {taskItems}

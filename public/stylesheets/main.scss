@@ -63,7 +63,7 @@ h5 {
   border-radius: 0;
   z-index: 5;
 
-  &.conviction-form {
+  &.conviction-form, &.milestone-form {
     width: 500px;
 
     form {
@@ -201,5 +201,21 @@ h5 {
     right: auto;
     bottom: auto;
     margin-right: -50%;
+  }
+}
+
+.create-conviction-button, .create-milestone-button {
+  padding: 1em;
+  font-size: 1em;
+  margin-bottom: 1em;
+  background: #44c767;
+  float: right;
+  width: 15px;
+  height: 15px;
+  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  border-radius: 50%;
+
+  &:hover {
+    background: darken(#44c767, 5%);
   }
 }

@@ -108,7 +108,7 @@ class ConvictionList extends React.Component {
               afterOpen: "modal-overlay",
               beforeClose: "modal-overlay"
             }}
-            contentLabel="Auth Modal"
+            contentLabel="Conviction Modal"
           >
             <div>
               <div className="clearfix">

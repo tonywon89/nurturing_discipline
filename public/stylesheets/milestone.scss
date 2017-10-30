@@ -10,8 +10,15 @@
     .item {
       padding: 1em;
       border: 1px solid black;
+      display: flex;
 
-       > .fa {
+      .milestone-content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .fa-chevron-down, .fa-chevron-right {
         margin-right: 1em;
         cursor: pointer;
       }
@@ -21,6 +28,16 @@
         color: lightgrey;
         margin-right: 0.75em;
         cursor: pointer
+      }
+
+      .fa-plus {
+        cursor: pointer;
+        color: green;
+        font-size: 1em;
+
+        &:hover {
+          color: blue;
+        }
       }
 
       .fa-trash-o {
@@ -59,19 +76,27 @@
     padding: 1em;
     font-weight: normal;
 
+
+    &:hover .fa{
+      visibility: visible;
+    }
+
     > div > .fa {
       margin-left: 0.75em;
       cursor: pointer;
       color: lightgrey;
+      visibility: hidden
     }
 
     .fa-pencil {
+
       &:hover {
         color: yellow;
       }
     }
 
     .fa-trash-o {
+
       &:hover {
         color: red;
       }
@@ -96,6 +121,8 @@
     border: none;
     color: lightgrey;
     font-size: 1em;
+    padding: 0;
+    margin: 0 0.5em;
 
     &:hover {
       color: green;
@@ -108,9 +135,23 @@
     color: lightgrey;
 
     &:hover {
-      color: red
+      color: red;
     }
   }
+}
 
+.create-submilestone-task-form {
+  input {
+    display: block;
+    width: 75%;
+    padding: 0.5em;
+    margin: auto;
+    margin-bottom: 1em;
+  }
 
+  input[type="submit"] {
+    border-radius: 0;
+    background: black;
+    padding: 1em;
+  }
 }
