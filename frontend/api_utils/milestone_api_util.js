@@ -50,3 +50,12 @@ export const createTask = (data) => (
     data
   })
 );
+
+export const deleteTask = (data) => (
+  $.ajax({
+    method: 'DELETE',
+    url: 'api/milestones/tasks',
+    dataType: 'json',
+    data
+  })
+)

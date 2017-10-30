@@ -39,3 +39,9 @@ export const createTask = (data) => dispatch => {
     dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
   });
 }
+
+export const deleteTask = (data) => dispatch => {
+  MilestoneAPIUtil.deleteTask(data).then(({ milestones }) => {
+    dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
+  });
+}

@@ -7,6 +7,7 @@ import {
   updateMilestone,
   deleteMilestone,
   createTask,
+  deleteTask,
 } from '../../actions/milestone_actions.js';
 
 import MilestoneList from './MilestoneList.jsx';
@@ -38,6 +39,10 @@ const mapDispatchToProps = dispatch => ({
 
   createTask: (data) => {
     createTask(data)(dispatch);
+  },
+
+  deleteTask: (data) => {
+    deleteTask(data)(dispatch);
   }
 });
 

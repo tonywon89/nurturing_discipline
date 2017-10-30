@@ -48,6 +48,7 @@ class MilestoneList extends React.Component {
                 updateMilestone={this.props.updateMilestone}
                 deleteMilestone={this.props.deleteMilestone}
                 createTask={this.props.createTask}
+                deleteTask={this.props.deleteTask}
                 />
               );
           }

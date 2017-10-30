@@ -18,3 +18,4 @@ router.post('/submilestones', api_helpers.checkAuthenticated, api_helpers.csrfPr
 
 // Tasks
 router.post('/tasks', api_helpers.checkAuthenticated, api_helpers.csrfProtection(), milestones_controller.task_create)
+router.delete('/tasks', api_helpers.checkAuthenticated, api_helpers.csrfProtection(), milestones_controller.task_delete)

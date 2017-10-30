@@ -123,3 +123,20 @@ exports.task_create = function (req, res, next) {
     );
   });
 }
+
+exports.task_delete = function (req, res, next) {
+  Task.findByIdAndUpdate(req.body.id, { date_deleted: new Date() }, function (err, task) {
+    Milestone.findOne({ _id: task._milestone }, function (err, milestone) {
+      if (milestone) {
+        milestone.tasks.remove(task._id);
+
+        milestone.save(function(err) {
+          console.log("THIS IS THERE");
+          getAllMilestones(req, res, next);
+        })
+      } else {
+        getAllMilestones(req, res, next);
+      }
+    });
+  });
+}
