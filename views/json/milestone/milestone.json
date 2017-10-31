@@ -8,6 +8,7 @@
   "tasks": {
     "view": "json/milestone/task"
   },
+  "goal": {},
   "_parent": {},
   "expanded": {},
   "date_added": {

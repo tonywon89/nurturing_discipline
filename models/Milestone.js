@@ -11,11 +11,17 @@ var MilestoneSchema = Schema(
       required: true,
     },
 
-    // @TODO add this later when it is time to keep track of the different milestones
-    // goalType: {
-    //   type: String,
-    //   enum: ['time', 'count']
-    // }
+    /*
+      goal:
+      {
+        goalType: ["timed" or "count"],
+        goalTarget: 10000 (seconds or times),
+        remaining: 9999,
+      }
+    */
+    goal: {
+      type: Schema.Types.Mixed
+    },
 
     expanded: {
       type: Boolean,

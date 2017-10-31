@@ -16,8 +16,19 @@ exports.milestone_list = function (req, res, next) {
 }
 
 exports.milestone_create = function (req, res, next) {
+
+  if (req.body.selectedOption === 'timed') {
+    var hours = parseFloat(req.body.hours);
+    var minutes = parseFloat(req.body.minutes);
+  }
+
   Milestone.create({
     content: req.body.contentValue,
+    goal: {
+      goalType: req.body.selectedOption,
+      goalTarget: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
+      goalRemaining: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
+    },
     _user: req.user._id
   }, function(err, milestone) {
 

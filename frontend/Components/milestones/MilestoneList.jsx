@@ -9,7 +9,10 @@ class MilestoneList extends React.Component {
 
     this.state = {
       contentValue: "",
-
+      selectedOption: 'timed',
+      hours: "",
+      minutes: "",
+      count: "",
       modalIsOpen: false,
     };
 
@@ -19,6 +22,8 @@ class MilestoneList extends React.Component {
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
+    this.handleRadioClick = this.handleRadioClick.bind(this);
+    this.handleNumberChange=this.handleNumberChange.bind(this);
   }
 
   componentDidMount() {
@@ -32,12 +37,36 @@ class MilestoneList extends React.Component {
       return;
     }
 
-    this.props.createMilestone(this.state);
+    if (this.state.selectedOption === "timed" && this.state.hours === "" && this.state.minutes === "") {
+      alert("Please enter either hours or minutes or both");
+      return;
+    }
+
+    if (this.state.selectedOption === "count" && this.state.count === "") {
+      alert("Please enter a count for your milestone");
+      return;
+    }
+
+    const data = {
+      contentValue: this.state.contentValue,
+      selectedOption: this.state.selectedOption,
+      hours: this.state.hours === "" ? 0 : this.state.hours,
+      minutes: this.state.minutes === "" ? 0 : this.state.minutes,
+      count: this.state.count,
+    }
+
+    this.props.createMilestone(data);
     this.closeModal();
   }
 
   handleContentChange(event) {
     this.setState({ contentValue: event.target.value })
+  }
+
+  handleNumberChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
   openModal(event) {
@@ -59,8 +88,27 @@ class MilestoneList extends React.Component {
     })
   }
 
+  handleRadioClick(event) {
+    this.setState({
+      selectedOption: event.target.value
+    });
+  }
 
   render() {
+
+    let timedForm = (
+      <div>
+        <input type="number" name="hours" onChange={this.handleNumberChange} value={this.state.hours} placeholder="Hours"/>
+        <input type="number" name="minutes" onChange={this.handleNumberChange} value={this.state.minutes} placeholder="Minutes"/>
+      </div>
+      );
+    let countForm = (
+      <div>
+        <input type="number" name="count" onChange={this.handleNumberChange}  value={this.state.count} placeholder="Count" /> times
+      </div>
+    );
+
+
     return (
       <div className="milestone-container">
         <h3>Milestones</h3>
@@ -116,6 +164,20 @@ class MilestoneList extends React.Component {
 
             <form onSubmit={this.handleSubmit}>
               <input type="text" placeholder="New Milestone" onChange={this.handleContentChange} value={this.state.contentValue}/>
+              <p>Goal Type:</p>
+              <span className="goal-type-input">
+                <label>
+                  <input type="radio" onChange={this.handleRadioClick} value="timed" checked={this.state.selectedOption === "timed"}/>
+                  Timed
+                </label>
+                <label>
+                  <input type="radio" onChange={this.handleRadioClick} value="count" checked={this.state.selectedOption === "count"}/>
+                  Count
+                </label>
+              </span>
+              {this.state.selectedOption === "timed" ? timedForm : null}
+              {this.state.selectedOption === "count" ? countForm : null}
+
               <input type="submit" value="Submit" />
             </form>
           </div>
