@@ -110,7 +110,9 @@ class MilestoneItem extends React.Component {
   }
 
   handleDeleteMilestone(event) {
-    this.props.deleteMilestone(this.props.milestone)
+    if (confirm("Are you sure you want to delete this milestone? It cannot be undone!")) {
+      this.props.deleteMilestone(this.props.milestone)
+    }
   }
 
   toggleEdit(event) {

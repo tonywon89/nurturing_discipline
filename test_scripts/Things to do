@@ -11,16 +11,17 @@ Workstation
     -Make a setting to allow them how long it takes to cycle each time
   -Display Milestones
   =Allow choosing of a task that allows them to focus on the moment
+  -Make option to choose how long must be worked before marking as done once (for counts)
+  -Click a play button to start the titme
+  -Make option to only display tasks, or see all milestones
 
 Milestones:
   -Delete confirmation popup
   -Style Tasks and Milestones
   -Refactor Milestone Item to be more clean
   -Refactor milestone controller to be more clean
-  -Rename submilestones to be landmarks
-  -Refactor UI into a modal for creating new Milestones
-  -Click a play button to start the titme
 
+  -Make a parent milestone from existing milestone
 
 Convictions:
   Make a default where there are no convictions to display a button that will allow it to be shown
@@ -31,6 +32,9 @@ Other:
   -Make isomorphic with BrowserHistory
 
 Current Tasks:
+
+
+
 
 
 Finished Tasks:
@@ -91,6 +95,9 @@ Finished Tasks:
   -Delete Tasks
   -Modify Tasks
   -Sketch: Figure out the UI for milestones
+  -Update the milestone to accept an amount of hours time
+  -Update submilestone form to accept the time and count
+  -Refactor UI into a modal for creating new Milestones
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

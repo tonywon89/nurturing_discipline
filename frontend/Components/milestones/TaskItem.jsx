@@ -20,7 +20,9 @@ class TaskItem extends React.Component {
       id: this.props.task.id,
     }
 
-    this.props.deleteTask(data);
+    if (confirm("Are you sure you want to delete this task? It cannot be undone!")) {
+      this.props.deleteTask(data);
+    }
   }
 
   toggleEdit(event) {
