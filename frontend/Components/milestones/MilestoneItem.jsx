@@ -13,6 +13,10 @@ class MilestoneItem extends React.Component {
       edit: false,
       taskName: "",
 
+      selectedOption: 'timed',
+      hours: "",
+      minutes: "",
+      count: "",
       modalIsOpen: false,
     }
 
@@ -29,6 +33,9 @@ class MilestoneItem extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+
+    this.handleRadioClick = this.handleRadioClick.bind(this);
+    this.handleNumberChange=this.handleNumberChange.bind(this);
   }
 
   handleExpand(event) {
@@ -48,9 +55,29 @@ class MilestoneItem extends React.Component {
 
     const { milestone } = this.props;
 
+    if (this.state.subMilestoneContent === "") {
+      alert("Please enter your landmark content");
+      return;
+    }
+
+    if (this.state.selectedOption === "timed" && this.state.hours === "" && this.state.minutes === "") {
+      alert("Please enter either hours or minutes or both");
+      return;
+    }
+
+    if (this.state.selectedOption === "count" && this.state.count === "") {
+      alert("Please enter a count for your milestone");
+      return;
+    }
+
     const data = {
       subMilestoneContent: this.state.subMilestoneContent,
-      parentMilestone: milestone.id
+      parentMilestone: milestone.id,
+
+      selectedOption: this.state.selectedOption,
+      hours: this.state.hours === "" ? 0 : this.state.hours,
+      minutes: this.state.minutes === "" ? 0 : this.state.minutes,
+      count: this.state.count,
     }
 
     this.props.createSubMilestone(data);
@@ -101,6 +128,11 @@ class MilestoneItem extends React.Component {
   handleCreateTaskSubmit(event) {
     event.preventDefault();
 
+    if (this.state.taskName === "") {
+      alert("Please enter your task content");
+      return;
+    }
+
     const data = {
       name: this.state.taskName,
       milestoneId: this.props.milestone.id,
@@ -108,6 +140,18 @@ class MilestoneItem extends React.Component {
 
     this.props.createTask(data);
     this.closeModal();
+  }
+
+  handleNumberChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleRadioClick(event) {
+    this.setState({
+      selectedOption: event.target.value
+    });
   }
 
   openModal(event) {
@@ -133,6 +177,18 @@ class MilestoneItem extends React.Component {
   render() {
     let expandedContent = null;
     const { milestone } = this.props;
+
+    let timedForm = (
+      <div>
+        <input type="number" name="hours" onChange={this.handleNumberChange} value={this.state.hours} placeholder="Hours"/>
+        <input type="number" name="minutes" onChange={this.handleNumberChange} value={this.state.minutes} placeholder="Minutes"/>
+      </div>
+      );
+    let countForm = (
+      <div>
+        <input type="number" name="count" onChange={this.handleNumberChange}  value={this.state.count} placeholder="Count" /> times
+      </div>
+    );
 
     if (milestone.expanded && this.props.isParent) {
 
@@ -237,6 +293,20 @@ class MilestoneItem extends React.Component {
 
               <form className="create-submilestone-task-form" onSubmit={this.handleSubMilestoneSubmit}>
                 <input type="text" onChange={this.handleSubMilestoneChange} value={this.state.subMilestoneContent} placeholder="New Landmark / Submilestone" />
+                <p>Goal Type:</p>
+               <span className="goal-type-input">
+                <label>
+                  <input type="radio" onChange={this.handleRadioClick} value="timed" checked={this.state.selectedOption === "timed"}/>
+                  Timed
+                </label>
+                <label>
+                  <input type="radio" onChange={this.handleRadioClick} value="count" checked={this.state.selectedOption === "count"}/>
+                  Count
+                </label>
+              </span>
+              {this.state.selectedOption === "timed" ? timedForm : null}
+              {this.state.selectedOption === "count" ? countForm : null}
+
                 <input type="submit" value="Create Landmark" />
               </form>
               <hr />
