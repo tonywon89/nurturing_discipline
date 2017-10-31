@@ -1,0 +1,177 @@
+.milestone-container {
+  padding: 2em;
+
+  .milestone-item {
+    margin-left: 2em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    font-weight: bold;
+
+    .item {
+      padding: 1em;
+      border: 1px solid black;
+      display: flex;
+
+      .milestone-content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .fa-chevron-down, .fa-chevron-right {
+        margin-right: 1em;
+        cursor: pointer;
+      }
+
+      .fa-trash-o, .fa-pencil {
+        visibility: hidden;
+        color: lightgrey;
+        margin-right: 0.75em;
+        cursor: pointer
+      }
+
+      .fa-plus {
+        cursor: pointer;
+        color: green;
+        font-size: 1em;
+
+        &:hover {
+          color: blue;
+        }
+      }
+
+      .fa-trash-o {
+
+        &:hover {
+          color: red;
+        }
+      }
+
+      .fa-pencil {
+        margin-left: 0.75em;
+
+        &:hover {
+          color: yellow;
+        }
+      }
+
+      .milestone-content {
+        &:hover {
+          .fa-trash-o, .fa-pencil {
+            visibility: visible;
+          }
+        }
+      }
+
+    }
+
+  }
+  .task-item {
+    margin-left: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: 1px solid black;
+    padding: 1em;
+    font-weight: normal;
+
+
+    &:hover .fa{
+      visibility: visible;
+    }
+
+    > div > .fa {
+      margin-left: 0.75em;
+      cursor: pointer;
+      color: lightgrey;
+      visibility: hidden
+    }
+
+    .fa-pencil {
+
+      &:hover {
+        color: yellow;
+      }
+    }
+
+    .fa-trash-o {
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+}
+
+.modify-milestone-container{
+  display: inline;
+}
+
+.modify-milestone-form, .modify-task-form {
+  display: inline;
+
+  input[type="text"] {
+    padding: 0.5em;
+    font-weight: bold;
+  }
+
+  button[type="submit"] {
+    background: none;
+    border: none;
+    color: lightgrey;
+    font-size: 1em;
+    padding: 0;
+    margin: 0 0.5em;
+
+    &:hover {
+      color: green;
+    }
+
+  }
+
+  .fa-times {
+    cursor: pointer;
+    color: lightgrey;
+
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.create-submilestone-task-form {
+  input[type="text"], input[type="submit"] {
+    display: block;
+    width: 90%;
+    padding: 0.5em;
+    margin: auto;
+    margin-bottom: 1em;
+  }
+
+  input[type="radio"] {
+    display: inline;
+    margin-bottom: 1em;
+  }
+
+  .goal-type-input {
+    display: inline;
+    margin-left: 1em;
+  }
+
+  input[type="submit"] {
+    background: black;
+    font-size: 1em;
+    border: none;
+    border-radius: 0;
+  }
+
+  input[type="submit"] {
+
+
+    padding: 0.5em;
+  }
+}
+
+.milestone-goal {
+  color: grey;
+  font-size: 0.85em;
+}

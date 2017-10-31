@@ -5,6 +5,7 @@
 @import './auth.scss';
 @import './conviction.scss';
 @import './workstation.scss';
+@import './milestone.scss';
 
 html,
 body,
@@ -146,6 +147,35 @@ h5 {
     }
   }
 
+  // Creating new Milestone form
+  &.milestone-form, {
+    form > input {
+      padding: 1.4em 1em 1em 1em;
+      width: 90%;
+      margin: 0 auto;
+      display: block;
+      box-sizing: border-box;
+      margin-bottom: 1em;
+    }
+
+    input[type="radio"] {
+      display: inline;
+      margin-bottom: 1em;
+    }
+
+    .goal-type-input {
+      display: inline;
+      margin-left: 1em;
+    }
+
+    input[type="submit"] {
+      background: black;
+      font-size: 1em;
+      border: none;
+      border-radius: 0;
+    }
+  }
+
   .modal-close {
     border: none;
     background: none;
@@ -200,5 +230,21 @@ h5 {
     right: auto;
     bottom: auto;
     margin-right: -50%;
+  }
+}
+
+.create-conviction-button, .create-milestone-button {
+  padding: 1em;
+  font-size: 1em;
+  margin-bottom: 1em;
+  background: #44c767;
+  float: right;
+  width: 15px;
+  height: 15px;
+  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  border-radius: 50%;
+
+  &:hover {
+    background: darken(#44c767, 5%);
   }
 }

@@ -6,6 +6,7 @@ import React from 'react';
 import SidebarContainer from '../navigation/SidebarContainer.jsx';
 import ConvictionContainer from '../conviction/ConvictionContainer.jsx';
 import WorkStationContainer from '../workstation/WorkStationContainer.jsx';
+import MilestoneContainer from '../milestones/MilestoneContainer.jsx';
 
 import { login } from '../../actions/auth_actions.js';
 import { fetchCsrfToken } from '../../actions/csrf_actions.js';
@@ -30,6 +31,7 @@ class EnsureLoggedInContainer extends React.Component {
             <Switch>
               <Route path="/convictions" component={ConvictionContainer} />
               <Route path="/workstation" component={WorkStationContainer} />
+              <Route path="/milestone" component={MilestoneContainer} />
             </Switch>
           </div>
         </main>

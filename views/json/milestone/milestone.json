@@ -1,0 +1,20 @@
+{
+  "id": {},
+  "content": {},
+  "_user": {},
+  "sub_milestones": {
+    "view": "json/milestone/milestone"
+  },
+  "tasks": {
+    "view": "json/milestone/task"
+  },
+  "goal": {},
+  "_parent": {},
+  "expanded": {},
+  "date_added": {
+    "format": "date"
+  },
+  "date_deleted": {
+    "format": "date"
+  }
+}

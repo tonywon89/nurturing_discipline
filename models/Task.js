@@ -1,23 +1,29 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
-var ConvictionSchema = Schema(
+var TaskSchema = Schema(
   {
-    title: {
+    name: {
       type: String,
       trim: true,
-      required: true,
-      max: 140,
+      required: true
     },
-    detailed_description: {
+
+    description: {
       type: String,
       trim: true,
-      required: false,
+      default: null,
     },
+
+    _milestone: {
+      type: Schema.Types.ObjectId,
+      ref: 'Milestone',
+      default: null,
+    },
+
     _user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     },
 
     date_added: { type: Date, default: Date.now },
@@ -25,6 +31,4 @@ var ConvictionSchema = Schema(
   }
 );
 
-module.exports = mongoose.model('Conviction', ConvictionSchema);
-
-
+module.exports = mongoose.model('Task', TaskSchema);

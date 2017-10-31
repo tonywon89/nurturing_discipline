@@ -108,7 +108,7 @@ class ConvictionList extends React.Component {
               afterOpen: "modal-overlay",
               beforeClose: "modal-overlay"
             }}
-            contentLabel="Auth Modal"
+            contentLabel="Conviction Modal"
           >
             <div>
               <div className="clearfix">
@@ -118,10 +118,10 @@ class ConvictionList extends React.Component {
               <form onSubmit={this.handleSubmit}>
                 <input type="hidden" name="_csrf" value={this.props.csrfToken}/>
                 <div className="input-field">
-                  <input type="text" name="conviction-title" value={this.state.title} onChange={this.handleTitleChange} required spellCheck="false"/>
+                  <input type="text" name="conviction-title" onChange={this.handleTitleChange} value={this.state.title}  required spellCheck="false"/>
                   <span className="floating-label">What is your why?</span>
                 </div>
-                <textarea name="conviction-description" value={this.state.detailed_description} onChange={this.handleDescriptionChange} placeholder="Why are you convicted about this?" spellCheck="false"/>
+                <textarea name="conviction-description" onChange={this.handleDescriptionChange} value={this.state.detailed_description}  placeholder="Why are you convicted about this?" spellCheck="false"/>
                 <input type="submit" value="Submit" />
               </form>
             </div>

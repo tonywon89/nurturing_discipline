@@ -5,7 +5,7 @@ var Conviction = require('../models/Conviction');
 exports.conviction_list = function (req, res, next) {
   async.parallel({
     convictions: function(callback) {
-      Conviction.find({ _user: req.query.userId, date_deleted: null }, callback);
+      Conviction.find({ _user: req.user._id, date_deleted: null }, callback);
     },
   }, function(err, results) {
       res.render('json/conviction/convictions', { error: err, data: results });
@@ -37,8 +37,6 @@ exports.conviction_delete = function (req, res, next) {
 }
 
 exports.conviction_patch = function (req, res, next) {
-  var query = { _id: req.body.id };
-
   Conviction.findByIdAndUpdate(
     req.body.id,
     {title: req.body.title, detailed_description: req.body.detailed_description },
