@@ -7,6 +7,11 @@
 @import './workstation.scss';
 @import './milestone.scss';
 
+// @TODO: Remove this if decide not to use react-select
+:global {
+    @import "../../node_modules/react-select/dist/react-select.css";
+}
+
 html,
 body,
 main {

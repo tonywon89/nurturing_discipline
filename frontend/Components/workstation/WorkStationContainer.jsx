@@ -7,6 +7,10 @@ import {
 } from '../../actions/conviction_actions.js';
 
 import {
+  fetchTasks,
+} from '../../actions/task_actions.js'
+
+import {
   increaseCarouselIndex,
   decreaseCarouselIndex,
   setCarouselIndex,
@@ -17,6 +21,7 @@ const mapStateToProps = state => ({
   convictions: state.convictions,
   authentication: state.authentication,
   workstation: state.workstation,
+  tasks: state.tasks,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -39,6 +44,10 @@ const mapDispatchToProps = dispatch => ({
   toggleCarouselCycle: () => {
     toggleCarouselCycle()(dispatch);
   },
+
+  fetchTasks: () => {
+    fetchTasks()(dispatch);
+  }
 
 });
 
