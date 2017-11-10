@@ -7,21 +7,11 @@ class WorkStation extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeTask: this.props.tasks.length > 0 ? { value: this.props.tasks[0].id, label: this.props.tasks[0].name } : null,
-    }
-
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.tasks.length > 0) {
-      if (this.state.activeTask === null) {
-        this.setState({
-          activeTask: { value: newProps.tasks[0].id, label: newProps.tasks[0].name }
-        });
-      }
-    }
+
   }
 
   componentDidMount() {
@@ -40,7 +30,7 @@ class WorkStation extends React.Component {
     let taskOptions = <span>You currently have no tasks</span>
 
     if (this.props.tasks.length > 0) {
-      taskOptions =  <TaskDropdown tasks={this.props.tasks} selected={this.props.tasks[0]}/>
+      taskOptions =  <TaskDropdown tasks={this.props.tasks} selectedTask={this.props.workstation.selectedTask} selectTask={this.props.selectTask}/>
     }
 
     return (

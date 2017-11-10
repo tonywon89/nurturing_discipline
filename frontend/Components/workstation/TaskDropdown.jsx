@@ -13,12 +13,8 @@ class TaskDropdown extends React.Component {
     this.hide = this.hide.bind(this);
   }
 
-  componentWillReceiveProps(newProps) {
-    this.setState({ selected: newProps.selected })
-  }
-
   select(task) {
-    this.setState({ selected: task })
+    this.props.selectTask(task);
   }
 
   show() {
@@ -45,7 +41,7 @@ class TaskDropdown extends React.Component {
           <div className={"dropdown-display" + (this.state.dropdownVisible ? " clicked": "")} onClick={this.show.bind(this)}>
 
 
-            <span>{this.state.selected.name}</span>
+            <span>{this.props.selectedTask.name}</span>
             <i className="fa fa-angle-down"></i>
           </div>
 
@@ -54,7 +50,7 @@ class TaskDropdown extends React.Component {
           </div>
         </div>
         <div className="timer-controls">
-          <i className="fa fa-play"></i>
+          <i className="fa fa-play-circle"></i>
         </div>
       </div>
     )
