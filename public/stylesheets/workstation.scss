@@ -6,7 +6,6 @@
 
 .workstation-container {
 
-
   .workstation-carousel {
     position: relative;
     width: 100%;
@@ -99,6 +98,38 @@
 
       &:hover {
         color: rgba(255, 255, 255, 1)
+      }
+    }
+  }
+
+  .dropdown-container {
+
+    .dropdown-display {
+      padding: 1.3em;
+      margin-left: 1em;
+      margin-top: 1em;
+      width: 80%;
+      border: 1px solid lightgrey;
+      display: flex;
+      justify-content: space-between;
+      color: green;
+      box-sizing: border-box;
+    }
+    .dropdown-list {
+      display: none;
+      padding-left: 1em;
+
+      width: 80%;
+      > div {
+        padding: 1em;
+        padding-right: 1.3em;
+        border: 1px solid lightgrey;
+      }
+    }
+
+    &.show {
+      .dropdown-list {
+        display: block;
       }
     }
   }

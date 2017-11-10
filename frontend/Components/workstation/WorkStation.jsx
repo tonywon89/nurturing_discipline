@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Carousel from './Carousel.jsx';
-import Select from 'react-select';
+import TaskDropdown from './TaskDropdown.jsx';
 
 class WorkStation extends React.Component {
   constructor(props) {
@@ -58,13 +58,7 @@ class WorkStation extends React.Component {
         />
 
         <div className="active-timer">
-          <Select
-            value={this.state.activeTask}
-            name="timer-task-dropdown"
-            options={taskOptions}
-            onChange={this.handleSelectChange}
-          />
-
+          <TaskDropdown tasks={this.props.tasks} selected={(this.props.tasks.length > 0 ?this.props.tasks[0] : {name: ""})}/>
         </div>
 
       </div>
