@@ -14,7 +14,7 @@ class TaskDropdown extends React.Component {
   }
 
   select(task) {
-    this.props.selectTask(task);
+    this.props.selectTask(task, this.props.selectedTask);
   }
 
   show() {

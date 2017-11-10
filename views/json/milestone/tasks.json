@@ -1,5 +1,9 @@
 {
   "tasks": {
     "view": "json/milestone/task"
+  },
+
+  "selectedTask": {
+    "view": "json/milestone/task"
   }
 }

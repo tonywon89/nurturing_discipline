@@ -163,8 +163,7 @@ exports.task_delete = function (req, res, next) {
 }
 
 exports.task_patch = function (req, res, next) {
-  Task.findByIdAndUpdate(req.body.id, { name: req.body.name }, function(err, task) {
-    console.log(task.name);
+  Task.findByIdAndUpdate(req.body.id, { name: req.body.name, active: (req.body.active === 'true' ? true : false) }, function(err, task) {
     getAllMilestones(req, res, next);
   });
 }

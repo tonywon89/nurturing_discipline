@@ -51,8 +51,8 @@ const mapDispatchToProps = dispatch => ({
     fetchTasks()(dispatch);
   },
 
-  selectTask: (selectedTask) => {
-    selectTask(selectedTask)(dispatch)
+  selectTask: (selectedTask, oldSelectedTask) => {
+    selectTask(selectedTask, oldSelectedTask)(dispatch)
   },
 
 });
