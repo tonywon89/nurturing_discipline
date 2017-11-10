@@ -39,18 +39,22 @@ class TaskDropdown extends React.Component {
       return (<div onClick={this.select.bind(self, task)} key={task.id}>{task.name}</div>)
     });
 
-    console.log(this.state.dropdownVisible);
     return (
       <div className={"dropdown-container" + (this.state.dropdownVisible ? " show" : "")}>
-        <div className={"dropdown-display" + (this.state.dropdownVisible ? " clicked": "")} onClick={this.show.bind(this)}>
+        <div>
+          <div className={"dropdown-display" + (this.state.dropdownVisible ? " clicked": "")} onClick={this.show.bind(this)}>
 
 
-          <span>{this.state.selected.name}</span>
-          <i className="fa fa-angle-down"></i>
+            <span>{this.state.selected.name}</span>
+            <i className="fa fa-angle-down"></i>
+          </div>
+
+          <div className="dropdown-list">
+            {tasks}
+          </div>
         </div>
-
-        <div className="dropdown-list">
-          {tasks}
+        <div className="timer-controls">
+          <i className="fa fa-play"></i>
         </div>
       </div>
     )

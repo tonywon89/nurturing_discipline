@@ -9,10 +9,9 @@ Sidebar Menu:
 Workstation
   -Carousel
     -Make a setting to allow them how long it takes to cycle each time
-  -Display Milestones
   =Allow choosing of a task that allows them to focus on the moment
   -Make option to choose how long must be worked before marking as done once (for counts)
-  -Click a play button to start the titme
+
   -Make option to only display tasks, or see all milestones
 
 Milestones:
@@ -32,7 +31,7 @@ Other:
   -Make isomorphic with BrowserHistory
 
 Current Tasks:
-  -Build the dropdown of tasks for active timer;
+  -Click a play button to start the time
 
 
 
@@ -98,6 +97,7 @@ Finished Tasks:
   -Update the milestone to accept an amount of hours time
   -Update submilestone form to accept the time and count
   -Refactor UI into a modal for creating new Milestones
+  -Build the dropdown of tasks for active timer;
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

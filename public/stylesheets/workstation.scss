@@ -103,12 +103,20 @@
   }
 
   .dropdown-container {
-
+    position:relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    > div {
+      position: relative;
+      width: 80%;
+      // display: inline-block;
+    }
     .dropdown-display {
       padding: 1.3em;
       margin-left: 1em;
       margin-top: 1em;
-      width: 80%;
+      width: 100%;
       border: 1px solid lightgrey;
       display: flex;
       justify-content: space-between;
@@ -119,7 +127,7 @@
       display: none;
       padding-left: 1em;
 
-      width: 80%;
+      width: 100%;
       > div {
         padding: 1em;
         padding-right: 1.3em;
@@ -130,6 +138,20 @@
     &.show {
       .dropdown-list {
         display: block;
+      }
+    }
+
+    .timer-controls {
+      // padding: 1.3em;
+      position: relative;
+      top: 0.4em;
+      right: 1.4em;
+      width: 10%;
+      font-size: 3em;
+      color: #25DC82;
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
       }
     }
   }

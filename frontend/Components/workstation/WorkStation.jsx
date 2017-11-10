@@ -39,12 +39,9 @@ class WorkStation extends React.Component {
   render() {
     let taskOptions = <span>You currently have no tasks</span>
 
-    taskOptions = this.props.tasks.map((task, idx) => {
-      return (
-    //     <div key={task.id} >{task.name}</div>
-        {value: task.id, label: task.name}
-      );
-    })
+    if (this.props.tasks.length > 0) {
+      taskOptions =  <TaskDropdown tasks={this.props.tasks} selected={this.props.tasks[0]}/>
+    }
 
     return (
       <div className="workstation-container">
@@ -58,7 +55,7 @@ class WorkStation extends React.Component {
         />
 
         <div className="active-timer">
-          <TaskDropdown tasks={this.props.tasks} selected={(this.props.tasks.length > 0 ?this.props.tasks[0] : {name: ""})}/>
+          {taskOptions}
         </div>
 
       </div>
