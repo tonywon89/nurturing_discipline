@@ -8,7 +8,8 @@ import {
 
 import {
   fetchTasks,
-  selectTask
+  selectTask,
+  startTaskTimer,
 } from '../../actions/task_actions.js'
 
 import {
@@ -16,7 +17,6 @@ import {
   decreaseCarouselIndex,
   setCarouselIndex,
   toggleCarouselCycle,
-
 } from '../../actions/workstation_actions.js';
 
 const mapStateToProps = state => ({
@@ -55,6 +55,9 @@ const mapDispatchToProps = dispatch => ({
     selectTask(selectedTask, oldSelectedTask)(dispatch)
   },
 
+  startTaskTimer: (selectedTask) => {
+    startTaskTimer(selectedTask)(dispatch);
+  }
 });
 
 export default connect(

@@ -6,12 +6,29 @@ import TaskDropdown from './TaskDropdown.jsx';
 class WorkStation extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentTime: 0,
+      intervalId: null,
+    }
 
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleStartClick = this.handleStartClick.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
+    const self = this;
+    if (newProps.workstation.timerStarted && this.state.intervalId === null) {
+      const intervalId = setInterval(() => {
+        self.setState({ currentTime: this.state.currentTime + 1 });
+      }, 1000)
 
+      this.setState({ intervalId: intervalId})
+    }
+
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
   }
 
   componentDidMount() {
@@ -26,12 +43,20 @@ class WorkStation extends React.Component {
     })
   }
 
+  handleStartClick(event) {
+    this.props.startTaskTimer(this.props.workstation.selectedTask);
+  }
+
   render() {
     let taskOptions = <span>You currently have no tasks</span>
 
     if (this.props.tasks.length > 0) {
       taskOptions =  <TaskDropdown tasks={this.props.tasks} selectedTask={this.props.workstation.selectedTask} selectTask={this.props.selectTask}/>
     }
+
+    let hour = Math.floor(this.state.currentTime / 3600);
+    let minute = Math.floor((this.state.currentTime % 3600) / 60);
+    let second = (this.state.currentTime % 3600) % 60;
 
     return (
       <div className="workstation-container">
@@ -46,11 +71,27 @@ class WorkStation extends React.Component {
 
         <div className="active-timer">
           {taskOptions}
+           <div className="timer-controls">
+              <i className="fa fa-play-circle" onClick={this.handleStartClick}></i>
+          </div>
         </div>
 
+        <div className="chronometer">
+          {this.padZeroes(hour, 1)} : {this.padZeroes(minute, 2)} : {this.padZeroes(second, 2)}
+        </div>
       </div>
 
     );
+  }
+
+  padZeroes(num, size) {
+    let numString = num + "";
+
+    while (numString.length < size) {
+      numString = "0" + numString;
+    }
+
+    return numString;
   }
 }
 

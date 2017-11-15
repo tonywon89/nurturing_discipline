@@ -102,6 +102,13 @@
     }
   }
 
+  .active-timer {
+    position:relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
   .dropdown-container {
     position:relative;
     width: 100%;
@@ -140,23 +147,27 @@
         display: block;
       }
     }
-
-    .timer-controls {
-      // padding: 1.3em;
-      position: relative;
-      top: 0.4em;
-      right: 1.4em;
-      width: 10%;
-      font-size: 3em;
-      color: #25DC82;
-      opacity: 0.5;
-      &:hover {
-        opacity: 1;
-      }
-    }
   }
 }
 
+
+.timer-controls {
+  // padding: 1.3em;
+  position: relative;
+  top: 0.4em;
+  right: 1.4em;
+  width: 10%;
+  font-size: 3em;
+  color: #25DC82;
+  opacity: 0.5;
+
+  .fa-play-circle {
+    cursor: pointer;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
 
 /*
   ===================================

@@ -49,9 +49,7 @@ class TaskDropdown extends React.Component {
             {tasks}
           </div>
         </div>
-        <div className="timer-controls">
-          <i className="fa fa-play-circle"></i>
-        </div>
+
       </div>
     )
   }
