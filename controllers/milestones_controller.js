@@ -37,6 +37,7 @@ exports.milestone_create = function (req, res, next) {
       name: "General Task for \"" + milestone.content + "\"",
       _milestone: milestone._id,
       _user: req.user._id,
+      active: true,
     });
 
     task.save(function (err) {

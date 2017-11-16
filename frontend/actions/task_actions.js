@@ -3,9 +3,12 @@ export const RECEIVE_SELECTED_TASK = "RECEIVE_SELECTED_TASK";
 export const START_TASK_TIMER = "START_TASK_TIMER";
 export const STOP_TASK_TIMER = "STOP_TASK_TIMER";
 export const PAUSE_TASK_TIMER = "PAUSE_TASK_TIMER";
+export const PING_TASK_TIMER = "PING_TASK_TIMER";
 
 import * as TaskAPIUtil from '../api_utils/task_api_util.js';
 import * as MilestoneAPIUtil from '../api_utils/milestone_api_util.js';
+
+let intervalId = null;
 
 export const fetchTasks = () => dispatch => {
   TaskAPIUtil.fetchTasks().then(({ tasks, selectedTask }) => {
@@ -30,5 +33,18 @@ export const selectTask = (selectedTask, oldSelectedTask = null) => dispatch => 
 }
 
 export const startTaskTimer = (selectedTask) => dispatch => {
-  dispatch({ type: START_TASK_TIMER })
+  TaskAPIUtil.startTaskTimer(selectedTask).then(({ task }) => {
+    dispatch({ type: START_TASK_TIMER });
+
+    intervalId = setInterval(function () {
+      TaskAPIUtil.pingTaskTimer(task, intervalId).then(({ task }) => {
+        dispatch({ type: PING_TASK_TIMER , task: task});
+      })
+    }, 1000)
+
+  });
+}
+
+export const pingTaskTimer = (selectedTask) => dispatch => {
+
 }

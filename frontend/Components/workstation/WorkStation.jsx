@@ -15,18 +15,6 @@ class WorkStation extends React.Component {
     this.handleStartClick = this.handleStartClick.bind(this);
   }
 
-  componentWillReceiveProps(newProps) {
-    const self = this;
-    if (newProps.workstation.timerStarted && this.state.intervalId === null) {
-      const intervalId = setInterval(() => {
-        self.setState({ currentTime: this.state.currentTime + 1 });
-      }, 1000)
-
-      this.setState({ intervalId: intervalId})
-    }
-
-  }
-
   componentWillUnmount() {
     clearInterval(this.state.intervalId);
   }
@@ -54,9 +42,9 @@ class WorkStation extends React.Component {
       taskOptions =  <TaskDropdown tasks={this.props.tasks} selectedTask={this.props.workstation.selectedTask} selectTask={this.props.selectTask}/>
     }
 
-    let hour = Math.floor(this.state.currentTime / 3600);
-    let minute = Math.floor((this.state.currentTime % 3600) / 60);
-    let second = (this.state.currentTime % 3600) % 60;
+    let hour = Math.floor(this.props.workstation.currentTime / 3600);
+    let minute = Math.floor((this.props.workstation.currentTime % 3600) / 60);
+    let second = (this.props.workstation.currentTime % 3600) % 60;
 
     return (
       <div className="workstation-container">

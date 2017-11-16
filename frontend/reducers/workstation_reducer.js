@@ -12,6 +12,7 @@ import {
   START_TASK_TIMER,
   STOP_TASK_TIMER,
   PAUSE_TASK_TIMER,
+  PING_TASK_TIMER,
 } from "../actions/task_actions.js";
 
 const _default = {
@@ -19,6 +20,7 @@ const _default = {
   carouselCycleOn: true,
   selectedTask: {id: 12345, name: "Default Task" },
   timerStarted: false,
+  currentTime: 0,
 }
 
 const WorkStationReducer = (state = _default, action) => {
@@ -37,6 +39,8 @@ const WorkStationReducer = (state = _default, action) => {
       return merge({}, state, { selectedTask: action.selectedTask });
     case START_TASK_TIMER:
       return merge({}, state, { timerStarted: true });
+    case PING_TASK_TIMER:
+      return merge({}, state, { currentTime: action.task.currentTime })
     default:
       return state;
   }

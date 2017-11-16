@@ -5,3 +5,21 @@ export const fetchTasks = () => (
     dataType: 'json',
   })
 );
+
+export const startTaskTimer = (selectedTask) => (
+  $.ajax({
+    method: "POST",
+    url: "api/tasks/start_timer",
+    dataType: 'json',
+    data: { selectedTask: selectedTask },
+  })
+);
+
+export const pingTaskTimer = (selectedTask) => (
+  $.ajax({
+    method: "GET",
+    url: "api/tasks/ping_task_timer",
+    dataType: 'json',
+    data: { selectedTask: selectedTask }
+  })
+);

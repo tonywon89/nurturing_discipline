@@ -5,6 +5,7 @@ var api_helpers = require('./api_helpers');
 var tasks_controller = require('../../controllers/tasks_controller.js');
 
 router.get('/', api_helpers.checkAuthenticated, tasks_controller.task_list);
-
+router.post('/start_timer', api_helpers.checkAuthenticated, tasks_controller.start_timer)
+router.get('/ping_task_timer', api_helpers.checkAuthenticated, tasks_controller.ping_task_timer);
 module.exports = router;
 
