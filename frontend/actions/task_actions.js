@@ -20,10 +20,10 @@ export const fetchTasks = () => dispatch => {
 // Not only pushes the selected task, but also marks it as active and deactivates the existing on so it saves for the next time upon leaving the page.
 
 export const selectTask = (selectedTask, oldSelectedTask = null) => dispatch => {
-  MilestoneAPIUtil.updateTask({ active: true, id: selectedTask.id, name: selectedTask.name }).then(() => {
+  MilestoneAPIUtil.updateTask({ selected: true, id: selectedTask.id, name: selectedTask.name }).then(() => {
 
     if (oldSelectedTask !== null) {
-      MilestoneAPIUtil.updateTask({ active: false, id: oldSelectedTask.id, name: oldSelectedTask.name}).then(() => {
+      MilestoneAPIUtil.updateTask({ selected: false, id: oldSelectedTask.id, name: oldSelectedTask.name}).then(() => {
         dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask})
       })
     } else {

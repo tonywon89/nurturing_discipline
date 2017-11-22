@@ -26,7 +26,7 @@ var TaskSchema = Schema(
       ref: 'User'
     },
 
-    active: {
+    selected: {
       type: Boolean,
       default: false
     },
