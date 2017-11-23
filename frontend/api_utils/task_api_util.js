@@ -15,11 +15,11 @@ export const startTaskTimer = (selectedTask) => (
   })
 );
 
-export const pingTaskTimer = (selectedTask) => (
+export const pingTaskTimer = (selectedTask, taskActivity) => (
   $.ajax({
     method: "GET",
     url: "api/tasks/ping_task_timer",
     dataType: 'json',
-    data: { selectedTask: selectedTask }
+    data: { selectedTask: selectedTask, taskActivity: taskActivity }
   })
 );

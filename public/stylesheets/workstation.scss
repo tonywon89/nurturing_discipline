@@ -13,7 +13,7 @@
     background: #D7D297;
 
     h6 {
-      font-size: 3emem;
+      font-size: 1em;
       position: absolute;
       left: 1em;
       top: 1em;
@@ -101,72 +101,120 @@
       }
     }
   }
+}
 
-  .active-timer {
-    position:relative;
+.active-timer {
+  position: relative;
+  width: 100%;
+  // display: flex;
+  // justify-content: space-between;
+  display: inline-block;
+}
+
+.task-dropdown-container {
+  display: inline-block;
+  position:relative;
+  width: 70%;
+  cursor: pointer;
+  > div {
+    display: inline-block;
+    position: relative;
     width: 100%;
+    // display: inline-block;
+  }
+  .task-dropdown-display {
+    padding: 1.3em;
+    margin-left: 1em;
+    margin-top: 1em;
+    width: 100%;
+    border: 1px solid lightgrey;
     display: flex;
     justify-content: space-between;
+    color: green;
+    box-sizing: border-box;
+  }
+  .task-dropdown-list {
+    display: none;
+    padding-left: 1em;
+
+    width: 100%;
+    > div {
+      padding: 1em;
+      padding-right: 1.3em;
+      border: 1px solid lightgrey;
+
+      &:hover {
+       background: lightgrey;
+      }
+    }
   }
 
-  .dropdown-container {
-    position:relative;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    > div {
-      position: relative;
-      width: 80%;
-      // display: inline-block;
-    }
-    .dropdown-display {
-      padding: 1.3em;
-      margin-left: 1em;
-      margin-top: 1em;
-      width: 100%;
-      border: 1px solid lightgrey;
-      display: flex;
-      justify-content: space-between;
-      color: green;
-      box-sizing: border-box;
-    }
-    .dropdown-list {
-      display: none;
-      padding-left: 1em;
-
-      width: 100%;
-      > div {
-        padding: 1em;
-        padding-right: 1.3em;
-        border: 1px solid lightgrey;
-      }
-    }
-
-    &.show {
-      .dropdown-list {
-        display: block;
-      }
+  &.show {
+    .task-dropdown-list {
+      display: block;
     }
   }
 }
 
 
+
 .timer-controls {
-  // padding: 1.3em;
+  display: inline-block;
   position: relative;
-  top: 0.4em;
-  right: 1.4em;
-  width: 10%;
+  top: 0.1em;
   font-size: 3em;
   color: #25DC82;
-  opacity: 0.5;
+  opacity: 1;
+  padding-left: 1.5em;
+  > i {
+    padding-left: 0.2em;
+    cursor: pointer
+  }
 
   .fa-play-circle {
     cursor: pointer;
+
+    &:hover {
+      //@TODO: make color a different active
+      color: blue;
+    }
+
+    &.disabled {
+      cursor: default;
+      opacity: 0.3;
+
+      &:hover {
+        color: #25DC82;
+      }
+    }
   }
-  &:hover {
-    opacity: 1;
+
+  .fa-stop-circle-o {
+    color: red;
+
+    &.disabled {
+      cursor: default;
+      opacity: 0.3;
+    }
   }
+
+  .fa-pause-circle-o {
+    color: #CCCC00;
+
+    &.disabled {
+      cursor: default;
+      opacity: 0.3;
+    }
+  }
+
+}
+
+.chronometer {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 1em;
+  font-size: 2em;
 }
 
 /*

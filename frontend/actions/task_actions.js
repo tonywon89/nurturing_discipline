@@ -13,7 +13,7 @@ let intervalId = null;
 export const fetchTasks = () => dispatch => {
   TaskAPIUtil.fetchTasks().then(({ tasks, selectedTask }) => {
     dispatch({ type: RECEIVE_TASKS, tasks });
-    dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask: ( selectedTask ? selectedTask: {id: 12345, name: "Default Task" }) })
+    dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask: ( selectedTask ? selectedTask: {id: 12345, name: "Select a task" }) })
   });
 }
 
@@ -23,9 +23,13 @@ export const selectTask = (selectedTask, oldSelectedTask = null) => dispatch => 
   MilestoneAPIUtil.updateTask({ selected: true, id: selectedTask.id, name: selectedTask.name }).then(() => {
 
     if (oldSelectedTask !== null) {
-      MilestoneAPIUtil.updateTask({ selected: false, id: oldSelectedTask.id, name: oldSelectedTask.name}).then(() => {
+      if (oldSelectedTask.id !== selectedTask.id) {
+        MilestoneAPIUtil.updateTask({ selected: false, id: oldSelectedTask.id, name: oldSelectedTask.name}).then(() => {
+          dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask})
+        })
+      } else {
         dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask})
-      })
+      }
     } else {
       dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask})
     }
@@ -33,18 +37,22 @@ export const selectTask = (selectedTask, oldSelectedTask = null) => dispatch => 
 }
 
 export const startTaskTimer = (selectedTask) => dispatch => {
-  TaskAPIUtil.startTaskTimer(selectedTask).then(({ task }) => {
+  TaskAPIUtil.startTaskTimer(selectedTask).then(({ task, taskActivity }) => {
     dispatch({ type: START_TASK_TIMER });
 
-    intervalId = setInterval(function () {
-      TaskAPIUtil.pingTaskTimer(task, intervalId).then(({ task }) => {
-        dispatch({ type: PING_TASK_TIMER , task: task});
-      })
-    }, 1000)
+    // intervalId = setInterval(function () {
+    //   TaskAPIUtil.pingTaskTimer(task, taskActivity).then(({ taskActivity }) => {
+    //     dispatch({ type: PING_TASK_TIMER, taskActivity: taskActivity, intervalId: intervalId });
+    //   })
+    // }, 1000)
 
   });
 }
 
-export const pingTaskTimer = (selectedTask) => dispatch => {
+export const pingTaskTimer = (taskActivity) => dispatch => {
+
+}
+
+export const stopTaskTimer = (taskActivity) => dispatch => {
 
 }

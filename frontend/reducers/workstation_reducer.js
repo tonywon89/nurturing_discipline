@@ -18,9 +18,9 @@ import {
 const _default = {
   currentCarouselIndex: 0,
   carouselCycleOn: true,
-  selectedTask: {id: 12345, name: "Default Task" },
+  selectedTask: { id: null, name: "" },
   timerStarted: false,
-  currentTime: 0,
+  taskActivity: null,
 }
 
 const WorkStationReducer = (state = _default, action) => {
@@ -40,7 +40,7 @@ const WorkStationReducer = (state = _default, action) => {
     case START_TASK_TIMER:
       return merge({}, state, { timerStarted: true });
     case PING_TASK_TIMER:
-      return merge({}, state, { currentTime: action.task.currentTime })
+      return merge({}, state, { taskActivity: action.taskActivity })
     default:
       return state;
   }

@@ -11,7 +11,7 @@ class WorkStation extends React.Component {
       intervalId: null,
     }
 
-    this.handleSelectChange = this.handleSelectChange.bind(this);
+    // this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleStartClick = this.handleStartClick.bind(this);
   }
 
@@ -25,14 +25,22 @@ class WorkStation extends React.Component {
     this.props.fetchTasks();
   }
 
-  handleSelectChange(value) {
-    this.setState({
-      activeTask: value,
-    })
-  }
 
   handleStartClick(event) {
+    if (this.state.intervalId !== null) {
+      return;
+    }
+    var self = this;
     this.props.startTaskTimer(this.props.workstation.selectedTask);
+    const intervalId = setInterval(function () {
+      self.setState({ currentTime: self.state.currentTime + 1});
+    }, 1000);
+
+    this.setState({ intervalId: intervalId});
+  }
+
+  handleStopClick(event) {
+
   }
 
   render() {
@@ -42,9 +50,9 @@ class WorkStation extends React.Component {
       taskOptions =  <TaskDropdown tasks={this.props.tasks} selectedTask={this.props.workstation.selectedTask} selectTask={this.props.selectTask}/>
     }
 
-    let hour = Math.floor(this.props.workstation.currentTime / 3600);
-    let minute = Math.floor((this.props.workstation.currentTime % 3600) / 60);
-    let second = (this.props.workstation.currentTime % 3600) % 60;
+    let hour = Math.floor(this.state.currentTime / 3600);
+    let minute = Math.floor((this.state.currentTime % 3600) / 60);
+    let second = (this.state.currentTime % 3600) % 60;
 
     return (
       <div className="workstation-container">
@@ -60,13 +68,13 @@ class WorkStation extends React.Component {
         <div className="active-timer">
           {taskOptions}
            <div className="timer-controls">
-              <i className="fa fa-play-circle" onClick={this.handleStartClick}></i>
+              <i className={"fa fa-play-circle" + (this.state.intervalId !== null ? " disabled" : "") } onClick={this.handleStartClick}></i>
+              <i className={"fa fa-pause-circle-o" + (this.state.intervalId === null ? " disabled" : "") }></i>
+              <i className={"fa fa-stop-circle-o " + (this.state.intervalId === null ? " disabled" : "") }></i>
           </div>
+          <span className="chronometer">{this.padZeroes(hour, 1)}:{this.padZeroes(minute, 2)}:{this.padZeroes(second, 2)} </span>
         </div>
 
-        <div className="chronometer">
-          {this.padZeroes(hour, 1)} : {this.padZeroes(minute, 2)} : {this.padZeroes(second, 2)}
-        </div>
       </div>
 
     );
