@@ -23,8 +23,36 @@ class WorkStation extends React.Component {
     const userId = this.props.authentication.currentUser.id;
     this.props.fetchConvictions(userId);
     this.props.fetchTasks();
+    this.props.pingTaskTimer();
   }
 
+  componentWillReceiveProps(newProps) {
+    const { taskActivity } = this.props.workstation;
+    if (taskActivity !== null) {
+      var self = this;
+
+      // Need this if statement to ensure that won't set new intervals everytime receive props
+
+      let intervalId;
+      if (this.state.intervalId === null) {
+            intervalId = setInterval(function () {
+          self.setState({ currentTime: self.state.currentTime + 1});
+        }, 1000);
+      }
+
+      let newState = {currentTime: taskActivity.timeAmount}
+
+      // Need this so that the current time won't reset after receiving the new time
+      if (this.state.currentTime > 0) {
+        newState.currentTime = this.state.currentTime;
+      }
+      if (this.state.intervalId === null) {
+        newState.intervalId = intervalId;
+      }
+
+      this.setState(newState);
+    }
+  }
 
   handleStartClick(event) {
     if (this.state.intervalId !== null) {

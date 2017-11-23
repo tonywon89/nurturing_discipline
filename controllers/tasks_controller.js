@@ -32,13 +32,20 @@ exports.start_timer = function(req, res, next) {
 }
 
 exports.ping_task_timer = function (req, res, next) {
-  // console.log(req.query.selectedTask._id);
+  TaskActivity.findOne({ _user: req.user._id, running: true }).exec(function(err, taskActivity) {
 
-  TaskActivity.findById(req.query.taskActivity._id).exec(function(err, taskActivity) {
+    if (taskActivity && !intervalIds['interval' + taskActivity._id]) {
+      var intervalId = setInterval(function() {
+        taskActivity.timeAmount += 1;
+        taskActivity.save();
+        console.log(taskActivity.timeAmount);
+      }, 1000);
 
-    // @TODO: Remove this once get the cancel button
-    // clearInterval(intervalIds['interval' + taskActivity._id]);
+      intervalIds['interval' + taskActivity._id] = intervalId;
+    };
     res.json({ taskActivity: taskActivity });
   });
+    // @TODO: Remove this once get the cancel button
+    // clearInterval(intervalIds['interval' + taskActivity._id]);
 };
 

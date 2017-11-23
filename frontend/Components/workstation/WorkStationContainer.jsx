@@ -10,6 +10,7 @@ import {
   fetchTasks,
   selectTask,
   startTaskTimer,
+  pingTaskTimer,
 } from '../../actions/task_actions.js'
 
 import {
@@ -57,6 +58,10 @@ const mapDispatchToProps = dispatch => ({
 
   startTaskTimer: (selectedTask) => {
     startTaskTimer(selectedTask)(dispatch);
+  },
+
+  pingTaskTimer: () => {
+    pingTaskTimer()(dispatch);
   }
 });
 

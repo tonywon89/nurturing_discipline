@@ -36,21 +36,22 @@ export const selectTask = (selectedTask, oldSelectedTask = null) => dispatch => 
   });
 }
 
-export const startTaskTimer = (selectedTask) => dispatch => {
-  TaskAPIUtil.startTaskTimer(selectedTask).then(({ task, taskActivity }) => {
+export const startTaskTimer = (selectedTask = null) => dispatch => {
+  if (selectedTask !== null) {
+    TaskAPIUtil.startTaskTimer(selectedTask).then(({ task, taskActivity }) => {
+      dispatch({ type: START_TASK_TIMER });
+    });
+  } else {
     dispatch({ type: START_TASK_TIMER });
+  }
 
-    // intervalId = setInterval(function () {
-    //   TaskAPIUtil.pingTaskTimer(task, taskActivity).then(({ taskActivity }) => {
-    //     dispatch({ type: PING_TASK_TIMER, taskActivity: taskActivity, intervalId: intervalId });
-    //   })
-    // }, 1000)
-
-  });
 }
 
-export const pingTaskTimer = (taskActivity) => dispatch => {
+export const pingTaskTimer = () => dispatch => {
+  TaskAPIUtil.pingTaskTimer().then(({ taskActivity }) => {
+    dispatch({type: PING_TASK_TIMER, taskActivity: taskActivity});
 
+  })
 }
 
 export const stopTaskTimer = (taskActivity) => dispatch => {
