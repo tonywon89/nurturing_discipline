@@ -39,12 +39,9 @@ export const selectTask = (selectedTask, oldSelectedTask = null) => dispatch => 
 export const startTaskTimer = (selectedTask = null) => dispatch => {
   if (selectedTask !== null) {
     TaskAPIUtil.startTaskTimer(selectedTask).then(({ task, taskActivity }) => {
-      dispatch({ type: START_TASK_TIMER });
+      dispatch({ type: START_TASK_TIMER, taskActivity: taskActivity });
     });
-  } else {
-    dispatch({ type: START_TASK_TIMER });
   }
-
 }
 
 export const pingTaskTimer = () => dispatch => {
@@ -55,5 +52,7 @@ export const pingTaskTimer = () => dispatch => {
 }
 
 export const stopTaskTimer = (taskActivity) => dispatch => {
-
+  TaskAPIUtil.stopTaskTimer(taskActivity).then(({ taskActivity }) => {
+    dispatch({type: STOP_TASK_TIMER, taskActivity: taskActivity });
+  });
 }

@@ -11,8 +11,8 @@ class WorkStation extends React.Component {
       intervalId: null,
     }
 
-    // this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleStartClick = this.handleStartClick.bind(this);
+    this.handleStopClick = this.handleStopClick.bind(this);
   }
 
   componentWillUnmount() {
@@ -27,30 +27,33 @@ class WorkStation extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { taskActivity } = this.props.workstation;
-    if (taskActivity !== null) {
-      var self = this;
+    const { taskActivity } = newProps.workstation;
 
-      // Need this if statement to ensure that won't set new intervals everytime receive props
+    var self = this;
 
-      let intervalId;
-      if (this.state.intervalId === null) {
-            intervalId = setInterval(function () {
-          self.setState({ currentTime: self.state.currentTime + 1});
-        }, 1000);
-      }
+    // Need this if statement to ensure that won't set new intervals everytime receive props
 
-      let newState = {currentTime: taskActivity.timeAmount}
+    let intervalId;
+
+    if (this.state.intervalId === null && newProps.workstation.timerRunning === true) {
+
+      intervalId = setInterval(function () {
+        self.setState({ currentTime: self.state.currentTime + 1});
+      }, 1000);
+
+      let newState = {intervalId: intervalId, currentTime: taskActivity.timeAmount}
+
 
       // Need this so that the current time won't reset after receiving the new time
       if (this.state.currentTime > 0) {
         newState.currentTime = this.state.currentTime;
       }
-      if (this.state.intervalId === null) {
-        newState.intervalId = intervalId;
-      }
 
       this.setState(newState);
+    } else if (this.state.intervalId !== null && newProps.workstation.timerRunning === false) {
+
+      clearInterval(this.state.intervalId);
+      this.setState({ intervalId: null, currentTime: 0 });
     }
   }
 
@@ -60,15 +63,15 @@ class WorkStation extends React.Component {
     }
     var self = this;
     this.props.startTaskTimer(this.props.workstation.selectedTask);
-    const intervalId = setInterval(function () {
-      self.setState({ currentTime: self.state.currentTime + 1});
-    }, 1000);
 
-    this.setState({ intervalId: intervalId});
   }
 
   handleStopClick(event) {
+    if (this.state.intervalId === null) {
+      return;
+    }
 
+    this.props.stopTaskTimer(this.props.workstation.taskActivity);
   }
 
   render() {
@@ -96,9 +99,9 @@ class WorkStation extends React.Component {
         <div className="active-timer">
           {taskOptions}
            <div className="timer-controls">
-              <i className={"fa fa-play-circle" + (this.state.intervalId !== null ? " disabled" : "") } onClick={this.handleStartClick}></i>
-              <i className={"fa fa-pause-circle-o" + (this.state.intervalId === null ? " disabled" : "") }></i>
-              <i className={"fa fa-stop-circle-o " + (this.state.intervalId === null ? " disabled" : "") }></i>
+              <i className={"fa fa-play-circle" + (this.props.workstation.timerRunning === true ? " disabled" : "") } onClick={this.handleStartClick}></i>
+              <i className={"fa fa-pause-circle-o" + (this.props.workstation.timerRunning === false ? " disabled" : "") }></i>
+              <i className={"fa fa-stop-circle-o " + (this.props.workstation.timerRunning === false ? " disabled" : "") } onClick={this.handleStopClick}></i>
           </div>
           <span className="chronometer">{this.padZeroes(hour, 1)}:{this.padZeroes(minute, 2)}:{this.padZeroes(second, 2)} </span>
         </div>

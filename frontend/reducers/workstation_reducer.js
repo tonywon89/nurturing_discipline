@@ -19,7 +19,7 @@ const _default = {
   currentCarouselIndex: 0,
   carouselCycleOn: true,
   selectedTask: { id: null, name: "" },
-  timerStarted: false,
+  timerRunning: false,
   taskActivity: null,
 }
 
@@ -38,9 +38,11 @@ const WorkStationReducer = (state = _default, action) => {
     case RECEIVE_SELECTED_TASK:
       return merge({}, state, { selectedTask: action.selectedTask });
     case START_TASK_TIMER:
-      return merge({}, state, { timerStarted: true });
+      return merge({}, state, { timerRunning: true, taskActivity: action.taskActivity });
     case PING_TASK_TIMER:
-      return merge({}, state, { timerStarted: (action.taskActivity === null ? false: true), taskActivity: action.taskActivity })
+      return merge({}, state, { timerRunning: (action.taskActivity === null ? false: true), taskActivity: action.taskActivity });
+    case STOP_TASK_TIMER:
+      return merge({}, state, { taskActivity: null, timerRunning: false })
     default:
       return state;
   }

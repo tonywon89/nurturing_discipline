@@ -22,3 +22,12 @@ export const pingTaskTimer = () => (
     dataType: 'json',
   })
 );
+
+export const stopTaskTimer = (taskActivity) => (
+  $.ajax({
+    method: "POST",
+    url: "api/tasks/stop_task_timer",
+    dataType: 'json',
+    data: { taskActivity }
+  })
+);

@@ -13,7 +13,7 @@ exports.task_list = function (req, res, next) {
 
 exports.start_timer = function(req, res, next) {
 
-  Task.findById(req.body['selectedTask[id]']).exec(function(err, task) {
+  Task.findById(req.body['selectedTask[id]']).exec(function (err, task) {
     TaskActivity.create({
       _task: task._id,
       _user: task._user,
@@ -32,7 +32,7 @@ exports.start_timer = function(req, res, next) {
 }
 
 exports.ping_task_timer = function (req, res, next) {
-  TaskActivity.findOne({ _user: req.user._id, running: true }).exec(function(err, taskActivity) {
+  TaskActivity.findOne({ _user: req.user._id, running: true }).exec(function (err, taskActivity) {
 
     if (taskActivity && !intervalIds['interval' + taskActivity._id]) {
       var intervalId = setInterval(function() {
@@ -45,7 +45,15 @@ exports.ping_task_timer = function (req, res, next) {
     };
     res.json({ taskActivity: taskActivity });
   });
-    // @TODO: Remove this once get the cancel button
-    // clearInterval(intervalIds['interval' + taskActivity._id]);
 };
+
+exports.stop_task_timer = function (req, res, next) {
+  TaskActivity.findById(req.body['taskActivity[_id]']).exec(function (err, taskActivity) {
+    taskActivity.running = false;
+    taskActivity.date_ended = new Date();
+    taskActivity.save();
+    clearInterval(intervalIds['interval' + taskActivity._id]);
+    res.json({ taskActivity: taskActivity})
+  })
+}
 

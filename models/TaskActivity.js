@@ -25,7 +25,8 @@ var TaskActivitySchema = Schema(
     },
 
     date_added: { type: Date, default: Date.now },
-    date_deleted: { type: Date, default: null }
+    date_ended: { type: Date, default: null},
+    date_deleted: { type: Date, default: null },
 
   }
 )

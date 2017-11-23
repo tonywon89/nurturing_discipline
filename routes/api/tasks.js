@@ -9,3 +9,5 @@ router.post('/start_timer', api_helpers.checkAuthenticated, tasks_controller.sta
 router.get('/ping_task_timer', api_helpers.checkAuthenticated, tasks_controller.ping_task_timer);
 module.exports = router;
 
+router.post('/stop_task_timer', api_helpers.checkAuthenticated, tasks_controller.stop_task_timer);
+
