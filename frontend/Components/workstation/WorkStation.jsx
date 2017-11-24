@@ -58,7 +58,7 @@ class WorkStation extends React.Component {
         clearInterval(this.state.intervalId);
       }
 
-      this.setState({ currentTime: taskActivity.timeAmount})
+      this.setState({ intervalId: null, currentTime: taskActivity.timeAmount})
     } else if (timerRunning === false && !taskActivity) {
       if (this.state.intervalId !== null) {
         clearInterval(this.state.intervalId);
@@ -68,16 +68,23 @@ class WorkStation extends React.Component {
   }
 
   handleStartClick(event) {
-    if (this.state.intervalId !== null) {
+    const { timerRunning, taskActivity, selectedTask } = this.props.workstation
+
+    if (timerRunning) {
       return;
     }
-    var self = this;
-    this.props.startTaskTimer(this.props.workstation.selectedTask);
 
+    if (taskActivity) {
+      this.props.resumeTaskTimer(taskActivity);
+    } else {
+      this.props.startTaskTimer(selectedTask);
+    }
   }
 
   handleStopClick(event) {
-    if (this.state.intervalId === null) {
+    const { timerRunning, taskActivity } = this.props.workstation
+
+    if (!timerRunning && !taskActivity) {
       return;
     }
 

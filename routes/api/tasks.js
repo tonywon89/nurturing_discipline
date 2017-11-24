@@ -11,6 +11,8 @@ router.post('/start_timer', api_helpers.checkAuthenticated, tasks_controller.sta
 router.get('/ping_task_timer', api_helpers.checkAuthenticated, tasks_controller.ping_task_timer);
 module.exports = router;
 
-router.post('/stop_task_timer', api_helpers.checkAuthenticated, tasks_controller.stop_task_timer);
+router.patch('/stop_task_timer', api_helpers.checkAuthenticated, tasks_controller.stop_task_timer);
 
-router.post('/pause_task_timer', api_helpers.checkAuthenticated, tasks_controller.pause_task_timer);
+router.patch('/pause_task_timer', api_helpers.checkAuthenticated, tasks_controller.pause_task_timer);
+
+router.patch('/resume_Task_timer', api_helpers.checkAuthenticated, tasks_controller.resume_task_timer)

@@ -25,7 +25,7 @@ export const pingTaskTimer = () => (
 
 export const stopTaskTimer = (taskActivity) => (
   $.ajax({
-    method: "POST",
+    method: "PATCH",
     url: "api/tasks/stop_task_timer",
     dataType: 'json',
     data: { taskActivity }
@@ -34,7 +34,7 @@ export const stopTaskTimer = (taskActivity) => (
 
 export const pauseTaskTimer = (taskActivity) => (
   $.ajax({
-    method: "POST",
+    method: "PATCH",
     url: "api/tasks/pause_task_timer",
     dataType: 'json',
     data: { taskActivity }
@@ -43,7 +43,7 @@ export const pauseTaskTimer = (taskActivity) => (
 
 export const resumeTaskTimer = (taskActivity) => (
   $.ajax({
-    method: "POST",
+    method: "PATCH",
     url: "api/tasks/resume_task_timer",
     dataType: 'json',
     data: { taskActivity }

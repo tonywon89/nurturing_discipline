@@ -70,5 +70,16 @@ exports.pause_task_timer = function (req, res, next) {
 }
 
 exports.resume_task_timer = function (req, res, next) {
+  TaskActivity.findById(req.body['taskActivity[_id]']).exec(function (err, taskActivity) {
+    taskActivity.running = true;
+    taskActivity.save();
+    var intervalId = setInterval(function() {
+      taskActivity.timeAmount += 1;
+      taskActivity.save();
+      console.log(taskActivity.timeAmount);
+    }, 1000);
 
+    intervalIds['interval' + taskActivity._id] = intervalId;
+    res.json({ taskActivity: taskActivity });
+  });
 }

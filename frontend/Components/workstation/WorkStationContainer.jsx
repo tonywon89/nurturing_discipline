@@ -13,6 +13,7 @@ import {
   pingTaskTimer,
   stopTaskTimer,
   pauseTaskTimer,
+  resumeTaskTimer,
 } from '../../actions/task_actions.js'
 
 import {
@@ -72,6 +73,10 @@ const mapDispatchToProps = dispatch => ({
 
   pauseTaskTimer: (taskActivity) => {
     pauseTaskTimer(taskActivity)(dispatch);
+  },
+
+  resumeTaskTimer: (taskActivity) => {
+    resumeTaskTimer(taskActivity)(dispatch);
   }
 });
 

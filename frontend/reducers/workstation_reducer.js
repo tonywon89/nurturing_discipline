@@ -13,6 +13,7 @@ import {
   STOP_TASK_TIMER,
   PAUSE_TASK_TIMER,
   PING_TASK_TIMER,
+  RESUME_TASK_TIMER,
 } from "../actions/task_actions.js";
 
 const _default = {
@@ -44,7 +45,9 @@ const WorkStationReducer = (state = _default, action) => {
     case STOP_TASK_TIMER:
       return merge({}, state, { taskActivity: null, timerRunning: false });
     case PAUSE_TASK_TIMER:
-      return merge({}, state, { timerRunning: false, timerPaused: true, taskActivity: action.taskActivity })
+      return merge({}, state, { timerRunning: false, taskActivity: action.taskActivity })
+    case RESUME_TASK_TIMER:
+      return merge({}, state, { timerRunning: true, taskActivity: action.taskActivity })
     default:
       return state;
   }

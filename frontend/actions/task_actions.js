@@ -4,6 +4,7 @@ export const START_TASK_TIMER = "START_TASK_TIMER";
 export const STOP_TASK_TIMER = "STOP_TASK_TIMER";
 export const PAUSE_TASK_TIMER = "PAUSE_TASK_TIMER";
 export const PING_TASK_TIMER = "PING_TASK_TIMER";
+export const RESUME_TASK_TIMER = "RESUME_TASK_TIMER";
 
 import * as TaskAPIUtil from '../api_utils/task_api_util.js';
 import * as MilestoneAPIUtil from '../api_utils/milestone_api_util.js';
@@ -60,5 +61,11 @@ export const stopTaskTimer = (taskActivity) => dispatch => {
 export const pauseTaskTimer = (taskActivity) => dispatch => {
   TaskAPIUtil.pauseTaskTimer(taskActivity).then(({ taskActivity }) => {
     dispatch({type: PAUSE_TASK_TIMER, taskActivity });
+  })
+}
+
+export const resumeTaskTimer = (taskActivity) => dispatch => {
+  TaskAPIUtil.resumeTaskTimer(taskActivity).then(({ taskActivity }) => {
+    dispatch({ type: RESUME_TASK_TIMER, taskActivity });
   })
 }
