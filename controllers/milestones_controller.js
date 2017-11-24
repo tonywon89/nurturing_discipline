@@ -37,6 +37,7 @@ exports.milestone_create = function (req, res, next) {
       name: "General Task for \"" + milestone.content + "\"",
       _milestone: milestone._id,
       _user: req.user._id,
+      selected: true,
     });
 
     task.save(function (err) {
@@ -163,8 +164,7 @@ exports.task_delete = function (req, res, next) {
 }
 
 exports.task_patch = function (req, res, next) {
-  Task.findByIdAndUpdate(req.body.id, { name: req.body.name }, function(err, task) {
-    console.log(task.name);
+  Task.findByIdAndUpdate(req.body.id, { name: req.body.name, selected: (req.body.selected === 'true' ? true : false) }, function(err, task) {
     getAllMilestones(req, res, next);
   });
 }

@@ -9,7 +9,6 @@ router.get('/', api_helpers.checkAuthenticated, milestones_controller.milestone_
 router.post('/', api_helpers.checkAuthenticated, api_helpers.csrfProtection(), milestones_controller.milestone_create);
 
 router.patch('/', api_helpers.checkAuthenticated, api_helpers.csrfProtection(), milestones_controller.milestone_patch)
-module.exports = router;
 
 router.delete('/', api_helpers.checkAuthenticated, api_helpers.csrfProtection(), milestones_controller.milestone_delete)
 
@@ -20,3 +19,6 @@ router.post('/submilestones', api_helpers.checkAuthenticated, api_helpers.csrfPr
 router.post('/tasks', api_helpers.checkAuthenticated, api_helpers.csrfProtection(), milestones_controller.task_create);
 router.delete('/tasks', api_helpers.checkAuthenticated, api_helpers.csrfProtection(), milestones_controller.task_delete);
 router.patch('/tasks', api_helpers.checkAuthenticated, api_helpers.csrfProtection(), milestones_controller.task_patch);
+
+module.exports = router;
+

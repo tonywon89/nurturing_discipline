@@ -9,10 +9,9 @@ Sidebar Menu:
 Workstation
   -Carousel
     -Make a setting to allow them how long it takes to cycle each time
-  -Display Milestones
   =Allow choosing of a task that allows them to focus on the moment
   -Make option to choose how long must be worked before marking as done once (for counts)
-  -Click a play button to start the titme
+
   -Make option to only display tasks, or see all milestones
 
 Milestones:
@@ -21,21 +20,28 @@ Milestones:
   -Refactor Milestone Item to be more clean
   -Refactor milestone controller to be more clean
 
-  -Make a parent milestone from existing milestone
 
 Convictions:
   Make a default where there are no convictions to display a button that will allow it to be shown
 
+Testing Framework:
+  -Set it up and get it working
+  -
 
 Other:
   -Make sure they are above 13 before they can use the app
   -Make isomorphic with BrowserHistory
+  -Make client side refresh when not active for a while, such as signing out
+  -How to handle case when user disables cookies
+  -Begin Brainstorming responsive web design
+  -Implement custom popups for confirmations
+  -Handle errors in all locations
 
 Current Tasks:
-
-
-
-
+  -Implement stop button
+  -Implement pause button
+  -implement reflecting the time in the milestones
+  -Make a parent milestone from existing milestone (bottom up building)
 
 Finished Tasks:
   -Get SASS working with webpack
@@ -98,6 +104,11 @@ Finished Tasks:
   -Update the milestone to accept an amount of hours time
   -Update submilestone form to accept the time and count
   -Refactor UI into a modal for creating new Milestones
+  -Build the dropdown of tasks for active timer;
+  -Click a play button to start the time
+  -Create pause and stop button
+  -Brainstorm how to record the time
+  -Implement pinging to see if there is an active task that's already started
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

@@ -7,6 +7,16 @@ import {
 } from '../../actions/conviction_actions.js';
 
 import {
+  fetchTasks,
+  selectTask,
+  startTaskTimer,
+  pingTaskTimer,
+  stopTaskTimer,
+  pauseTaskTimer,
+  resumeTaskTimer,
+} from '../../actions/task_actions.js'
+
+import {
   increaseCarouselIndex,
   decreaseCarouselIndex,
   setCarouselIndex,
@@ -17,6 +27,7 @@ const mapStateToProps = state => ({
   convictions: state.convictions,
   authentication: state.authentication,
   workstation: state.workstation,
+  tasks: state.tasks,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -40,6 +51,33 @@ const mapDispatchToProps = dispatch => ({
     toggleCarouselCycle()(dispatch);
   },
 
+  fetchTasks: () => {
+    fetchTasks()(dispatch);
+  },
+
+  selectTask: (selectedTask, oldSelectedTask) => {
+    selectTask(selectedTask, oldSelectedTask)(dispatch)
+  },
+
+  startTaskTimer: (selectedTask) => {
+    startTaskTimer(selectedTask)(dispatch);
+  },
+
+  pingTaskTimer: () => {
+    pingTaskTimer()(dispatch);
+  },
+
+  stopTaskTimer: (taskActivity) => {
+    stopTaskTimer(taskActivity)(dispatch);
+  },
+
+  pauseTaskTimer: (taskActivity) => {
+    pauseTaskTimer(taskActivity)(dispatch);
+  },
+
+  resumeTaskTimer: (taskActivity) => {
+    resumeTaskTimer(taskActivity)(dispatch);
+  }
 });
 
 export default connect(

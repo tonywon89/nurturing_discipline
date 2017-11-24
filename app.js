@@ -18,6 +18,7 @@ var convictionsAPI = require('./routes/api/convictions.js');
 var authenticationAPI = require('./routes/api/authentication.js');
 var csrfAPI = require('./routes/api/csrf.js');
 var milestonesAPI = require('./routes/api/milestones.js');
+var tasksAPI = require('./routes/api/tasks.js');
 
 var app = express();
 
@@ -95,6 +96,7 @@ app.use('/api/convictions', convictionsAPI);
 app.use('/api/auth', authenticationAPI);
 app.use('/api/csrf', csrfAPI);
 app.use('/api/milestones', milestonesAPI);
+app.use('/api/tasks', tasksAPI);
 
 // app.use('/auth', authentication)
 

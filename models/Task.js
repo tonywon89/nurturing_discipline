@@ -26,6 +26,17 @@ var TaskSchema = Schema(
       ref: 'User'
     },
 
+    selected: {
+      type: Boolean,
+      default: false
+    },
+
+    // In seconds
+    currentTime: {
+      type: Number,
+      default: 0
+    },
+
     date_added: { type: Date, default: Date.now },
     date_deleted: { type: Date, default: null }
   }
