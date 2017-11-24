@@ -31,3 +31,21 @@ export const stopTaskTimer = (taskActivity) => (
     data: { taskActivity }
   })
 );
+
+export const pauseTaskTimer = (taskActivity) => (
+  $.ajax({
+    method: "POST",
+    url: "api/tasks/pause_task_timer",
+    dataType: 'json',
+    data: { taskActivity }
+  })
+);
+
+export const resumeTaskTimer = (taskActivity) => (
+  $.ajax({
+    method: "POST",
+    url: "api/tasks/resume_task_timer",
+    dataType: 'json',
+    data: { taskActivity }
+  })
+);

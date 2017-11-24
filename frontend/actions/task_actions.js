@@ -56,3 +56,9 @@ export const stopTaskTimer = (taskActivity) => dispatch => {
     dispatch({type: STOP_TASK_TIMER, taskActivity: taskActivity });
   });
 }
+
+export const pauseTaskTimer = (taskActivity) => dispatch => {
+  TaskAPIUtil.pauseTaskTimer(taskActivity).then(({ taskActivity }) => {
+    dispatch({type: PAUSE_TASK_TIMER, taskActivity });
+  })
+}

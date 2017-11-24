@@ -13,6 +13,7 @@ class WorkStation extends React.Component {
 
     this.handleStartClick = this.handleStartClick.bind(this);
     this.handleStopClick = this.handleStopClick.bind(this);
+    this.handlePauseClick = this.handlePauseClick.bind(this);
   }
 
   componentWillUnmount() {
@@ -27,7 +28,7 @@ class WorkStation extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { taskActivity } = newProps.workstation;
+    const { taskActivity, timerRunning } = newProps.workstation;
 
     var self = this;
 
@@ -35,8 +36,8 @@ class WorkStation extends React.Component {
 
     let intervalId;
 
-    if (this.state.intervalId === null && newProps.workstation.timerRunning === true) {
-
+    // Starting for the first time
+    if (this.state.intervalId === null && timerRunning === true ) {
       intervalId = setInterval(function () {
         self.setState({ currentTime: self.state.currentTime + 1});
       }, 1000);
@@ -50,9 +51,18 @@ class WorkStation extends React.Component {
       }
 
       this.setState(newState);
-    } else if (this.state.intervalId !== null && newProps.workstation.timerRunning === false) {
 
-      clearInterval(this.state.intervalId);
+    } else if (timerRunning === false && taskActivity) {
+
+      if (this.state.intervalId !== null) {
+        clearInterval(this.state.intervalId);
+      }
+
+      this.setState({ currentTime: taskActivity.timeAmount})
+    } else if (timerRunning === false && !taskActivity) {
+      if (this.state.intervalId !== null) {
+        clearInterval(this.state.intervalId);
+      }
       this.setState({ intervalId: null, currentTime: 0 });
     }
   }
@@ -74,6 +84,14 @@ class WorkStation extends React.Component {
     this.props.stopTaskTimer(this.props.workstation.taskActivity);
   }
 
+  handlePauseClick(event) {
+    if (this.state.intervalId === null) {
+      return;
+    }
+
+    this.props.pauseTaskTimer(this.props.workstation.taskActivity);
+  }
+
   render() {
     let taskOptions = <span>You currently have no tasks</span>
 
@@ -84,6 +102,8 @@ class WorkStation extends React.Component {
     let hour = Math.floor(this.state.currentTime / 3600);
     let minute = Math.floor((this.state.currentTime % 3600) / 60);
     let second = (this.state.currentTime % 3600) % 60;
+
+    const { taskActivity, timerRunning } = this.props.workstation;
 
     return (
       <div className="workstation-container">
@@ -99,9 +119,9 @@ class WorkStation extends React.Component {
         <div className="active-timer">
           {taskOptions}
            <div className="timer-controls">
-              <i className={"fa fa-play-circle" + (this.props.workstation.timerRunning === true ? " disabled" : "") } onClick={this.handleStartClick}></i>
-              <i className={"fa fa-pause-circle-o" + (this.props.workstation.timerRunning === false ? " disabled" : "") }></i>
-              <i className={"fa fa-stop-circle-o " + (this.props.workstation.timerRunning === false ? " disabled" : "") } onClick={this.handleStopClick}></i>
+              <i className={"fa fa-play-circle" + (timerRunning === true ? " disabled" : "") } onClick={this.handleStartClick}></i>
+              <i className={"fa fa-pause-circle-o" + (timerRunning === false ? " disabled" : "") } onClick={this.handlePauseClick}></i>
+              <i className={"fa fa-stop-circle-o " + (!taskActivity ? " disabled" : "") } onClick={this.handleStopClick}></i>
           </div>
           <span className="chronometer">{this.padZeroes(hour, 1)}:{this.padZeroes(minute, 2)}:{this.padZeroes(second, 2)} </span>
         </div>

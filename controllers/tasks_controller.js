@@ -12,7 +12,6 @@ exports.task_list = function (req, res, next) {
 }
 
 exports.start_timer = function(req, res, next) {
-
   Task.findById(req.body['selectedTask[id]']).exec(function (err, task) {
     TaskActivity.create({
       _task: task._id,
@@ -32,18 +31,22 @@ exports.start_timer = function(req, res, next) {
 }
 
 exports.ping_task_timer = function (req, res, next) {
-  TaskActivity.findOne({ _user: req.user._id, running: true }).exec(function (err, taskActivity) {
+  TaskActivity.findOne({ _user: req.user._id, date_ended: null }).exec(function (err, taskActivity) {
+    if (taskActivity && !taskActivity.running) {
+      res.json({ taskActivity: taskActivity });
+    } else {
+      if (taskActivity && !intervalIds['interval' + taskActivity._id]) {
+        var intervalId = setInterval(function() {
+          taskActivity.timeAmount += 1;
+          taskActivity.save();
+          console.log(taskActivity.timeAmount);
+        }, 1000);
 
-    if (taskActivity && !intervalIds['interval' + taskActivity._id]) {
-      var intervalId = setInterval(function() {
-        taskActivity.timeAmount += 1;
-        taskActivity.save();
-        console.log(taskActivity.timeAmount);
-      }, 1000);
+        intervalIds['interval' + taskActivity._id] = intervalId;
+        res.json({ taskActivity: taskActivity });
+      };
+    }
 
-      intervalIds['interval' + taskActivity._id] = intervalId;
-    };
-    res.json({ taskActivity: taskActivity });
   });
 };
 
@@ -57,3 +60,15 @@ exports.stop_task_timer = function (req, res, next) {
   })
 }
 
+exports.pause_task_timer = function (req, res, next) {
+  TaskActivity.findById(req.body['taskActivity[_id]']).exec(function (err, taskActivity) {
+    taskActivity.running = false;
+    taskActivity.save();
+    clearInterval(intervalIds['interval' + taskActivity._id]);
+    res.json({ taskActivity: taskActivity });
+  });
+}
+
+exports.resume_task_timer = function (req, res, next) {
+
+}
