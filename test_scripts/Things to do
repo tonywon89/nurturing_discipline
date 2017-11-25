@@ -38,9 +38,6 @@ Other:
   -Handle errors in all locations
 
 Current Tasks:
-  -Implement stop button
-  -Implement pause button
-  -implement reflecting the time in the milestones
   -Make a parent milestone from existing milestone (bottom up building)
 
 Finished Tasks:
@@ -109,6 +106,10 @@ Finished Tasks:
   -Create pause and stop button
   -Brainstorm how to record the time
   -Implement pinging to see if there is an active task that's already started
+  -Implement stop button
+  -Implement pause button
+  -Implement resume button
+  -implement reflecting the time in the milestones
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

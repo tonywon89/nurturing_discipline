@@ -225,16 +225,16 @@ class MilestoneItem extends React.Component {
     let expandButton = (<i onClick={this.handleExpand} className={"fa fa-chevron-" + (milestone.expanded ? "down" : "right")}></i>);
     let milestoneGoal = null;
 
-    if (milestone.goal.goalType === 'timed') {
-      const hours = Math.floor(milestone.goal.goalRemaining /  3600);
-      const minutes = Math.floor(milestone.goal.goalRemaining % 3600 / 60)
-      const seconds = Math.floor(milestone.goal.goalRemaining % 3600 % 60)
+    if (milestone.goalType === 'timed') {
+      const hours = Math.floor(milestone.goalRemaining /  3600);
+      const minutes = Math.floor(milestone.goalRemaining % 3600 / 60)
+      const seconds = Math.floor(milestone.goalRemaining % 3600 % 60)
       milestoneGoal = (
         <span className="milestone-goal">{hours} hours {minutes} minutes {seconds} seconds remaining</span>
       );
-    } else if (milestone.goal.goalType === 'count') {
+    } else if (milestone.goalType === 'count') {
       milestoneGoal = (
-        <span className="milestone-goal"> {milestone.goal.goalRemaining} times remaining </span>
+        <span className="milestone-goal"> {milestone.goalRemaining} times remaining </span>
       );
     }
 

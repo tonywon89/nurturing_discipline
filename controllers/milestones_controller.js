@@ -6,8 +6,8 @@ var Task = require('../models/Task.js');
 var mongoose = require('mongoose');
 
 var getAllMilestones = function (req, res, next) {
-  Milestone.find({ _user: req.user._id, _parent: null, date_deleted: null }).exec(function(err, results) {
-      res.render('json/milestone/milestones', { error: err, data: { milestones: results }});
+  Milestone.find({ _user: req.user._id, _parent: null, date_deleted: null }).exec(function(err, milestones) {
+      res.render('json/milestone/milestones', { error: err, data: { milestones: milestones }});
   });
 }
 
@@ -24,11 +24,11 @@ exports.milestone_create = function (req, res, next) {
 
   Milestone.create({
     content: req.body.contentValue,
-    goal: {
-      goalType: req.body.selectedOption,
-      goalTarget: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
-      goalRemaining: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
-    },
+
+    goalType: req.body.selectedOption,
+    goalTarget: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
+    goalRemaining: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
+
     _user: req.user._id
   }, function(err, milestone) {
 
@@ -62,11 +62,11 @@ exports.sub_milestone_create = function (req, res, next) {
     content: req.body.subMilestoneContent,
     _parent: req.body.parentMilestone,
     _user: req.user._id,
-    goal: {
-      goalType: req.body.selectedOption,
-      goalTarget: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
-      goalRemaining: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
-    },
+
+    goalType: req.body.selectedOption,
+    goalTarget: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
+    goalRemaining: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
+
   });
 
   subMilestone.save(function(err) {
