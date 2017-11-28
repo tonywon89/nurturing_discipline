@@ -120,7 +120,7 @@ class MilestoneList extends React.Component {
         </div>
 
         <div className="milestone-list">
-          {this.props.milestones.map((milestone, idx) => {
+          {this.props.milestones.milestones.map((milestone, idx) => {
             return (
               <MilestoneItem
                 key={milestone.id}

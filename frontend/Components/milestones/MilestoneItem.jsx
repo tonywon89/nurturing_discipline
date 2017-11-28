@@ -18,6 +18,8 @@ class MilestoneItem extends React.Component {
       minutes: "",
       count: "",
       modalIsOpen: false,
+
+      menuOpen: false,
     }
 
     this.handleExpand = this.handleExpand.bind(this);
@@ -30,6 +32,8 @@ class MilestoneItem extends React.Component {
     this.handleTaskNameChange = this.handleTaskNameChange.bind(this);
     this.handleCreateTaskSubmit = this.handleCreateTaskSubmit.bind(this);
 
+    this.showMenu = this.showMenu.bind(this);
+    this.hideMenu = this.hideMenu.bind(this);
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -176,6 +180,16 @@ class MilestoneItem extends React.Component {
     })
   }
 
+  showMenu() {
+    this.setState({ menuOpen: true })
+    document.addEventListener("click", this.hideMenu);
+  }
+
+  hideMenu() {
+    this.setState({menuOpen: false});
+    document.removeEventListener("click", this.hideMenu);
+  }
+
   render() {
     let expandedContent = null;
     const { milestone } = this.props;
@@ -247,7 +261,12 @@ class MilestoneItem extends React.Component {
           {milestoneGoal}
         </div>
         <div>
-          <i onClick={this.openModal} className="fa fa-plus"></i>
+          <i onClick={this.showMenu} className="fa fa-ellipsis-v milestone-menu-toggle"></i>
+          <ul className={"milestone-menu" + (!this.state.menuOpen ? " hide" : "") } >
+            <li>Add parent milestone</li>
+            <li>Add landmark</li>
+            <li>Add Task</li>
+          </ul>
         </div>
       </span>);
 
@@ -320,8 +339,15 @@ class MilestoneItem extends React.Component {
           </Modal>
 
         </div>
-        {expandedContent}
-        {taskItems}
+        {taskItems ? <div>
+          <h6 className="task-header">Tasks</h6>
+          {taskItems}
+        </div> : null}
+
+        {expandedContent ? <div>
+          <h6 className="task-header">Landmarks</h6>
+          {expandedContent}
+        </div> : null}
       </div>
     );
   }

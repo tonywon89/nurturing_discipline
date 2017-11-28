@@ -39,6 +39,9 @@ Other:
 
 Current Tasks:
   -Make a parent milestone from existing milestone (bottom up building)
+  -Make the 3 dots dropdown menu
+  -Display task activities on workstation page
+  -Display task activities on stats page
 
 Finished Tasks:
   -Get SASS working with webpack
