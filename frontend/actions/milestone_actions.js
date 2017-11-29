@@ -56,3 +56,19 @@ export const updateTask = (data) => dispatch => {
     dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
   });
 }
+
+export const openTaskForm = () => dispatch => {
+  dispatch({ type: OPEN_TASK_FORM });
+}
+
+export const openParentMilestoneForm = () => dispatch => {
+  dispatch({ type: OPEN_PARENT_MILESTONE_FORM });
+}
+
+export const openSubMilestoneForm = () => dispatch => {
+  dispatch({ type: OPEN_SUB_MILESTONE_FORM });
+}
+
+export const closeMilestoneModal= () => dispatch => {
+  dispatch({ type: CLOSE_MILESTONE_MODAL });
+}

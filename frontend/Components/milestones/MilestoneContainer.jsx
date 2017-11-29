@@ -49,6 +49,7 @@ const mapDispatchToProps = dispatch => ({
   deleteTask: (data) => {
     deleteTask(data)(dispatch);
   },
+
 });
 
 export default connect(

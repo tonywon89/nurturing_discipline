@@ -38,8 +38,8 @@ Other:
   -Handle errors in all locations
 
 Current Tasks:
+
   -Make a parent milestone from existing milestone (bottom up building)
-  -Make the 3 dots dropdown menu
   -Display task activities on workstation page
   -Display task activities on stats page
 
@@ -113,6 +113,7 @@ Finished Tasks:
   -Implement pause button
   -Implement resume button
   -implement reflecting the time in the milestones
+  -Make the 3 dots dropdown menu
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now
