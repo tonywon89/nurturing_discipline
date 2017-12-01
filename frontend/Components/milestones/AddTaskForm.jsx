@@ -29,7 +29,6 @@ class AddTaskForm extends React.Component {
       milestoneId: this.props.milestone.id,
     }
 
-
     this.props.createTask(data);
     this.props.closeModal();
   }

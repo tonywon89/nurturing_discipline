@@ -17,7 +17,6 @@ class MilestoneItem extends React.Component {
 
       modalIsOpen: false,
       addTaskForm: false,
-      addParentForm: false,
       addSubForm: false,
 
       menuOpen: false,
@@ -30,12 +29,9 @@ class MilestoneItem extends React.Component {
     this.handleEditChange = this.handleEditChange.bind(this);
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
 
-
-
     this.showMenu = this.showMenu.bind(this);
     this.hideMenu = this.hideMenu.bind(this);
     this.openTaskForm = this.openTaskForm.bind(this);
-    this.openParentMilestoneForm = this.openParentMilestoneForm.bind(this);
     this.openSubMilestoneForm = this.openSubMilestoneForm.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -98,18 +94,6 @@ class MilestoneItem extends React.Component {
     this.setState({
       modalIsOpen: true,
       addTaskForm: true,
-      addParentForm: false,
-      addSubForm: false,
-    })
-  }
-
-  openParentMilestoneForm(event) {
-    event.preventDefault();
-
-    this.setState({
-      modalIsOpen: true,
-      addTaskForm: false,
-      addParentForm: true,
       addSubForm: false,
     })
   }
@@ -120,7 +104,6 @@ class MilestoneItem extends React.Component {
     this.setState({
       modalIsOpen: true,
       addTaskForm: false,
-      addParentForm: false,
       addSubForm: true,
     })
   }
@@ -132,10 +115,7 @@ class MilestoneItem extends React.Component {
   closeModal() {
     this.setState({
       modalIsOpen: false,
-      subMilestoneContent: "",
-      taskName: "",
       addTaskForm: false,
-      addParentForm: false,
       addSubForm: false,
     })
 
@@ -212,7 +192,6 @@ class MilestoneItem extends React.Component {
         <div>
           <i onClick={this.showMenu} className="fa fa-ellipsis-v milestone-menu-toggle"></i>
           <ul className={"milestone-menu" + (!this.state.menuOpen ? " hide" : "") } >
-            {!milestone._parent ? <li onClick={this.openParentMilestoneForm}>Add parent milestone</li> : null}
             <li onClick={this.openSubMilestoneForm}>Add landmark</li>
             <li onClick={this.openTaskForm}>Add Task</li>
           </ul>

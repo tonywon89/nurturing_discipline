@@ -32,7 +32,7 @@ class TaskDropdown extends React.Component {
   render() {
     const self = this;
     const tasks = this.props.tasks.map((task, idx) => {
-      return (<div onClick={this.select.bind(self, task)} key={task.id}>{task.name}</div>)
+      return (<div onClick={this.select.bind(self, task)} key={task.id}><b className="task-name">{task.name}</b> <span className="task-milestone-content">(Milestone: {task._milestone.content})</span></div>)
     });
 
     return (
@@ -41,7 +41,7 @@ class TaskDropdown extends React.Component {
           <div className={"task-dropdown-display" + (this.state.dropdownVisible ? " clicked": "")} onClick={this.show.bind(this)}>
 
 
-            <span>{this.props.selectedTask.name}</span>
+            <span><b className="task-name">{this.props.selectedTask.name}</b> {(this.props.selectedTask.name !== "" ? <span className="task-milestone-content"> (Milestone: { this.props.selectedTask._milestone.content}) </span>: null)}</span>
             <i className="fa fa-angle-down"></i>
           </div>
 

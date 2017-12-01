@@ -14,7 +14,7 @@ let intervalId = null;
 export const fetchTasks = () => dispatch => {
   TaskAPIUtil.fetchTasks().then(({ tasks, selectedTask }) => {
     dispatch({ type: RECEIVE_TASKS, tasks });
-    dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask: ( selectedTask ? selectedTask: {id: 12345, name: "Select a task" }) })
+    dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask: ( selectedTask ? selectedTask: {id: 12345, name: "" }) })
   });
 }
 
