@@ -13,6 +13,7 @@ class TaskActivityItem extends React.Component {
       <div className="task-activity-item">
 
         <span>
+            <span className="task-activity-date">{taskActivity.date_added}</span>
             <span>{taskActivity._task.name}</span>
             <span className="task-milestone-content">(Milestone: {taskActivity._milestone.content})
           </span>
@@ -24,4 +25,3 @@ class TaskActivityItem extends React.Component {
 }
 
 export default TaskActivityItem;
-

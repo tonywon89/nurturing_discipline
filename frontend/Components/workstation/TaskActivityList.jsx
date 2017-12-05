@@ -7,7 +7,7 @@ class TaskActivityList extends React.Component {
   render() {
 
   let taskActivityComponents = this.props.taskActivities.map(function(taskActivity, idx) {
-    return (<TaskActivityItem key={taskActivity._id} taskActivity={taskActivity}/>)
+    return (<TaskActivityItem key={taskActivity.id} taskActivity={taskActivity}/>)
   });
 
   let totalTime = 0;

@@ -27,7 +27,7 @@ module.exports = {
       return null;
     }
 
-    return dateFormat(value, 'mm-dd-yyyy');
+    return dateFormat(value, 'mm/dd/yyyy');
   },
 
   goalRemaining: function (value, object) {
