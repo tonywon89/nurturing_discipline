@@ -3,7 +3,7 @@ import React from 'react';
 import Carousel from './Carousel.jsx';
 import TaskDropdown from './TaskDropdown.jsx';
 import TaskActivityList from './TaskActivityList.jsx';
-import * as HelperFunctions from '../../helper_functions.js';
+import { padZeroes } from '../../helper_functions.js';
 
 class WorkStation extends React.Component {
   constructor(props) {
@@ -135,7 +135,7 @@ class WorkStation extends React.Component {
               <i className={"fa fa-pause-circle-o" + (timerRunning === false ? " disabled" : "") } onClick={this.handlePauseClick}></i>
               <i className={"fa fa-stop-circle-o " + (!taskActivity ? " disabled" : "") } onClick={this.handleStopClick}></i>
           </div>
-          <span className="chronometer">{HelperFunctions.padZeroes(hour, 1)}:{HelperFunctions.padZeroes(minute, 2)}:{HelperFunctions.padZeroes(second, 2)} </span>
+          <span className="chronometer">{padZeroes(hour, 1)}:{padZeroes(minute, 2)}:{padZeroes(second, 2)} </span>
         </div>
 
         <TaskActivityList taskActivities={taskActivities}/>
