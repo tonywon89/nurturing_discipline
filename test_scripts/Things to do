@@ -19,6 +19,7 @@ Milestones:
   -Style Tasks and Milestones
   -Refactor Milestone Item to be more clean
   -Refactor milestone controller to be more clean
+  -Make a parent milestone from existing milestone (bottom up building)
 
 
 Convictions:
@@ -28,6 +29,10 @@ Testing Framework:
   -Set it up and get it working
   -
 
+Stats:
+  -Use a graphing tool to display charts
+
+
 Other:
   -Make sure they are above 13 before they can use the app
   -Make isomorphic with BrowserHistory
@@ -36,10 +41,13 @@ Other:
   -Begin Brainstorming responsive web design
   -Implement custom popups for confirmations
   -Handle errors in all locations
+  -use async for the controllers that have nested callbacks
+  -Use captcha
+  -Make website responsive
+
+
 
 Current Tasks:
-
-  -Make a parent milestone from existing milestone (bottom up building)
   -Display task activities on workstation page
   -Display task activities on stats page
 

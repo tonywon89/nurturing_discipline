@@ -90,3 +90,11 @@ exports.resume_task_timer = function (req, res, next) {
     res.json({ taskActivity: taskActivity });
   });
 }
+
+// Task Activities actions
+
+exports.fetch_task_activities = function (req, res, next) {
+  TaskActivity.find({_user: req.user._id, date_ended: { $ne: null } }).populate('_milestone', 'content').populate('_task', 'name').exec(function(err, taskActivities) {
+    res.json({taskActivities: taskActivities})
+  })
+}

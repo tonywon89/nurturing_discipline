@@ -14,6 +14,7 @@ import {
   stopTaskTimer,
   pauseTaskTimer,
   resumeTaskTimer,
+  fetchTaskActivities,
 } from '../../actions/task_actions.js'
 
 import {
@@ -77,6 +78,10 @@ const mapDispatchToProps = dispatch => ({
 
   resumeTaskTimer: (taskActivity) => {
     resumeTaskTimer(taskActivity)(dispatch);
+  },
+
+  fetchTaskActivities: () => {
+    fetchTaskActivities()(dispatch);
   }
 });
 
