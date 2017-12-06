@@ -230,7 +230,9 @@
 }
 
 .workstation-task-activities {
-  margin-left: 1em;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 1em;
   padding: 1em;
   font-size: 1em;
@@ -238,6 +240,7 @@
     font-size: 1.4em;
     text-align: left;
     padding-bottom: 0.7em;
+    font-weight: bold;
   }
 }
 
@@ -261,7 +264,14 @@
 }
 
 .task-activity-date {
-  margin-right: 1em;
+  font-size: 1.3em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid grey;
+  display: inline-block;
+}
+
+.task-activity-name {
+  font-weight: bold;
 }
 
 /*

@@ -5,21 +5,39 @@ import { padZeroes } from '../../helper_functions.js';
 
 class TaskActivityList extends React.Component {
   render() {
+    let datedTaskActivities = {};
 
-  let taskActivityComponents = this.props.taskActivities.map(function(taskActivity, idx) {
-    return (<TaskActivityItem key={taskActivity.id} taskActivity={taskActivity}/>)
-  });
+    this.props.taskActivities.forEach((taskActivity) => {
+      if (!datedTaskActivities[taskActivity.date_added]) {
+        datedTaskActivities[taskActivity.date_added] = []
+      }
 
-  let totalTime = 0;
-  this.props.taskActivities.forEach((taskActivity) => {
-    totalTime += taskActivity.timeAmount;
-  })
+      datedTaskActivities[taskActivity.date_added].push(taskActivity);
+    });
 
-  let hour = Math.floor(totalTime / 3600);
-  let minute = Math.floor((totalTime % 3600) / 60);
-  let second = (totalTime % 3600) % 60;
+    let taskActivityComponents = Object.keys(datedTaskActivities).map((date) => {
+      return (
+        <div>
+          <div className="task-activity-date">{date}</div>
+          <div>
+            {datedTaskActivities[date].map((taskActivity) => {
+              return (<TaskActivityItem key={taskActivity.id} taskActivity={taskActivity}/>)
+            })}
+          </div>
+        </div>
+      );
+    })
 
-  return (
+    let totalTime = 0;
+    this.props.taskActivities.forEach((taskActivity) => {
+      totalTime += taskActivity.timeAmount;
+    })
+
+    let hour = Math.floor(totalTime / 3600);
+    let minute = Math.floor((totalTime % 3600) / 60);
+    let second = (totalTime % 3600) % 60;
+
+    return (
       <div className="workstation-task-activities">
         <h4>Completed Task History</h4>
         {taskActivityComponents}
