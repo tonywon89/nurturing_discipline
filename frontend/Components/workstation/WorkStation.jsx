@@ -90,7 +90,6 @@ class WorkStation extends React.Component {
     if (!timerRunning && !taskActivity) {
       return;
     }
-
     this.props.stopTaskTimer(this.props.workstation.taskActivity);
   }
 
@@ -143,16 +142,6 @@ class WorkStation extends React.Component {
 
     );
   }
-
-  // padZeroes(num, size) {
-  //   let numString = num + "";
-
-  //   while (numString.length < size) {
-  //     numString = "0" + numString;
-  //   }
-
-  //   return numString;
-  // }
 }
 
 export default WorkStation;

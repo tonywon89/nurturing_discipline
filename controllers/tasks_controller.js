@@ -57,13 +57,13 @@ exports.ping_task_timer = function (req, res, next) {
 };
 
 exports.stop_task_timer = function (req, res, next) {
-  TaskActivity.findById(req.body['taskActivity[_id]']).exec(function (err, taskActivity) {
+  TaskActivity.findById(req.body['taskActivity[_id]']).populate('_milestone', 'content').populate('_task', 'name').exec(function (err, taskActivity) {
     taskActivity.running = false;
     taskActivity.date_ended = new Date();
     taskActivity.save();
 
     clearInterval(intervalIds['interval' + taskActivity._id]);
-    res.json({ taskActivity: taskActivity})
+    res.render('json/task/task_activity', { error: err, data: taskActivity })
   })
 }
 

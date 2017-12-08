@@ -45,7 +45,7 @@ const WorkStationReducer = (state = _default, action) => {
     case PING_TASK_TIMER:
       return merge({}, state, { timerRunning: (action.taskActivity && action.taskActivity.running ? true: false), taskActivity: action.taskActivity });
     case STOP_TASK_TIMER:
-      return merge({}, state, { taskActivity: null, timerRunning: false });
+      return merge({}, state, { taskActivity: null, timerRunning: false, taskActivities: [action.taskActivity, ...state.taskActivities] });
     case PAUSE_TASK_TIMER:
       return merge({}, state, { timerRunning: false, taskActivity: action.taskActivity })
     case RESUME_TASK_TIMER:

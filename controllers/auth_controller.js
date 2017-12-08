@@ -18,9 +18,9 @@ function addJWT(user) {
       lastName: user.lastName,
     },
     config.jwtSecret,
-    {
-      expiresIn: 60000
-    }
+    // {
+    //   expiresIn: 60000
+    // }
   );
 
   return token;

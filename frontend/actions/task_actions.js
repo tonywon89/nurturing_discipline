@@ -55,7 +55,7 @@ export const pingTaskTimer = () => dispatch => {
 }
 
 export const stopTaskTimer = (taskActivity) => dispatch => {
-  TaskAPIUtil.stopTaskTimer(taskActivity).then(({ taskActivity }) => {
+  TaskAPIUtil.stopTaskTimer(taskActivity).then((taskActivity) => {
     dispatch({type: STOP_TASK_TIMER, taskActivity: taskActivity });
   });
 }
