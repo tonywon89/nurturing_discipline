@@ -44,12 +44,14 @@ Other:
   -use async for the controllers that have nested callbacks
   -Use captcha
   -Make website responsive
-
+  -Add setting to set the time zone
 
 
 Current Tasks:
-  -Display task activities on workstation page
   -Display task activities on stats page
+  -Deploy to production
+  -Implement unit and integration testing
+  -Milestone completion rewards
 
 Finished Tasks:
   -Get SASS working with webpack
@@ -122,6 +124,8 @@ Finished Tasks:
   -Implement resume button
   -implement reflecting the time in the milestones
   -Make the 3 dots dropdown menu
+  -Display task activities on workstation page
+  -Add start and end time to task activity
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

@@ -17,7 +17,7 @@ class TaskActivityList extends React.Component {
 
     let taskActivityComponents = Object.keys(datedTaskActivities).map((date, idx) => {
       return (
-        <div key={date + idx}>
+        <div className="date-task-activity-block" key={date + idx}>
           <div className="task-activity-date">{date}</div>
           <div>
             {datedTaskActivities[date].map((taskActivity) => {

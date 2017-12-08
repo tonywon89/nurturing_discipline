@@ -17,7 +17,7 @@ function addJWT(user) {
       firstName: user.firstName,
       lastName: user.lastName,
     },
-    config.jwtSecret,
+    config.jwtSecret
     // {
     //   expiresIn: 60000
     // }

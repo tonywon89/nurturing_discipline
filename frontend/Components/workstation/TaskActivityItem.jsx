@@ -17,7 +17,14 @@ class TaskActivityItem extends React.Component {
             <span className="task-milestone-content">(Milestone: {taskActivity._milestone.content})
           </span>
         </span>
-        <span>{padZeroes(hour, 1)}:{padZeroes(minute, 2)}:{padZeroes(second, 2)}</span>
+        <span>
+          <span className="task-activity-time-range">
+            {taskActivity.time_added} - {taskActivity.time_ended}
+          </span>
+          <span>
+            {padZeroes(hour, 1)}:{padZeroes(minute, 2)}:{padZeroes(second, 2)}
+          </span>
+        </span>
       </div>
     );
   }

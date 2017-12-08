@@ -34,5 +34,12 @@ module.exports = {
     const totalTimeCompleted = calculateTimeRemaining(object);
 
     return value - totalTimeCompleted;
+  },
+
+  time: function(value, object) {
+    if (!value) {
+      return null;
+    }
+    return dateFormat(value, "h:MM:ss TT");
   }
 }
