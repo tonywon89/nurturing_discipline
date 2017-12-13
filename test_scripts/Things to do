@@ -48,7 +48,7 @@ Other:
 
 
 Current Tasks:
-  -Display task activities on stats page
+  -Make a date selector to select the different date range
   -Deploy to production
   -Implement unit and integration testing
   -Milestone completion rewards
@@ -126,6 +126,7 @@ Finished Tasks:
   -Make the 3 dots dropdown menu
   -Display task activities on workstation page
   -Add start and end time to task activity
+  -Display task activities on stats page
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

@@ -8,11 +8,14 @@ $sidebar-height: calc(100vh);
 
 .sidebar-container {
   width: $sidebarWidth;
-  height: $sidebar-height;
+  // height: $sidebar-height;
+  height: 100%;
   background: $sidebar-background-color;
-  position: absolute;
+  position: fixed;
   box-sizing: border-box;
-  padding-top: 3em;
+  padding-top: 5em;
+  top: 0;
+  bottom: 0;
 
   a.sidebar-item {
     display: block;

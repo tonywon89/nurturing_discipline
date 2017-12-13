@@ -1,8 +1,8 @@
 import React from 'react';
-
 import { Doughnut } from 'react-chartjs-2';
+import Please from 'pleasejs';
 
-import ColorGenerator from 'color-generator';
+import TaskActivityList from '../workstation/TaskActivityList.jsx';
 
 class Stats extends React.Component {
   constructor(props) {
@@ -25,9 +25,10 @@ class Stats extends React.Component {
       if (!dataObject[taskActivity._task.name]) {
         dataObject[taskActivity._task.name] = {
           timeAmount: 0,
-          // backgroundColor: '#'+Math.floor(Math.random()*16777215).toString(16),
-          backgroundColor: ColorGenerator().hexString(),
-          hoverBackgroundColor: ColorGenerator().hexString(),
+          backgroundColor: Please.make_color({golden: true}),
+          // hoverBackgroundColor: Please.make_color({
+          //   base_color: 'green'
+          // }),
         };
       }
 
@@ -41,7 +42,11 @@ class Stats extends React.Component {
     Object.keys(dataObject).forEach((key) => {;
       dataArr.push(dataObject[key]['timeAmount']);
       backgroundColorArr.push(dataObject[key]['backgroundColor']);
-      hoverBackgroundColorArr.push(dataObject[key]['hoverBackgroundColor']);
+      // hoverBackgroundColorArr.push(dataObject[key]['hoverBackgroundColor']);
+    });
+
+    dataArr.forEach((dataItem) => {
+
     });
 
     this.setState({
@@ -50,7 +55,9 @@ class Stats extends React.Component {
         datasets: [{
           data: dataArr,
           backgroundColor: backgroundColorArr,
-          hoverBackgroundColor: hoverBackgroundColorArr,
+          hoverBackgroundColor: '#00A000',
+          hoverBorderWidth: 3,
+          hoverBorderColor: 'gray',
         }]
       }
     })
@@ -64,21 +71,48 @@ class Stats extends React.Component {
     return (
       <div className="stats-body">
         <h3>Discipline Stats</h3>
-        <div className="stats-task-activities-list">
-          {this.props.taskActivities.map((taskActivity) => {
-            return (<div key={taskActivity.id}>{taskActivity._task.name}</div>)
-          })}
-        </div>
-        <div>
+        <div className="stats-charts">
           <Doughnut
-            width={500}
-            height={500}
+            width={300}
+            height={300}
             options={{
-              maintainAspectRatio: false
+              maintainAspectRatio: false,
+              legend: { position: 'right'},
+              title: {
+                display: true,
+                text: "Completed Tasks"
+              },
+              layout: {
+                padding: {
+                  left: 100,
+                  right: 100,
+                  top: 0,
+                  bottom: 0
+                }
+              },
+              tooltips: {
+                custom: function(tooltip) {
+                  if (!tooltip) return;
+                  // disable displaying the color box;
+                  tooltip.displayColors = false;
+                },
+
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    let seconds = data.datasets[0].data[tooltipItem.index];
+                    let hours = Math.floor(seconds / 3600);
+                    let minutes = Math.floor((seconds % 3600) / 60 );
+                    seconds = seconds % 3600 % 60;
+                    return `${data.labels[tooltipItem.index]}:  ${hours} hrs ${minutes} min ${seconds} sec`;
+                  }
+                }
+              }
             }}
             data={this.state.data}
-            ref='chart'
           />
+        </div>
+        <div className="stats-task-activities-list">
+          <TaskActivityList taskActivities={this.props.taskActivities}/>
         </div>
       </div>
     );
@@ -87,4 +121,4 @@ class Stats extends React.Component {
 
 export default Stats;
 
-
+//@TODO: make the labels show the percentage of work
