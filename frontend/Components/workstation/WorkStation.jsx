@@ -2,6 +2,8 @@ import React from 'react';
 
 import Carousel from './Carousel.jsx';
 import TaskDropdown from './TaskDropdown.jsx';
+import TaskActivityList from './TaskActivityList.jsx';
+import { padZeroes } from '../../helper_functions.js';
 
 class WorkStation extends React.Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class WorkStation extends React.Component {
     const userId = this.props.authentication.currentUser.id;
     this.props.fetchConvictions(userId);
     this.props.fetchTasks();
+    this.props.fetchTaskActivities();
     this.props.pingTaskTimer();
   }
 
@@ -87,7 +90,6 @@ class WorkStation extends React.Component {
     if (!timerRunning && !taskActivity) {
       return;
     }
-
     this.props.stopTaskTimer(this.props.workstation.taskActivity);
   }
 
@@ -110,7 +112,9 @@ class WorkStation extends React.Component {
     let minute = Math.floor((this.state.currentTime % 3600) / 60);
     let second = (this.state.currentTime % 3600) % 60;
 
-    const { taskActivity, timerRunning } = this.props.workstation;
+    const { taskActivity, timerRunning, taskActivities } = this.props.workstation;
+
+
 
     return (
       <div className="workstation-container">
@@ -130,22 +134,13 @@ class WorkStation extends React.Component {
               <i className={"fa fa-pause-circle-o" + (timerRunning === false ? " disabled" : "") } onClick={this.handlePauseClick}></i>
               <i className={"fa fa-stop-circle-o " + (!taskActivity ? " disabled" : "") } onClick={this.handleStopClick}></i>
           </div>
-          <span className="chronometer">{this.padZeroes(hour, 1)}:{this.padZeroes(minute, 2)}:{this.padZeroes(second, 2)} </span>
+          <span className="chronometer">{padZeroes(hour, 1)}:{padZeroes(minute, 2)}:{padZeroes(second, 2)} </span>
         </div>
 
+        <TaskActivityList taskActivities={taskActivities}/>
       </div>
 
     );
-  }
-
-  padZeroes(num, size) {
-    let numString = num + "";
-
-    while (numString.length < size) {
-      numString = "0" + numString;
-    }
-
-    return numString;
   }
 }
 

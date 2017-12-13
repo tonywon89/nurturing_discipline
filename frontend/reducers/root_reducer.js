@@ -6,6 +6,7 @@ import LoadingReducer from './loading_reducer.js';
 import WorkStationReducer from './workstation_reducer.js';
 import MilestonesReducer from './milestones_reducer.js';
 import TasksReducer from './task_reducer.js';
+import TaskActivitiesReducer from './task_activities_reducer.js';
 
 const RootReducer = combineReducers({
   convictions: ConvictionsReducer,
@@ -15,6 +16,7 @@ const RootReducer = combineReducers({
   workstation: WorkStationReducer,
   milestones: MilestonesReducer,
   tasks: TasksReducer,
+  taskActivities: TaskActivitiesReducer,
 });
 
 export default RootReducer;

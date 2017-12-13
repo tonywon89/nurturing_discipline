@@ -8,7 +8,11 @@
   "tasks": {
     "view": "json/milestone/task"
   },
-  "goal": {},
+  "goalType": {},
+  "goalTarget": {},
+  "goalRemaining": {
+    "format": "goalRemaining"
+  },
   "_parent": {},
   "expanded": {},
   "date_added": {

@@ -1,0 +1,124 @@
+import React from 'react';
+import { Doughnut } from 'react-chartjs-2';
+import Please from 'pleasejs';
+
+import TaskActivityList from '../workstation/TaskActivityList.jsx';
+
+class Stats extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: {}
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    let labels = [];
+    let dataObject = {};
+
+    newProps.taskActivities.forEach((taskActivity) => {
+      if (!labels.includes(taskActivity._task.name)) {
+        labels.push(taskActivity._task.name);
+      }
+
+      if (!dataObject[taskActivity._task.name]) {
+        dataObject[taskActivity._task.name] = {
+          timeAmount: 0,
+          backgroundColor: Please.make_color({golden: true}),
+          // hoverBackgroundColor: Please.make_color({
+          //   base_color: 'green'
+          // }),
+        };
+      }
+
+      dataObject[taskActivity._task.name]['timeAmount'] += taskActivity.timeAmount;
+    })
+
+    let dataArr = [];
+    let backgroundColorArr = [];
+    let hoverBackgroundColorArr = [];
+
+    Object.keys(dataObject).forEach((key) => {;
+      dataArr.push(dataObject[key]['timeAmount']);
+      backgroundColorArr.push(dataObject[key]['backgroundColor']);
+      // hoverBackgroundColorArr.push(dataObject[key]['hoverBackgroundColor']);
+    });
+
+    dataArr.forEach((dataItem) => {
+
+    });
+
+    this.setState({
+      data: {
+        labels: labels,
+        datasets: [{
+          data: dataArr,
+          backgroundColor: backgroundColorArr,
+          hoverBackgroundColor: '#00A000',
+          hoverBorderWidth: 3,
+          hoverBorderColor: 'gray',
+        }]
+      }
+    })
+  }
+
+  componentDidMount() {
+    this.props.fetchTaskActivities();
+  }
+
+  render() {
+    return (
+      <div className="stats-body">
+        <h3>Discipline Stats</h3>
+        <div className="stats-charts">
+          <Doughnut
+            width={300}
+            height={300}
+            options={{
+              maintainAspectRatio: false,
+              legend: { position: 'right'},
+              title: {
+                display: true,
+                text: "Completed Tasks"
+              },
+              layout: {
+                padding: {
+                  left: 100,
+                  right: 100,
+                  top: 0,
+                  bottom: 0
+                }
+              },
+              tooltips: {
+                custom: function(tooltip) {
+                  if (!tooltip) return;
+                  // disable displaying the color box;
+                  tooltip.displayColors = false;
+                },
+
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    let seconds = data.datasets[0].data[tooltipItem.index];
+                    let hours = Math.floor(seconds / 3600);
+                    let minutes = Math.floor((seconds % 3600) / 60 );
+                    seconds = seconds % 3600 % 60;
+                    return `${data.labels[tooltipItem.index]}:  ${hours} hrs ${minutes} min ${seconds} sec`;
+                  }
+                }
+              }
+            }}
+            data={this.state.data}
+          />
+        </div>
+        <div className="stats-task-activities-list">
+          <TaskActivityList taskActivities={this.props.taskActivities}/>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Stats;
+
+//@TODO: make the labels show the percentage of work

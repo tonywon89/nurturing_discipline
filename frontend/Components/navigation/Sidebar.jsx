@@ -2,10 +2,10 @@ import React from 'react';
 import SidebarItem from './SidebarItem.jsx';
 
 const sidebarMenuItems = [
-  { name: 'Home', link: 'home' },
   { name: 'Work Station', link: 'workstation' },
   { name: 'Convictions', link: 'convictions' },
-  { name: 'Milestones / Tasks', link: 'milestone' }
+  { name: 'Milestones / Tasks', link: 'milestone' },
+  { name: 'Stats', link: 'stats'}
 ];
 
 

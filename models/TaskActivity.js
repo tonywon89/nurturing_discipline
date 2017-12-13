@@ -14,6 +14,12 @@ var TaskActivitySchema = Schema(
       default: 0
     },
 
+    _milestone: {
+      type: Schema.Types.ObjectId,
+      ref: 'Milestone',
+      default: null,
+    },
+
     running: {
       type: Boolean,
       default: false

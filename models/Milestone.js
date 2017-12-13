@@ -11,16 +11,16 @@ var MilestoneSchema = Schema(
       required: true,
     },
 
-    /*
-      goal:
-      {
-        goalType: ["timed" or "count"],
-        goalTarget: 10000 (seconds or times),
-        remaining: 9999,
-      }
-    */
-    goal: {
-      type: Schema.Types.Mixed
+    goalType: {
+      type: String,
+    },
+
+    goalTarget: {
+      type: Number,
+    },
+
+    goalRemaining: {
+      type: Number
     },
 
     expanded: {
@@ -52,6 +52,14 @@ var MilestoneSchema = Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'Task',
+        autopopulate: true,
+      }
+    ],
+
+    task_activities: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'TaskActivity',
         autopopulate: true,
       }
     ],

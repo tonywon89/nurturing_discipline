@@ -100,6 +100,8 @@ app.use('/api/tasks', tasksAPI);
 
 // app.use('/auth', authentication)
 
+
+
 var User = require('./models/User.js');
 
 // catch 404 and forward to error handler
@@ -108,6 +110,14 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+var errorHandler = function(err, req, res, next){
+   console.log(err.stack);
+   res.sendStatus(500);
+   // or you could call res.render('error'); if you have a view for that.
+};
+
+app.use(errorHandler);
 
 // error handler
 app.use(function(err, req, res, next) {

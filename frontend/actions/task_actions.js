@@ -6,6 +6,8 @@ export const PAUSE_TASK_TIMER = "PAUSE_TASK_TIMER";
 export const PING_TASK_TIMER = "PING_TASK_TIMER";
 export const RESUME_TASK_TIMER = "RESUME_TASK_TIMER";
 
+export const RECEIVE_TASK_ACTIVITIES = "RECEIVE_TASK_ACTIVITIES";
+
 import * as TaskAPIUtil from '../api_utils/task_api_util.js';
 import * as MilestoneAPIUtil from '../api_utils/milestone_api_util.js';
 
@@ -14,7 +16,7 @@ let intervalId = null;
 export const fetchTasks = () => dispatch => {
   TaskAPIUtil.fetchTasks().then(({ tasks, selectedTask }) => {
     dispatch({ type: RECEIVE_TASKS, tasks });
-    dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask: ( selectedTask ? selectedTask: {id: 12345, name: "Select a task" }) })
+    dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask: ( selectedTask ? selectedTask: {id: 12345, name: "" }) })
   });
 }
 
@@ -53,7 +55,7 @@ export const pingTaskTimer = () => dispatch => {
 }
 
 export const stopTaskTimer = (taskActivity) => dispatch => {
-  TaskAPIUtil.stopTaskTimer(taskActivity).then(({ taskActivity }) => {
+  TaskAPIUtil.stopTaskTimer(taskActivity).then((taskActivity) => {
     dispatch({type: STOP_TASK_TIMER, taskActivity: taskActivity });
   });
 }
@@ -67,5 +69,11 @@ export const pauseTaskTimer = (taskActivity) => dispatch => {
 export const resumeTaskTimer = (taskActivity) => dispatch => {
   TaskAPIUtil.resumeTaskTimer(taskActivity).then(({ taskActivity }) => {
     dispatch({ type: RESUME_TASK_TIMER, taskActivity });
+  })
+}
+
+export const fetchTaskActivities = () => dispatch => {
+  TaskAPIUtil.fetchTaskActivities().then(({ taskActivities }) => {
+    dispatch({ type: RECEIVE_TASK_ACTIVITIES, taskActivities})
   })
 }

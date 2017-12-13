@@ -1,0 +1,5 @@
+{
+  "taskActivities": {
+    "view": "json/task/task_activity"
+  }
+}

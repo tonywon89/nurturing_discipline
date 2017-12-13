@@ -19,6 +19,7 @@ Milestones:
   -Style Tasks and Milestones
   -Refactor Milestone Item to be more clean
   -Refactor milestone controller to be more clean
+  -Make a parent milestone from existing milestone (bottom up building)
 
 
 Convictions:
@@ -28,6 +29,10 @@ Testing Framework:
   -Set it up and get it working
   -
 
+Stats:
+  -Use a graphing tool to display charts
+
+
 Other:
   -Make sure they are above 13 before they can use the app
   -Make isomorphic with BrowserHistory
@@ -36,12 +41,17 @@ Other:
   -Begin Brainstorming responsive web design
   -Implement custom popups for confirmations
   -Handle errors in all locations
+  -use async for the controllers that have nested callbacks
+  -Use captcha
+  -Make website responsive
+  -Add setting to set the time zone
+
 
 Current Tasks:
-  -Implement stop button
-  -Implement pause button
-  -implement reflecting the time in the milestones
-  -Make a parent milestone from existing milestone (bottom up building)
+  -Make a date selector to select the different date range
+  -Deploy to production
+  -Implement unit and integration testing
+  -Milestone completion rewards
 
 Finished Tasks:
   -Get SASS working with webpack
@@ -109,6 +119,14 @@ Finished Tasks:
   -Create pause and stop button
   -Brainstorm how to record the time
   -Implement pinging to see if there is an active task that's already started
+  -Implement stop button
+  -Implement pause button
+  -Implement resume button
+  -implement reflecting the time in the milestones
+  -Make the 3 dots dropdown menu
+  -Display task activities on workstation page
+  -Add start and end time to task activity
+  -Display task activities on stats page
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

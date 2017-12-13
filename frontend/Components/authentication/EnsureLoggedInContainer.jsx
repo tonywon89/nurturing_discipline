@@ -7,6 +7,7 @@ import SidebarContainer from '../navigation/SidebarContainer.jsx';
 import ConvictionContainer from '../conviction/ConvictionContainer.jsx';
 import WorkStationContainer from '../workstation/WorkStationContainer.jsx';
 import MilestoneContainer from '../milestones/MilestoneContainer.jsx';
+import StatsContainer from '../stats/StatsContainer.jsx';
 
 import { login } from '../../actions/auth_actions.js';
 import { fetchCsrfToken } from '../../actions/csrf_actions.js';
@@ -32,6 +33,7 @@ class EnsureLoggedInContainer extends React.Component {
               <Route path="/convictions" component={ConvictionContainer} />
               <Route path="/workstation" component={WorkStationContainer} />
               <Route path="/milestone" component={MilestoneContainer} />
+              <Route path="/stats" component={StatsContainer} />
             </Switch>
           </div>
         </main>
@@ -50,3 +52,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 export default connect(mapStateToProps)(withRouter(EnsureLoggedInContainer))
+
+// @TODO: Create a Stats container and the regular stuff
+// @TODO: Plan out what to do for the stats container

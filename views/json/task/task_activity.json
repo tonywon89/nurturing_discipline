@@ -1,0 +1,26 @@
+{
+  "id": {},
+  "_task": {
+    "view": "json/milestone/task"
+  },
+  "_milestone": {},
+  "timeAmount": {},
+
+  "date_added": {
+    "format": "date"
+  },
+
+  "date_ended": {
+    "format": "date"
+  },
+
+  "time_added": {
+    "from": "date_added",
+    "format": "time"
+  },
+
+  "time_ended": {
+    "from": "date_ended",
+    "format": "time"
+  }
+}

@@ -219,6 +219,71 @@
   font-size: 2em;
 }
 
+.task-name {
+  font-weight: bold;
+}
+
+.task-milestone-content {
+  color: grey;
+  font-size: 0.8em;
+  margin-left: 0.5em;
+}
+
+.workstation-task-activities {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  padding: 1em;
+  font-size: 1em;
+  h4 {
+    font-size: 1.4em;
+    text-align: left;
+    padding-bottom: 0.7em;
+    font-weight: bold;
+  }
+}
+
+.task-activity-item {
+  padding: 1em;
+  border-bottom: 1px dotted grey;
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-activity-total {
+  padding: 1em;
+  // display: flex;
+  // justify-content: space-between;
+  float: right;
+  font-size: 1.4em;
+}
+
+.total-time-amount {
+  margin-left: 1em;
+}
+
+.task-activity-date {
+  font-size: 1.3em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid grey;
+  display: inline-block;
+}
+
+.task-activity-name {
+  font-weight: bold;
+}
+
+.date-task-activity-block {
+  margin-bottom: 2em;
+}
+
+.task-activity-time-range {
+  color: lightgrey;
+  font-size: 0.8em;
+  margin-right: 1em;
+}
+
 /*
   ===================================
     Carousel Conviction animation

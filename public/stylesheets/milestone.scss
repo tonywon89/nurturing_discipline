@@ -30,13 +30,13 @@
         cursor: pointer
       }
 
-      .fa-plus {
+      .fa-ellipsis-v {
         cursor: pointer;
-        color: green;
+        color: lightgrey;
         font-size: 1em;
 
         &:hover {
-          color: blue;
+          color: grey;
         }
       }
 
@@ -174,4 +174,38 @@
 .milestone-goal {
   color: grey;
   font-size: 0.85em;
+}
+
+.milestone-menu {
+
+  position: absolute;
+  font-weight: normal;
+  font-size: 0.8em;
+  right: 0px;
+  margin-right: 2.8em;
+  background: white;
+  li {
+    border: 1px solid lightgrey;
+    padding: 0.7em;
+    cursor: pointer;
+
+    &:hover {
+      background: lightgrey;
+    }
+  }
+
+  &.hide {
+    display:none;
+  }
+
+}
+
+.milestone-menu-toggle {
+
+}
+
+.task-header {
+  padding-top: 1em;
+  padding-left: 1em;
+  text-decoration: underline;
 }
