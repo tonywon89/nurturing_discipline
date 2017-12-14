@@ -2,9 +2,9 @@ var async = require('async');
 var User = require('../models/User.js');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
-var config = require('../config/jwt_config.js');
+// var config = require('../config/jwt_config.js');
 var crypto = require('crypto');
-var sendGridConfig = require('../config/send_grid_config.js');
+// var sendGridConfig = require('../config/send_grid_config.js');
 var nodemailer = require('nodemailer');
 var _ = require('lodash');
 
@@ -17,7 +17,8 @@ function addJWT(user) {
       firstName: user.firstName,
       lastName: user.lastName,
     },
-    config.jwtSecret
+    // config.jwtSecret
+    process.env.JWT_SECRET
     // {
     //   expiresIn: 60000
     // }
@@ -29,7 +30,7 @@ function addJWT(user) {
 exports.login = function (req, res, next) {
   if (req.body.initialLoad === 'true') {
     if (req.cookies.userToken) {
-      var decodedUser = jwt.verify(req.cookies.userToken, config.jwtSecret);
+      var decodedUser = jwt.verify(req.cookies.userToken, process.env.JWT_SECRET);
       req.logIn(decodedUser, function (err) {
         res.render('json/user/user', { error: err, data: decodedUser });
       });
@@ -134,8 +135,8 @@ exports.emailForgotAuthInfo = function (req, res, next) {
       var smtpTransport = nodemailer.createTransport({
         service: 'SendGrid',
         auth: {
-          user: sendGridConfig.sendGrid.username,
-          pass: sendGridConfig.sendGrid.password,
+          user: process.env.SENDGRID_USERNAME,
+          pass: process.env.SENDGRID_PASSWORD,
         }
       });
 
@@ -189,11 +190,12 @@ exports.resetPassword = function (req, res, next) {
 
     },
     function(user, done) {
+
       var smtpTransport = nodemailer.createTransport({
         service: 'SendGrid',
         auth: {
-          user: sendGridConfig.sendGrid.username,
-          pass: sendGridConfig.sendGrid.password,
+          user: process.env.SENDGRID_USERNAME,
+          pass: process.env.SENDGRID_PASSWORD,
         }
       });
       var mailOptions = {
