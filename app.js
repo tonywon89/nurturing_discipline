@@ -22,7 +22,7 @@ var tasksAPI = require('./routes/api/tasks.js');
 
 var app = express();
 
-var mongoUrl = process.env.DATABASE_URL;
+var mongoUrl = process.env.MONGODB_URI;
 mongoose.connect(mongoUrl);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
