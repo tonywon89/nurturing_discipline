@@ -1,3 +1,5 @@
+var $ = require("jquery");
+
 export const createMilestone = (data) => (
   $.ajax({
     method: 'POST',

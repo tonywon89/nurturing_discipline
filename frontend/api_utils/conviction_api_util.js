@@ -1,3 +1,5 @@
+var $ = require("jquery");
+
 export const fetchConvictions = (userId) => (
   $.ajax({
     method: 'GET',

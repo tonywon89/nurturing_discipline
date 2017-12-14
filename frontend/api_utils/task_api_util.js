@@ -1,3 +1,5 @@
+var $ = require("jquery");
+
 export const fetchTasks = () => (
   $.ajax({
     method: "GET",

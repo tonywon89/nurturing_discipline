@@ -1,3 +1,5 @@
+var $ = require("jquery");
+
 export const login = (data) => (
   $.ajax({
     method: 'POST',
