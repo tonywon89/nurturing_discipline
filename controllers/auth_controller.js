@@ -1,5 +1,5 @@
 var async = require('async');
-var User = require('../models/User.js');
+var User = require('../models/User');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 // var config = require('../config/jwt_config.js');

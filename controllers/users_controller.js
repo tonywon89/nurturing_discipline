@@ -1,5 +1,5 @@
 var async = require('async');
-var User = require('../models/User.js');
+var User = require('../models/User');
 
 
 // callback
