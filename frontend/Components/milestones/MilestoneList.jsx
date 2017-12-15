@@ -108,15 +108,25 @@ class MilestoneList extends React.Component {
       </div>
     );
 
+    let createButton;
+
+    if (this.props.milestones.milestones.length > 0) {
+      createButton = (
+        <div className="clearfix">
+          <button className="create-milestone-button" onClick={this.openModal}><i className="fa fa-plus"></i>
+          </button>
+        </div>
+      );
+    } else {
+      createButton = <span className="milestone-no-milestones">No Milestones. Click <a onClick={this.openModal}>here</a> to make one</span>
+    }
+
     return (
       <div className="milestone-container">
         <h3>Milestones</h3>
         <h5>The marks of your progress</h5>
 
-        <div className="clearfix">
-          <button className="create-milestone-button" onClick={this.openModal}><i className="fa fa-plus"></i>
-          </button>
-        </div>
+        {createButton}
 
         <div className="milestone-list">
           {this.props.milestones.milestones.map((milestone, idx) => {
@@ -135,9 +145,7 @@ class MilestoneList extends React.Component {
 
                 />
               );
-          }
-
-          )}
+          })}
         </div>
 
           <Modal

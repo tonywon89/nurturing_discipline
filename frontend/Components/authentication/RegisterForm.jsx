@@ -4,10 +4,10 @@ class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "test@test.com",
-      username: "test",
-      password: "curious",
-      passwordConfirmation: "curious",
+      email: "",
+      username: "",
+      password: "",
+      passwordConfirmation: "",
 
       // email: "",
       // username: "",

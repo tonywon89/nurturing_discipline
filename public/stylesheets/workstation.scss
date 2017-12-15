@@ -54,6 +54,11 @@
       .carousel-conviction-detail {
         font-size: 1.5em;
         color: grey;
+
+        a {
+          color: #4286f4;
+          text-decoration: underline;
+        }
       }
     }
 
@@ -284,49 +289,17 @@
   margin-right: 1em;
 }
 
-/*
-  ===================================
-    Carousel Conviction animation
-  ===================================
-*/
-// .carousel-conviction-title-transition-enter {
-//   position: relative;
-//   // left: -9em;
-//   opacity: 0.01;
+.workstation-no-tasks, .conviction-no-convictions, .milestone-no-milestones {
+  width: 50%;
+  display: block;
+  margin: auto;
+  margin-top: 5em;
+  text-align: center;
+  font-size: 1.5em;
+  color: lightgrey;
 
-//   &.carousel-conviction-title-transition-enter-active {
-//     opacity: 1;
-//     // left: 0;
-//     transition: opacity 1000ms ease-in, left 500ms ease-in;
-
-//   }
-// }
-
-// .carousel-conviction-title-transition-leave {
-//   opacity: 1;
-//   &.carousel-conviction-title-transition-leave-active {
-//     opacity: 0.01;
-//     transition: opacity 1000ms ease-in, right 500ms ease-in;
-//   }
-// }
-
-// .carousel-conviction-detail-transition-enter {
-//   position: relative;
-//   // right: -9em;
-//   opacity: 0.01;
-
-//   &.carousel-conviction-detail-transition-enter-active {
-//     opacity: 1;
-//     // right: 0;
-//     transition: opacity 1000ms ease-in, right 500ms ease-in;
-
-//   }
-// }
-
-// .carousel-conviction-detail-transition-leave {
-//   opacity: 1;
-//   &.carousel-conviction-detail-transition-leave-active {
-//     opacity: 0.01;
-//     transition: opacity 1000ms ease-in, right 500ms ease-in;
-//   }
-// }
+  a {
+    color: #4286f4;
+    text-decoration: underline
+  }
+}

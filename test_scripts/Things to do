@@ -49,6 +49,7 @@ Other:
 
 Current Tasks:
   -Make sure empty pages are properly styled
+  -Redo milestone/task form
   -Make a date selector to select the different date range
   -Implement unit and integration testing
   -Milestone completion rewards

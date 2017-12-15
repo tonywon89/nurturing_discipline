@@ -1,5 +1,6 @@
 import React from 'react';
 import { TransitionGroup } from 'react-transition-group'
+import { withRouter } from 'react-router';
 
 import { TweenMax } from 'gsap';
 
@@ -12,14 +13,21 @@ class ConvictionTitle extends React.Component {
   }
 
   render() {
-
     const { currentConviction } = this.props;
-    return (
+    if (currentConviction.id) {
+      return (
+        <div key={currentConviction.id} className="carousel-conviction-title" ref={c => this.container = c}>
+          {currentConviction.title}
+        </div>
+      );
 
-      <div key={currentConviction.id} className="carousel-conviction-title" ref={c => this.container = c}>
-        {currentConviction.title}
-      </div>
-    );
+    } else {
+      return (
+        <div className="carousel-conviction-title" ref={c => this.container = c}>
+           No Convictions yet.
+        </div>
+      )
+    }
   }
 }
 
@@ -32,15 +40,30 @@ class ConvictionDetail extends React.Component {
 
   render () {
     const { currentConviction } = this.props;
-    return (
-        <div key={currentConviction.id} className="carousel-conviction-detail" ref={c => this.container = c}>
-            {currentConviction.detailed_description}
+    if (currentConviction.id) {
+
+      return (
+          <div key={currentConviction.id} className="carousel-conviction-detail" ref={c => this.container = c}>
+              {currentConviction.detailed_description}
+          </div>
+      );
+    } else {
+      return (
+        <div className="carousel-conviction-detail" ref={c => this.container = c}>
+          Click <a onClick={this.props.handleConvictionLinkClick.bind(this)}>here</a> to make some
         </div>
-    );
+      );
+    }
   }
 }
 
 class CarouselItem extends React.Component {
+  handleConvictionLinkClick(event) {
+    event.preventDefault();
+
+    this.props.history.push('convictions')
+  }
+
   render() {
     const { currentConviction } = this.props;
     return (
@@ -51,7 +74,7 @@ class CarouselItem extends React.Component {
           </TransitionGroup>
 
           <TransitionGroup key={currentConviction.title} >
-            <ConvictionDetail currentConviction={currentConviction} />
+            <ConvictionDetail currentConviction={currentConviction} handleConvictionLinkClick={this.handleConvictionLinkClick.bind(this)} />
           </TransitionGroup>
         </div>
     );
@@ -59,4 +82,4 @@ class CarouselItem extends React.Component {
 }
 
 
-export default CarouselItem;
+export default withRouter(CarouselItem);

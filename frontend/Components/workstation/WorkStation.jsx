@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 import Carousel from './Carousel.jsx';
 import TaskDropdown from './TaskDropdown.jsx';
@@ -16,6 +17,7 @@ class WorkStation extends React.Component {
     this.handleStartClick = this.handleStartClick.bind(this);
     this.handleStopClick = this.handleStopClick.bind(this);
     this.handlePauseClick = this.handlePauseClick.bind(this);
+    this.handleTaskLinkClick = this.handleTaskLinkClick.bind(this);
   }
 
   componentWillUnmount() {
@@ -101,6 +103,11 @@ class WorkStation extends React.Component {
     this.props.pauseTaskTimer(this.props.workstation.taskActivity);
   }
 
+  handleTaskLinkClick(event) {
+    event.preventDefault();
+
+    this.props.history.push('milestone')
+  }
   render() {
     let taskOptions = <span>You currently have no tasks</span>
 
@@ -114,8 +121,31 @@ class WorkStation extends React.Component {
 
     const { taskActivity, timerRunning, taskActivities } = this.props.workstation;
 
+    let activeTimer;
 
+    if (this.props.tasks.length > 0) {
+      activeTimer = (
+        <div>
+          <div className="active-timer">
+            {taskOptions}
+             <div className="timer-controls">
+                <i className={"fa fa-play-circle" + (timerRunning === true ? " disabled" : "") } onClick={this.handleStartClick}></i>
+                <i className={"fa fa-pause-circle-o" + (timerRunning === false ? " disabled" : "") } onClick={this.handlePauseClick}></i>
+                <i className={"fa fa-stop-circle-o " + (!taskActivity ? " disabled" : "") } onClick={this.handleStopClick}></i>
+            </div>
+            <span className="chronometer">{padZeroes(hour, 1)}:{padZeroes(minute, 2)}:{padZeroes(second, 2)} </span>
+          </div>
 
+          <TaskActivityList taskActivities={taskActivities}/>
+        </div>
+      )
+    } else {
+      activeTimer= (
+        <div className="workstation-no-tasks">
+          You don't have any tasks. Click <a href="#" onClick={this.handleTaskLinkClick}>here</a> to make some.
+        </div>
+      )
+    }
     return (
       <div className="workstation-container">
         <Carousel
@@ -127,21 +157,13 @@ class WorkStation extends React.Component {
           toggleCarouselCycle={this.props.toggleCarouselCycle}
         />
 
-        <div className="active-timer">
-          {taskOptions}
-           <div className="timer-controls">
-              <i className={"fa fa-play-circle" + (timerRunning === true ? " disabled" : "") } onClick={this.handleStartClick}></i>
-              <i className={"fa fa-pause-circle-o" + (timerRunning === false ? " disabled" : "") } onClick={this.handlePauseClick}></i>
-              <i className={"fa fa-stop-circle-o " + (!taskActivity ? " disabled" : "") } onClick={this.handleStopClick}></i>
-          </div>
-          <span className="chronometer">{padZeroes(hour, 1)}:{padZeroes(minute, 2)}:{padZeroes(second, 2)} </span>
-        </div>
+        {activeTimer}
 
-        <TaskActivityList taskActivities={taskActivities}/>
+
       </div>
 
     );
   }
 }
 
-export default WorkStation;
+export default withRouter(WorkStation);
