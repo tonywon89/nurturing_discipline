@@ -1,6 +1,7 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import Please from 'pleasejs';
+import { withRouter } from 'react-router';
 
 import TaskActivityList from '../workstation/TaskActivityList.jsx';
 
@@ -26,9 +27,6 @@ class Stats extends React.Component {
         dataObject[taskActivity._task.name] = {
           timeAmount: 0,
           backgroundColor: Please.make_color({golden: true}),
-          // hoverBackgroundColor: Please.make_color({
-          //   base_color: 'green'
-          // }),
         };
       }
 
@@ -42,11 +40,6 @@ class Stats extends React.Component {
     Object.keys(dataObject).forEach((key) => {;
       dataArr.push(dataObject[key]['timeAmount']);
       backgroundColorArr.push(dataObject[key]['backgroundColor']);
-      // hoverBackgroundColorArr.push(dataObject[key]['hoverBackgroundColor']);
-    });
-
-    dataArr.forEach((dataItem) => {
-
     });
 
     this.setState({
@@ -67,58 +60,74 @@ class Stats extends React.Component {
     this.props.fetchTaskActivities();
   }
 
+  handleWorkStationLinkClick(event) {
+    event.preventDefault();
+
+    this.props.history.push('workstation');
+  }
+
   render() {
+    let stats;
+
+    if (this.props.taskActivities.length > 0) {
+      stats = (
+        <div>
+          <div className="stats-charts">
+            <Doughnut
+              width={300}
+              height={300}
+              options={{
+                maintainAspectRatio: false,
+                legend: { position: 'right'},
+                title: {
+                  display: true,
+                  text: "Completed Tasks"
+                },
+                layout: {
+                  padding: {
+                    left: 100,
+                    right: 100,
+                    top: 0,
+                    bottom: 0
+                  }
+                },
+                tooltips: {
+                  custom: function(tooltip) {
+                    if (!tooltip) return;
+                    // disable displaying the color box;
+                    tooltip.displayColors = false;
+                  },
+
+                  callbacks: {
+                    label: function(tooltipItem, data) {
+                      let seconds = data.datasets[0].data[tooltipItem.index];
+                      let hours = Math.floor(seconds / 3600);
+                      let minutes = Math.floor((seconds % 3600) / 60 );
+                      seconds = seconds % 3600 % 60;
+                      return `${data.labels[tooltipItem.index]}:  ${hours} hrs ${minutes} min ${seconds} sec`;
+                    }
+                  }
+                }
+              }}
+              data={this.state.data}
+            />
+          </div>
+          <div className="stats-task-activities-list">
+            <TaskActivityList taskActivities={this.props.taskActivities}/>
+          </div>
+        </div>
+      );
+    } else {
+      stats = <span className="stat-no-stats">No stats. Go <a onClick={this.handleWorkStationLinkClick.bind(this)}>here</a> to get some done </span>
+    }
+
     return (
       <div className="stats-body">
         <h3>Discipline Stats</h3>
-        <div className="stats-charts">
-          <Doughnut
-            width={300}
-            height={300}
-            options={{
-              maintainAspectRatio: false,
-              legend: { position: 'right'},
-              title: {
-                display: true,
-                text: "Completed Tasks"
-              },
-              layout: {
-                padding: {
-                  left: 100,
-                  right: 100,
-                  top: 0,
-                  bottom: 0
-                }
-              },
-              tooltips: {
-                custom: function(tooltip) {
-                  if (!tooltip) return;
-                  // disable displaying the color box;
-                  tooltip.displayColors = false;
-                },
-
-                callbacks: {
-                  label: function(tooltipItem, data) {
-                    let seconds = data.datasets[0].data[tooltipItem.index];
-                    let hours = Math.floor(seconds / 3600);
-                    let minutes = Math.floor((seconds % 3600) / 60 );
-                    seconds = seconds % 3600 % 60;
-                    return `${data.labels[tooltipItem.index]}:  ${hours} hrs ${minutes} min ${seconds} sec`;
-                  }
-                }
-              }
-            }}
-            data={this.state.data}
-          />
-        </div>
-        <div className="stats-task-activities-list">
-          <TaskActivityList taskActivities={this.props.taskActivities}/>
-        </div>
+        {stats}
       </div>
     );
   }
 }
 
-export default Stats;
-
-//@TODO: make the labels show the percentage of work
+export default withRouter(Stats);

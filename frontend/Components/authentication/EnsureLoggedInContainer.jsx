@@ -3,6 +3,7 @@ import { withRouter, Switch } from 'react-router';
 import { Route } from 'react-router-dom';
 import React from 'react';
 
+import LoggedInHome from '../LoggedInHome.jsx';
 import SidebarContainer from '../navigation/SidebarContainer.jsx';
 import ConvictionContainer from '../conviction/ConvictionContainer.jsx';
 import WorkStationContainer from '../workstation/WorkStationContainer.jsx';
@@ -30,6 +31,7 @@ class EnsureLoggedInContainer extends React.Component {
           <SidebarContainer />
           <div className="content">
             <Switch>
+              <Route exact path="/" component={LoggedInHome} />
               <Route path="/convictions" component={ConvictionContainer} />
               <Route path="/workstation" component={WorkStationContainer} />
               <Route path="/milestone" component={MilestoneContainer} />
@@ -52,6 +54,3 @@ function mapStateToProps(state, ownProps) {
 }
 
 export default connect(mapStateToProps)(withRouter(EnsureLoggedInContainer))
-
-// @TODO: Create a Stats container and the regular stuff
-// @TODO: Plan out what to do for the stats container

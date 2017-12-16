@@ -7,11 +7,10 @@ import configureStore from './store.js';
 import { login } from './actions/auth_actions.js';
 import { fetchCsrfToken } from './actions/csrf_actions.js';
 
-import AuthContainer from './Components/authentication/AuthContainer.jsx';
 import NavbarContainer from './Components/navigation/NavbarContainer.jsx';
-import EnsureLoggedInContainer from './Components/authentication/EnsureLoggedInContainer.jsx';
 import ResetPasswordForm from './Components/authentication/ResetPasswordForm.jsx';
 import LoadingIcon from './Components/LoadingIcon.jsx';
+import HomeContainer from './Components/HomeContainer.jsx';
 
 
 const store = configureStore();
@@ -26,7 +25,7 @@ const Root = () => (
         </header>
         <Switch>
           <Route path="/reset/:token" component={ResetPasswordForm} />
-          <Route component={EnsureLoggedInContainer} />
+          <Route path="/" component={HomeContainer} />
         </Switch>
         <LoadingIcon />
       </div>

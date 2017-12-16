@@ -75,15 +75,26 @@ class ConvictionList extends React.Component {
   render() {
     const { convictions, createConviction, deleteConviction, editConviction, fetchConvictions, authentication, csrfToken } = this.props;
 
-    return (
-      <div>
-        <div className="conviction-container ">
-          <h3>Convictions</h3>
-          <h5>The reasons why you decided to change</h5>
+    let createButton;
+
+    if (convictions.length > 0) {
+      createButton = (
           <div className="clearfix">
             <button className="create-conviction-button" onClick={this.openModal}><i className="fa fa-plus"></i>
             </button>
           </div>
+      );
+    } else {
+      createButton = <span className="conviction-no-convictions">No Convictions. Click <a onClick={this.openModal}>here</a> to make one</span>
+    }
+
+    return (
+      <div>
+        <div className="conviction-container ">
+          <h3>Convictions</h3>
+          <h5>The reasons why you want to change</h5>
+
+          {createButton}
 
           <ul>
             {convictions.map((conviction, idx) => (

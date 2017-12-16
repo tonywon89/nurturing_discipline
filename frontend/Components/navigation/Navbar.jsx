@@ -1,9 +1,13 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import AuthContainer from '../authentication/AuthContainer.jsx'
 
+
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props);
+  handleHomeClick(event) {
+    event.preventDefault();
+
+    this.props.history.push('/');
   }
 
   render() {
@@ -13,7 +17,7 @@ class Navbar extends React.Component {
           <div className="navbar-logo">
             <img src="/images/Logo.png"/>
             <span className="logo-text">
-              <span>Nurturing</span> Discipline
+              <a href="#" onClick={this.handleHomeClick.bind(this)}><span>Nurturing</span> Discipline</a>
             </span>
           </div>
         </div>
@@ -25,4 +29,4 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

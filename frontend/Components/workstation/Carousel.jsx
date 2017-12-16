@@ -82,8 +82,9 @@ class Carousel extends React.Component {
       );
     })
     const currentConviction = (convictions.length > 0 ? convictions[currentIndex] : {
-        title: "No Convictions yet. Make one soon!",
-        detailed_description: "This is where you make the change"
+        id: null,
+        title: "No Convictions yet. Click here to make some",
+        detailed_description: ""
       });
 
     // @TODO: Removing all the controls until can figure out how to cancel the animation for React CSS Transition Group
