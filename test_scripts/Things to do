@@ -48,9 +48,10 @@ Other:
 
 
 Current Tasks:
-  -Make sure empty pages are properly styled
   -Redo milestone/task form
+    -Refactor it into one modal
   -Make a date selector to select the different date range
+  -Change task dropdown in workstation to use the react select
   -Implement unit and integration testing
   -Milestone completion rewards
 
@@ -130,6 +131,7 @@ Finished Tasks:
   -Display task activities on stats page
   -Deploy to production
   -FIgure out how to connect robo mongo to live database
+  -Make sure empty pages are properly styled - basic
 
 Postponed Tasks
   -Google Login - Get this working - Need privacy policy once deployed, so want to avoid this for now

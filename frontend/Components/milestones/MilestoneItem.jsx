@@ -189,13 +189,7 @@ class MilestoneItem extends React.Component {
           <i onClick={this.handleDeleteMilestone} className="fa fa-trash-o"></i>
           {milestoneGoal}
         </div>
-        <div>
-          <i onClick={this.showMenu} className="fa fa-ellipsis-v milestone-menu-toggle"></i>
-          <ul className={"milestone-menu" + (!this.state.menuOpen ? " hide" : "") } >
-            <li onClick={this.openSubMilestoneForm}>Add landmark</li>
-            <li onClick={this.openTaskForm}>Add Task</li>
-          </ul>
-        </div>
+
       </span>);
 
     if (this.state.edit) {
@@ -214,6 +208,13 @@ class MilestoneItem extends React.Component {
     return (
       <div className="milestone-item">
         <div className="item">
+          <div className="milestone-add-task-landmark-menu">
+            <i onClick={this.showMenu} className="fa fa-ellipsis-v milestone-menu-toggle"></i>
+            <ul className={"milestone-menu" + (!this.state.menuOpen ? " hide" : "") } >
+              <li onClick={this.openSubMilestoneForm}>Add landmark</li>
+              <li onClick={this.openTaskForm}>Add Task</li>
+            </ul>
+          </div>
           {expandButton}
           {milestoneContent}
 
@@ -233,11 +234,11 @@ class MilestoneItem extends React.Component {
             }}
             contentLabel="Milestone Item Modal"
           >
-            <div>
+            <div className="milestone-task-modal">
               <div className="clearfix">
                 <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
               </div>
-              <h5 style={{ marginBottom: "1em" }}>Update "{this.props.milestone.content}"</h5>
+              <h5>Update "{this.props.milestone.content}"</h5>
 
               {this.state.addSubForm ? <AddSubMilestoneForm milestone={this.props.milestone} closeModal={this.closeModal} createSubMilestone={this.props.createSubMilestone} updateMilestone={this.props.updateMilestone}/> : null}
               {this.state.addTaskForm ?  <AddTaskForm milestone={this.props.milestone} createTask={this.props.createTask} closeModal={this.closeModal} /> : null }

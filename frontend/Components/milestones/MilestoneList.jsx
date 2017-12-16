@@ -164,7 +164,7 @@ class MilestoneList extends React.Component {
             }}
             contentLabel="Milestone Modal"
           >
-          <div>
+          <div className="milestone-task-modal">
             <div className="clearfix">
               <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
             </div>

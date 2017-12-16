@@ -36,7 +36,7 @@
         font-size: 1em;
 
         &:hover {
-          color: grey;
+          color: black;
         }
       }
 
@@ -181,12 +181,15 @@
   position: absolute;
   font-weight: normal;
   font-size: 0.8em;
-  right: 0px;
-  margin-right: 2.8em;
+  // right: 0px;
+  // margin-right: 2.8em;
   background: white;
+  border: 1px solid lightgrey;
+  box-sizing: border-box;
+  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  border-radius: 0.5px;
   li {
-    border: 1px solid lightgrey;
-    padding: 0.7em;
+    padding: 1em 1.7em;
     cursor: pointer;
 
     &:hover {
@@ -208,4 +211,16 @@
   padding-top: 1em;
   padding-left: 1em;
   text-decoration: underline;
+}
+
+.milestone-task-modal {
+
+  h5 {
+    color: white;
+    margin-bottom: 2em;
+  }
+}
+
+.milestone-add-task-landmark-menu {
+  margin-right: 20px;
 }
