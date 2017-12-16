@@ -58,6 +58,13 @@
       color: #25DC82;
       font-weight:bold;
     }
+
+    >a {
+      &:hover {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
   }
 
   img {
@@ -139,3 +146,4 @@
   }
 
 }
+
