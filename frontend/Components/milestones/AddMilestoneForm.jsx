@@ -38,7 +38,7 @@ class AddMilestoneForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { milestone } = this.props;
+    const { parentMilestone } = this.props.milestoneModal;
 
     if (this.state.content === "") {
       alert("Please enter your landmark content");
@@ -57,8 +57,8 @@ class AddMilestoneForm extends React.Component {
 
     const data = {
       content: this.state.content,
-      parentMilestone: milestone ? milestone.id : null,
-
+      parentMilestone: parentMilestone ? parentMilestone.id : null,
+      expanded: parentMilestone ? true : false,
       selectedOption: this.state.selectedOption,
       hours: this.state.hours === "" ? 0 : this.state.hours,
       minutes: this.state.minutes === "" ? 0 : this.state.minutes,
@@ -66,11 +66,16 @@ class AddMilestoneForm extends React.Component {
 
     if (data.parentMilestone) {
       this.props.createSubMilestone(data);
+      this.props.updateMilestone({
+        id: parentMilestone.id,
+        content: parentMilestone.content,
+        expanded: true
+      })
     } else {
       this.props.createMilestone(data);
     }
 
-    this.props.closeModal();
+    this.props.closeMilestoneModal();
   }
 
   render() {

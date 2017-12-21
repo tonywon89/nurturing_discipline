@@ -54,9 +54,9 @@ const mapDispatchToProps = dispatch => ({
 
   openMilestoneForm: (data) => {
     openMilestoneForm(data)(dispatch);
-  }
+  },
 
-  closeMilestoneModal = () => {
+  closeMilestoneModal: () => {
     closeMilestoneModal()(dispatch);
   }
 });

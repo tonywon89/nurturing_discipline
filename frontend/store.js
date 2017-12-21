@@ -11,8 +11,8 @@ let configureStore = (preloadedState = defaultState) => (
     createStore(
         RootReducer,
         preloadedState,
-        // applyMiddleware(thunk, logger)
-        applyMiddleware(thunk),
+        applyMiddleware(thunk, logger)
+        // applyMiddleware(thunk),
       )
 );
 
