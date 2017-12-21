@@ -3,12 +3,18 @@ import {
   // RECEIVE_MILESTONE,
   RECEIVE_MILESTONES,
 
-
+  OPEN_MILESTONE_FORM,
+  CLOSE_MILESTONE_MODAL,
 } from '../actions/milestone_actions.js';
 
 const _default = {
   milestones: [],
-
+  milestoneModal: {
+    modalIsOpen: false,
+    parentMilestone: null,
+    milestoneForm: false,
+    taskForm: false,
+  }
 }
 
 const MilestonesReducer = (state = _default, action) => {
@@ -24,7 +30,26 @@ const MilestonesReducer = (state = _default, action) => {
     //     ]
     //   );
     case RECEIVE_MILESTONES:
-      return merge({}, state, { milestones: action.milestones });
+      return {
+        milestoneModal: state.milestoneModal,
+        milestones: action.milestones
+      };
+
+    case OPEN_MILESTONE_FORM:
+      return merge({}, state, { milestoneModal: {
+        modalIsOpen: true,
+        milestoneForm: true,
+        taskForm: false,
+        parentMilestone: action.parentMilestone
+      }});
+
+    case CLOSE_MILESTONE_MODAL:
+      return merge({}, state, { milestoneModal: {
+        modalIsOpen: false,
+        milestoneForm: false,
+        taskForm: false,
+        parentMilestone: null
+      }});
     default:
       return state;
   }

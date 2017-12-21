@@ -9,6 +9,8 @@ import {
   createTask,
   updateTask,
   deleteTask,
+  openMilestoneForm,
+  closeMilestoneModal,
 } from '../../actions/milestone_actions.js';
 
 import MilestoneList from './MilestoneList.jsx';
@@ -50,6 +52,13 @@ const mapDispatchToProps = dispatch => ({
     deleteTask(data)(dispatch);
   },
 
+  openMilestoneForm: (data) => {
+    openMilestoneForm(data)(dispatch);
+  }
+
+  closeMilestoneModal = () => {
+    closeMilestoneModal()(dispatch);
+  }
 });
 
 export default connect(

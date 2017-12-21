@@ -2,78 +2,71 @@ import React from 'react';
 import Modal from 'react-modal';
 
 import MilestoneItem from './MilestoneItem.jsx';
+import AddMilestoneForm from './AddMilestoneForm.jsx'
+import AddTaskForm from './AddTaskForm.jsx';
 
 class MilestoneList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      contentValue: "",
-      selectedOption: 'timed',
-      hours: "",
-      minutes: "",
-      count: "",
       modalIsOpen: false,
+      addTaskForm: false,
+      addMilestoneForm: false,
+
+      milestone: null,
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleContentChange = this.handleContentChange.bind(this);
-    this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
-    this.handleRadioClick = this.handleRadioClick.bind(this);
-    this.handleNumberChange=this.handleNumberChange.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchMilestones();
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    if (this.state.contentValue === "") {
-      alert("Please enter a value");
-      return;
-    }
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //   if (this.state.contentValue === "") {
+  //     alert("Please enter a value");
+  //     return;
+  //   }
 
-    if (this.state.selectedOption === "timed" && this.state.hours === "" && this.state.minutes === "") {
-      alert("Please enter either hours or minutes or both");
-      return;
-    }
+  //   if (this.state.selectedOption === "timed" && this.state.hours === "" && this.state.minutes === "") {
+  //     alert("Please enter either hours or minutes or both");
+  //     return;
+  //   }
 
-    if (this.state.selectedOption === "count" && this.state.count === "") {
-      alert("Please enter a count for your milestone");
-      return;
-    }
 
-    const data = {
-      contentValue: this.state.contentValue,
-      selectedOption: this.state.selectedOption,
-      hours: this.state.hours === "" ? 0 : this.state.hours,
-      minutes: this.state.minutes === "" ? 0 : this.state.minutes,
-      count: this.state.count,
-    }
+  //   const data = {
+  //     contentValue: this.state.contentValue,
+  //     selectedOption: this.state.selectedOption, // this is always going to be "timed"
+  //     hours: this.state.hours === "" ? 0 : this.state.hours,
+  //     minutes: this.state.minutes === "" ? 0 : this.state.minutes,
+  //   }
 
-    this.props.createMilestone(data);
-    this.closeModal();
-  }
+  //   this.props.createMilestone(data);
+  //   this.closeModal();
+  // }
 
-  handleContentChange(event) {
-    this.setState({ contentValue: event.target.value })
-  }
-
-  handleNumberChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
-
-  openModal(event) {
-    event.preventDefault();
+  openTaskForm(event) {
+    // event.preventDefault();
 
     this.setState({
       modalIsOpen: true,
+      addTaskForm: true,
+      addMilestoneForm: false,
+    })
+  }
+
+  openMilestoneForm(event) {
+    // const { milestone } =
+
+    this.setState({
+      modalIsOpen: true,
+      addTaskForm: false,
+      addMilestoneForm: true,
     })
   }
 
@@ -83,15 +76,11 @@ class MilestoneList extends React.Component {
 
   closeModal() {
     this.setState({
+      milestone: null,
       modalIsOpen: false,
-      contentValue: "",
+      addTaskForm: false,
+      addMilestoneForm: false,
     })
-  }
-
-  handleRadioClick(event) {
-    this.setState({
-      selectedOption: event.target.value
-    });
   }
 
   render() {
@@ -102,23 +91,18 @@ class MilestoneList extends React.Component {
         <input type="number" name="minutes" onChange={this.handleNumberChange} value={this.state.minutes} placeholder="Minutes"/>
       </div>
       );
-    let countForm = (
-      <div>
-        <input type="number" name="count" onChange={this.handleNumberChange}  value={this.state.count} placeholder="Count" /> times
-      </div>
-    );
 
     let createButton;
 
     if (this.props.milestones.milestones.length > 0) {
       createButton = (
         <div className="clearfix">
-          <button className="create-milestone-button" onClick={this.openModal}><i className="fa fa-plus"></i>
+          <button className="create-milestone-button" onClick={this.openMilestoneForm.bind(this, this.state.milestone)}><i className="fa fa-plus"></i>
           </button>
         </div>
       );
     } else {
-      createButton = <span className="milestone-no-milestones">No Milestones. Click <a onClick={this.openModal}>here</a> to make one</span>
+      createButton = <span className="milestone-no-milestones">No Milestones. Click <a onClick={this.openMilestoneForm.bind(this, this.state.milestone)}>here</a> to make one</span>
     }
 
     return (
@@ -133,7 +117,6 @@ class MilestoneList extends React.Component {
             return (
               <MilestoneItem
                 key={milestone.id}
-                milestoneModal={this.props.milestones.milestoneModal}
                 milestone={milestone}
                 isParent={milestone.sub_milestones && milestone.sub_milestones.length > 0 ? true : false }
                 createSubMilestone={this.props.createSubMilestone}
@@ -142,7 +125,8 @@ class MilestoneList extends React.Component {
                 createTask={this.props.createTask}
                 updateTask={this.props.updateTask}
                 deleteTask={this.props.deleteTask}
-
+                openMilestoneForm={this.openMilestoneForm}
+                openTaskForm={this.openTaskForm.bind(this, milestone)}
                 />
               );
           })}
@@ -169,31 +153,10 @@ class MilestoneList extends React.Component {
               <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
             </div>
 
-            <h5 style={{ marginBottom: "1em" }}>New Milestone</h5>
-
-            <form onSubmit={this.handleSubmit}>
-              <input type="text" placeholder="New Milestone" onChange={this.handleContentChange} value={this.state.contentValue}/>
-              <p>Goal Type:</p>
-              <span className="goal-type-input">
-                <label>
-                  <input type="radio" onChange={this.handleRadioClick} value="timed" checked={this.state.selectedOption === "timed"}/>
-                  Timed
-                </label>
-                <label>
-                  <input type="radio" onChange={this.handleRadioClick} value="count" checked={this.state.selectedOption === "count"}/>
-                  Count
-                </label>
-              </span>
-              {this.state.selectedOption === "timed" ? timedForm : null}
-              {this.state.selectedOption === "count" ? countForm : null}
-
-              <input type="submit" value="Submit" />
-            </form>
+            {this.state.addMilestoneForm ? <AddMilestoneForm milestone={this.state.milestone} closeModal={this.closeModal} createSubMilestone={this.props.createSubMilestone} updateMilestone={this.props.updateMilestone} createMilestone={this.props.createMilestone} /> : null}
+            {this.state.addTaskForm ?  <AddTaskForm milestone={this.props.milestone} createTask={this.props.createTask} closeModal={this.closeModal} /> : null }
           </div>
         </Modal>
-
-
-
       </div>
     )
   }
