@@ -14,12 +14,6 @@ class MilestoneItem extends React.Component {
       milestoneContent: props.milestone.content,
       edit: false,
       taskName: "",
-
-      // modalIsOpen: false,
-      // addTaskForm: false,
-      // addSubForm: false,
-      // addMilestoneForm: false,
-      // milestone: this.props.milestone,
       menuOpen: false,
     }
 
@@ -81,15 +75,13 @@ class MilestoneItem extends React.Component {
     this.setState({ taskName: event.target.value });
   }
 
-  // openTaskForm(event) {
-  //   event.preventDefault();
+  openTaskForm(event) {
+    event.preventDefault();
 
-  //   this.setState({
-  //     modalIsOpen: true,
-  //     addTaskForm: true,
-  //     addSubForm: false,
-  //   })
-  // }
+    const { milestone } = this.props;
+
+    this.props.openTaskForm(milestone);
+  }
 
   openMilestoneForm(event) {
     event.preventDefault();
@@ -98,25 +90,21 @@ class MilestoneItem extends React.Component {
     const { milestone } = this.props;
 
     this.props.openMilestoneForm(milestone);
-    // this.setState({
-    //   modalIsOpen: true,
-    //   addTaskForm: false,
-    //   addSubForm: true,
-    // })
+
   }
 
   afterOpenModal() {
 
   }
 
-  closeModal() {
-    this.setState({
-      modalIsOpen: false,
-      addTaskForm: false,
-      addMilestoneForm: false,
-    })
+  // closeModal() {
+  //   this.setState({
+  //     modalIsOpen: false,
+  //     addTaskForm: false,
+  //     addMilestoneForm: false,
+  //   })
 
-  }
+  // }
 
   showMenu() {
     this.setState({ menuOpen: true })
@@ -150,7 +138,7 @@ class MilestoneItem extends React.Component {
               openMilestoneForm={function() {
                 this.props.openMilestoneForm(subMilestone)
               }}
-              openTaskForm={this.props.openTaskForm.bind(this, subMilestone)}
+              openTaskForm={this.props.openTaskForm.bind(this)}
               />
           );
       });
@@ -213,7 +201,7 @@ class MilestoneItem extends React.Component {
             <i onClick={this.showMenu} className="fa fa-ellipsis-v milestone-menu-toggle"></i>
             <ul className={"milestone-menu" + (!this.state.menuOpen ? " hide" : "") } >
               <li onClick={this.openMilestoneForm.bind(this)}>Add landmark</li>
-              <li onClick={this.props.openTaskForm.bind(this)}>Add Task</li>
+              <li onClick={this.openTaskForm.bind(this)}>Add Task</li>
             </ul>
           </div>
           {expandButton}

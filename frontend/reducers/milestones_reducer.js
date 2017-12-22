@@ -1,9 +1,8 @@
 import merge from 'lodash/merge';
 import {
-  // RECEIVE_MILESTONE,
   RECEIVE_MILESTONES,
-
   OPEN_MILESTONE_FORM,
+  OPEN_TASK_FORM,
   CLOSE_MILESTONE_MODAL,
 } from '../actions/milestone_actions.js';
 
@@ -40,6 +39,14 @@ const MilestonesReducer = (state = _default, action) => {
         modalIsOpen: true,
         milestoneForm: true,
         taskForm: false,
+        parentMilestone: action.parentMilestone
+      }});
+
+    case OPEN_TASK_FORM:
+      return merge({}, state, { milestoneModal: {
+        modalIsOpen: true,
+        milestoneForm: false,
+        taskForm: true,
         parentMilestone: action.parentMilestone
       }});
 

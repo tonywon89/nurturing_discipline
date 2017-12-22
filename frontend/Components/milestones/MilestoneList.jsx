@@ -14,24 +14,11 @@ class MilestoneList extends React.Component {
     };
 
     this.afterOpenModal = this.afterOpenModal.bind(this);
-
-
   }
 
   componentDidMount() {
     this.props.fetchMilestones();
   }
-
-
-  openTaskForm(event) {
-
-    this.setState({
-      modalIsOpen: true,
-      addTaskForm: true,
-      addMilestoneForm: false,
-    })
-  }
-
 
   afterOpenModal() {
 
@@ -79,8 +66,8 @@ class MilestoneList extends React.Component {
                 createTask={this.props.createTask}
                 updateTask={this.props.updateTask}
                 deleteTask={this.props.deleteTask}
-                openMilestoneForm={this.props.openMilestoneForm.bind(this)}
-                openTaskForm={this.openTaskForm.bind(this)}
+                openMilestoneForm={this.props.openMilestoneForm}
+                openTaskForm={this.props.openTaskForm}
                 />
               );
           })}
@@ -108,7 +95,7 @@ class MilestoneList extends React.Component {
             </div>
 
             {this.props.milestones.milestoneModal.milestoneForm ? <AddMilestoneForm  closeMilestoneModal={this.props.closeMilestoneModal} createSubMilestone={this.props.createSubMilestone} updateMilestone={this.props.updateMilestone} createMilestone={this.props.createMilestone} milestoneModal={this.props.milestones.milestoneModal}/> : null}
-            {this.state.addTaskForm ?  <AddTaskForm milestone={this.props.milestone} createTask={this.props.createTask} closeModal={this.closeModal} /> : null }
+            {this.props.milestones.milestoneModal.taskForm ?  <AddTaskForm createTask={this.props.createTask} closeModal={this.props.closeMilestoneModal} milestoneModal={this.props.milestones.milestoneModal} /> : null }
           </div>
         </Modal>
       </div>

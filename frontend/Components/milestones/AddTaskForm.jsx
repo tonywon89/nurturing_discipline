@@ -26,7 +26,7 @@ class AddTaskForm extends React.Component {
 
     const data = {
       name: this.state.taskName,
-      milestoneId: this.props.milestone.id,
+      milestoneId: this.props.milestoneModal.parentMilestone.id,
     }
 
     this.props.createTask(data);
