@@ -23,7 +23,7 @@ exports.milestone_create = function (req, res, next) {
   }
 
   Milestone.create({
-    content: req.body.contentValue,
+    content: req.body.content,
 
     goalType: req.body.selectedOption,
     goalTarget: req.body.selectedOption === 'timed' ? (hours * 60 * 60 + minutes * 60) : Math.round(parseFloat(req.body.count)),
@@ -44,7 +44,7 @@ exports.milestone_create = function (req, res, next) {
       milestone.tasks.push(task._id);
       milestone.save(function (err) {
 
-        res.render('json/milestone/milestone', { error: err, data: milestone })
+        getAllMilestones(req, res, next);
       })
 
     });
@@ -59,7 +59,7 @@ exports.sub_milestone_create = function (req, res, next) {
 
   var subMilestone = new Milestone({
     _id: new mongoose.Types.ObjectId(),
-    content: req.body.subMilestoneContent,
+    content: req.body.content,
     _parent: req.body.parentMilestone,
     _user: req.user._id,
 
@@ -85,7 +85,6 @@ exports.sub_milestone_create = function (req, res, next) {
         Milestone.findByIdAndUpdate(
           req.body.parentMilestone,
           {$push: { sub_milestones: subMilestone._id}},
-
           function(err, milestone) {
             getAllMilestones(req, res, next);
           }

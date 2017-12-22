@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import TaskItem from './TaskItem.jsx';
 
 import AddTaskForm from './AddTaskForm.jsx';
-import AddSubMilestoneForm from './AddSubMilestoneForm.jsx';
+import AddMilestoneForm from './AddMilestoneForm.jsx';
 
 class MilestoneItem extends React.Component {
   constructor(props) {
@@ -14,11 +14,6 @@ class MilestoneItem extends React.Component {
       milestoneContent: props.milestone.content,
       edit: false,
       taskName: "",
-
-      modalIsOpen: false,
-      addTaskForm: false,
-      addSubForm: false,
-
       menuOpen: false,
     }
 
@@ -31,12 +26,6 @@ class MilestoneItem extends React.Component {
 
     this.showMenu = this.showMenu.bind(this);
     this.hideMenu = this.hideMenu.bind(this);
-    this.openTaskForm = this.openTaskForm.bind(this);
-    this.openSubMilestoneForm = this.openSubMilestoneForm.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-
-
   }
 
   handleExpand(event) {
@@ -50,8 +39,6 @@ class MilestoneItem extends React.Component {
 
     this.props.updateMilestone(data);
   }
-
-
 
   handleEditSubmit(event) {
     event.preventDefault();
@@ -91,35 +78,33 @@ class MilestoneItem extends React.Component {
   openTaskForm(event) {
     event.preventDefault();
 
-    this.setState({
-      modalIsOpen: true,
-      addTaskForm: true,
-      addSubForm: false,
-    })
+    const { milestone } = this.props;
+
+    this.props.openTaskForm(milestone);
   }
 
-  openSubMilestoneForm(event) {
+  openMilestoneForm(event) {
     event.preventDefault();
 
-    this.setState({
-      modalIsOpen: true,
-      addTaskForm: false,
-      addSubForm: true,
-    })
+
+    const { milestone } = this.props;
+
+    this.props.openMilestoneForm(milestone);
+
   }
 
   afterOpenModal() {
 
   }
 
-  closeModal() {
-    this.setState({
-      modalIsOpen: false,
-      addTaskForm: false,
-      addSubForm: false,
-    })
+  // closeModal() {
+  //   this.setState({
+  //     modalIsOpen: false,
+  //     addTaskForm: false,
+  //     addMilestoneForm: false,
+  //   })
 
-  }
+  // }
 
   showMenu() {
     this.setState({ menuOpen: true })
@@ -150,6 +135,10 @@ class MilestoneItem extends React.Component {
               createTask={this.props.createTask}
               updateTask={this.props.updateTask}
               deleteTask={this.props.deleteTask}
+              openMilestoneForm={function() {
+                this.props.openMilestoneForm(subMilestone)
+              }}
+              openTaskForm={this.props.openTaskForm.bind(this)}
               />
           );
       });
@@ -196,7 +185,7 @@ class MilestoneItem extends React.Component {
       milestoneContent = (
         <div className="modify-milestone-container" >
           <form className="modify-milestone-form" onSubmit={this.handleEditSubmit }>
-            <input type="text" onChange={this.handleEditChange} value={this.state.milestoneContent} size={this.state.milestoneContent.length}/>
+            <input type="text" value={this.state.milestoneContent} onChange={this.handleEditChange} size={this.state.milestoneContent ? this.state.milestoneContent.length : 10}/>
             <button type="submit"><i className="fa fa-check"></i></button>
             <i className="fa fa-times" onClick={this.toggleEdit}></i>
           </form>
@@ -211,39 +200,13 @@ class MilestoneItem extends React.Component {
           <div className="milestone-add-task-landmark-menu">
             <i onClick={this.showMenu} className="fa fa-ellipsis-v milestone-menu-toggle"></i>
             <ul className={"milestone-menu" + (!this.state.menuOpen ? " hide" : "") } >
-              <li onClick={this.openSubMilestoneForm}>Add landmark</li>
-              <li onClick={this.openTaskForm}>Add Task</li>
+              <li onClick={this.openMilestoneForm.bind(this)}>Add landmark</li>
+              <li onClick={this.openTaskForm.bind(this)}>Add Task</li>
             </ul>
           </div>
           {expandButton}
           {milestoneContent}
 
-          <Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            className={{
-              base: "modal-content",
-              afterOpen: "milestone-item-form",
-              beforeClose: "modal-content"
-            }}
-            overlayClassName={{
-              base: "modal-overlay",
-              afterOpen: "modal-overlay",
-              beforeClose: "modal-overlay",
-            }}
-            contentLabel="Milestone Item Modal"
-          >
-            <div className="milestone-task-modal">
-              <div className="clearfix">
-                <button className="modal-close" onClick={this.closeModal}><i className="fa fa-times"></i></button>
-              </div>
-              <h5>Update "{this.props.milestone.content}"</h5>
-
-              {this.state.addSubForm ? <AddSubMilestoneForm milestone={this.props.milestone} closeModal={this.closeModal} createSubMilestone={this.props.createSubMilestone} updateMilestone={this.props.updateMilestone}/> : null}
-              {this.state.addTaskForm ?  <AddTaskForm milestone={this.props.milestone} createTask={this.props.createTask} closeModal={this.closeModal} /> : null }
-            </div>
-          </Modal>
 
         </div>
         {taskItems ? <div>
@@ -261,6 +224,3 @@ class MilestoneItem extends React.Component {
 }
 
 export default MilestoneItem;
-
-
-// @TODO: Get the different states for the modal to get it working

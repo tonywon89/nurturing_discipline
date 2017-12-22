@@ -3,8 +3,7 @@ export const RECEIVE_MILESTONE = "RECEIVE_MILESTONE";
 export const RECEIVE_MILESTONES = "RECEIVE_MILESTONES";
 
 export const OPEN_TASK_FORM = "OPEN_TASK_FORM";
-export const OPEN_PARENT_MILESTONE_FORM = "OPEN_PARENT_MILESTONE_FORM";
-export const OPEN_SUB_MILESTONE_FORM =" OPEN_SUB_MILESTONE_FORM";
+export const OPEN_MILESTONE_FORM = "OPEN_PARENT_MILESTONE_FORM";
 export const CLOSE_MILESTONE_MODAL = "CLOSE_MILESTONE_MODAL";
 
 import * as MilestoneAPIUtil from '../api_utils/milestone_api_util.js';
@@ -16,13 +15,15 @@ export const fetchMilestones = () => dispatch => {
 };
 
 export const createMilestone = (data) => dispatch => {
-  MilestoneAPIUtil.createMilestone(data).then((milestone) => {
-    dispatch({ type: RECEIVE_MILESTONE, milestone })
+  MilestoneAPIUtil.createMilestone(data).then(({ milestones }) => {
+    dispatch({ type: RECEIVE_MILESTONES, milestones })
   });
 };
 
 export const createSubMilestone = (data) => dispatch => {
+  // console.log(data);
   MilestoneAPIUtil.createSubMilestone(data).then(({ milestones }) => {
+    console.log(milestones);
     dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
   })
 };
@@ -57,18 +58,14 @@ export const updateTask = (data) => dispatch => {
   });
 }
 
-export const openTaskForm = () => dispatch => {
-  dispatch({ type: OPEN_TASK_FORM });
+export const openTaskForm = (parentMilestone) => dispatch => {
+  dispatch({ type: OPEN_TASK_FORM, parentMilestone: parentMilestone });
 }
 
-export const openParentMilestoneForm = () => dispatch => {
-  dispatch({ type: OPEN_PARENT_MILESTONE_FORM });
+export const openMilestoneForm = (parentMilestone = null) => dispatch => {
+  dispatch({ type: OPEN_MILESTONE_FORM, parentMilestone: parentMilestone });
 }
 
-export const openSubMilestoneForm = () => dispatch => {
-  dispatch({ type: OPEN_SUB_MILESTONE_FORM });
-}
-
-export const closeMilestoneModal= () => dispatch => {
+export const closeMilestoneModal = () => dispatch => {
   dispatch({ type: CLOSE_MILESTONE_MODAL });
 }
