@@ -1,2 +1,0 @@
-Run this to start nodemon:
-DEBUG=nurturing_discipline:* & npm run devstart
