@@ -72,19 +72,18 @@ describe('ConvictionActions', () => {
   // ASYNC Actions
   it('fetchConvictions makes an api call to api/convictions', () => {
 
-    // const store = mockStore({ convictions: [] })
-    store.dispatch(actions.fetchConvictions(1));
+    const userId = 1;
+    store.dispatch(actions.fetchConvictions(userId));
 
     expect($.ajax.calledOnce).to.be.true;
     assert.equal("api/convictions", $.ajax.getCall(0).args[0].url);
     assert.equal("GET", $.ajax.getCall(0).args[0].method);
-    assert.equal(1, $.ajax.getCall(0).args[0].data.userId);
+    assert.equal(userId, $.ajax.getCall(0).args[0].data.userId);
     assert.equal("json", $.ajax.getCall(0).args[0].dataType);
   });
 
-  it('createConvictions makes an api call to api/convictions', () => {
+  it('createConvictions makes a POST api call to api/convictions', () => {
 
-    // const store = mockStore({ convictions: [] })
     const data = {
       title: "Test Conviction Title1",
       detailed_description: "Test Conviction Detail1"
@@ -98,6 +97,33 @@ describe('ConvictionActions', () => {
     assert.equal("json", $.ajax.getCall(0).args[0].dataType);
   });
 
+  it('deleteConviction makes a DELETE api call to api/convictions', () => {
+
+    const convictionId = 1
+    store.dispatch(actions.deleteConviction(convictionId));
+
+    expect($.ajax.calledOnce).to.be.true;
+    assert.equal("api/convictions", $.ajax.getCall(0).args[0].url);
+    assert.equal("DELETE", $.ajax.getCall(0).args[0].method);
+    assert.equal(convictionId, $.ajax.getCall(0).args[0].data.convictionId);
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
+
+  it('editConviction makes a DELETE api call to api/convictions', () => {
+
+    const data = {
+      id: 123,
+      title: "Test Conviction Title1",
+      detailed_description: "Test Conviction Detail1"
+    }
+    store.dispatch(actions.editConviction(data));
+
+    expect($.ajax.calledOnce).to.be.true;
+    assert.equal("api/convictions", $.ajax.getCall(0).args[0].url);
+    assert.equal("PATCH", $.ajax.getCall(0).args[0].method);
+    assert.equal(data, $.ajax.getCall(0).args[0].data);
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
 
   // Dispatch ActionS
   it('getConvictions sends the appropriate multiple convictions', () => {
