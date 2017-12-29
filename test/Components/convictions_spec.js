@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 const currentUser = {id: 1};
 const authentication = { currentUser: currentUser};
 const fetchConvictions = sinon.stub();
-describe('ConvictionList', () => {
+describe('Conviction List Component', () => {
   let convictions = [
     { id: 123, title: "Test Conviction Title1", detailed_description: "Test Conviction Detail1"},
     { id: 123, title: "Test Conviction Title2", detailed_description: "Test Conviction Detail2"},
@@ -40,7 +40,7 @@ describe('ConvictionList', () => {
   });
 });
 
-describe('ConvictionItem', () => {
+describe('Conviction Item Component', () => {
   let conviction = { id: 123, title: "Test Conviction Title1", detailed_description: "Test Conviction Detail1"}
   let wrapper = mount(<ConvictionItem conviction={conviction}/>)
 
@@ -54,12 +54,22 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as actions from '../../frontend/actions/conviction_actions.js';
 
-
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 const store = mockStore({ convictions: [] })
-
-describe('ConvictionActions', () => {
+const doubleConvictions =   [
+        {
+          id: 123,
+          title: "Test Conviction Title1",
+          detailed_description: "Test Conviction Detail1"
+        },
+        {
+          id: 124,
+          title: "Test Conviction Title2",
+          detailed_description: "Test Conviction Detail2"
+        }
+      ]
+describe('Conviction Actions', () => {
   beforeEach(() => {
     sinon.spy($, 'ajax')
   })
@@ -129,35 +139,10 @@ describe('ConvictionActions', () => {
   it('getConvictions sends the appropriate multiple convictions', () => {
     let expected = {
       type: actions.RECEIVE_CONVICTIONS,
-      convictions:
-      [
-        {
-          id: 123,
-          title: "Test Conviction Title1",
-          detailed_description: "Test Conviction Detail1"
-        },
-        {
-          id: 124,
-          title: "Test Conviction Title2",
-          detailed_description: "Test Conviction Detail2"
-        }
-      ]
+      convictions: doubleConvictions,
     }
 
-    store.dispatch(actions.getConvictions(
-      [
-        {
-          id: 123,
-          title: "Test Conviction Title1",
-          detailed_description: "Test Conviction Detail1"
-        },
-        {
-          id: 124,
-          title: "Test Conviction Title2",
-          detailed_description: "Test Conviction Detail2"
-        }
-      ]
-    ));
+    store.dispatch(actions.getConvictions(doubleConvictions));
 
     expect(store.getActions()[0]).to.deep.equal(expected)
   })
@@ -217,10 +202,30 @@ describe('ConvictionActions', () => {
   })
 });
 
-/** @TODO:
-createConviction
-deleteConviction
-editConviction
-**/
+import ConvictionsReducer from '../../frontend/reducers/convictions_reducer.js';
 
+describe('Convictions Reducer', () => {
+  it('should return the initial state', () => {
+    expect(ConvictionsReducer(undefined, {})).to.deep.equal([]);
+  });
 
+  it('should handle RECEIVE_CONVICTIONS, returning the new convictions array', () => {
+    expect(ConvictionsReducer(undefined, { type: actions.RECEIVE_CONVICTIONS, convictions: doubleConvictions})).to.deep.equal(doubleConvictions)
+  });
+
+  it('should handle RECEIVE_CONVICTION, adding a current conviction to the end', () => {
+    const thirdConviction = {id: 125, title: "Test Conviction Title3", detailed_description: "Test Conviction Detail3"}
+
+    expect(ConvictionsReducer(doubleConvictions, { type: actions.RECEIVE_CONVICTION, conviction: thirdConviction})).to.deep.equal([...doubleConvictions, thirdConviction]);
+  });
+
+  it('should handle REMOVE_CONVICTION, removing the specified conviction', () => {
+    expect(ConvictionsReducer(doubleConvictions, { type: actions.REMOVE_CONVICTION, convictionId: 123})).to.deep.equal([doubleConvictions[1]]);
+  });
+
+  it('should handle MODIFY_CONVICTION, modifying the existing conviction with the new input', () => {
+    const modifiedConviction = { id: 123, title: "Test Conviction Title 4", detailed_description: "Test Description  4" };
+
+    expect(ConvictionsReducer(doubleConvictions, { type: actions.MODIFY_CONVICTION, conviction: modifiedConviction})).to.deep.equal([modifiedConviction, doubleConvictions[1]]);
+  });
+});

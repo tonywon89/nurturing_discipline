@@ -25,13 +25,13 @@ const ConvictionsReducer = (state = [], action) => {
 
     case MODIFY_CONVICTION:
       return state.map(conviction => {
-        if(conviction.id !== action.conviction.id) {
+        if (conviction.id !== action.conviction.id) {
             // This isn't the item we care about - keep it as-is
             return conviction;
         }
 
         // Otherwise, this is the one we want - return an updated value
-        return merge(conviction, action.conviction)
+        return merge({}, conviction, action.conviction)
     });
     default:
       return state;
