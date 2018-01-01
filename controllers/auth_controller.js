@@ -8,6 +8,10 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var _ = require('lodash');
 
+if (process.env.NODE_ENV === 'test') {
+  process.env.JWT_SECRET = 'MySecretKeyToBeReplaced'
+}
+
 function addJWT(user) {
   var token = jwt.sign(
     {

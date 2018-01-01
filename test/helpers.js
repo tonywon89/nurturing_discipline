@@ -1,6 +1,6 @@
 import { JSDOM } from "jsdom";
 import chai from 'chai';
-import { expect, assert } from 'chai';
+import { expect, assert, should } from 'chai';
 import { shallow, mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import {configure} from 'enzyme';
@@ -22,6 +22,7 @@ function setUpDomEnvironment(){
 
   global.expect = expect;
   global.assert = assert;
+  global.should = should;
   global.sinon = sinon;
   global.spy = spy;
 
