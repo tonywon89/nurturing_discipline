@@ -38,7 +38,6 @@
     "csurf": "^1.9.0",
     "dateformat": "^2.0.0",
     "debug": "~2.6.0",
-    "enzyme": "^3.2.0",
     "express": "~4.14.1",
     "express-json-views": "^0.1.0",
     "express-session": "^1.15.3",
@@ -86,6 +85,9 @@
     "webpack": "^2.5.1"
   },
   "devDependencies": {
+    "enzyme": "^3.2.0",
+    "chai-dom": "^1.6.0",
+    "chai-enzyme": "^0.8.0",
     "chai-exclude": "^1.0.3",
     "chai-http": "^3.0.0",
     "enzyme-adapter-react-15": "^1.0.5",

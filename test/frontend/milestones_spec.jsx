@@ -18,6 +18,7 @@ const milestonesDefault = {
   }
 }
 describe('Milestone List Component', () => {
+
   let milestoneList = mount(<MilestoneList milestones={milestonesDefault} fetchMilestones={fetchMilestones} openMilestoneForm={openMilestoneForm} openTaskForm={openTaskForm}/> );
 
   it('renders the empty milestone message when user has no milestones', () => {
@@ -28,6 +29,10 @@ describe('Milestone List Component', () => {
     { id: 123, content: "Test Milestone 1", sub_milestones: [], tasks: [], goalType: 'timed', goalRemaining: 3661, _parent: null},
     { id: 124, content: "Test Milestone 2", sub_milestones: [], tasks: [], goalType: 'timed', goalRemaining: 3661, _parent: null}
   ];
+
+  it('does not render the create button when milestones are empty', () => {
+    expect(milestoneList.find('.create-milestone-button')).to.have.length(0);
+  })
 
   let basicMilestones = merge({}, milestonesDefault, { milestones });
 
@@ -40,6 +45,10 @@ describe('Milestone List Component', () => {
     expect(milestoneList.text()).to.contain('Test Milestone 2');
     expect(milestoneList.text()).to.contain('1 hours 1 minutes 1 seconds')
   });
+
+  it('renders the create button when milestones are present', () => {
+    expect(milestoneList.find('.create-milestone-button')).to.have.length(1);
+  })
 
   milestones = [
     {
@@ -154,16 +163,148 @@ describe('Milestone List Component', () => {
     expect(milestoneList.text()).to.contain('General Task for Test Submilestone 2');
     expect(milestoneList.text()).to.contain('General Task for Test Submilestone 3');
   });
-
 });
+
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import * as actions from '../../frontend/actions/milestone_actions.js';
+
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
+const store = mockStore(milestonesDefault);
+
+describe('Milestone Actions', () => {
+  beforeEach(() => {
+    sinon.spy($, 'ajax');
+  });
+
+  afterEach(() => {
+    $.ajax.restore();
+  });
+
+  // ASYNC Actions
+  it('fetchMilestones makes an api call to api/milestones', () => {
+    store.dispatch(actions.fetchMilestones());
+
+    expect($.ajax.calledOnce).to.be.true
+    assert.equal("api/milestones", $.ajax.getCall(0).args[0].url);
+    assert.equal("GET", $.ajax.getCall(0).args[0].method);
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
+
+  it('createMilestone makes a POST call to api/milestones', () => {
+    let data = {
+      content: "Test Milestone 1",
+      selectedOption: "timed",
+      hours: 1,
+      minutes: 1,
+    };
+
+    store.dispatch(actions.createMilestone(data));
+
+    expect($.ajax.calledOnce).to.be.true
+    assert.equal("api/milestones", $.ajax.getCall(0).args[0].url);
+    assert.equal("POST", $.ajax.getCall(0).args[0].method);
+    assert.equal(data, $.ajax.getCall(0).args[0].data)
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
+
+  it('createSubMilestone makes a POST api call to api/milestones/submilestones', () => {
+    let data = {
+      content: "Test SubMilestone 1",
+      selectedOption: "timed",
+      hours: 1,
+      minutes: 1,
+      parentMilestone: 123,
+    };
+
+    store.dispatch(actions.createSubMilestone(data))
+
+    expect($.ajax.calledOnce).to.be.true
+    assert.equal("api/milestones/submilestones", $.ajax.getCall(0).args[0].url);
+    assert.equal("POST", $.ajax.getCall(0).args[0].method);
+    assert.equal(data, $.ajax.getCall(0).args[0].data)
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
+
+  it('updateMilestone makes a patch call to api/milestones', () => {
+    let data = {
+      id: 123,
+      content: "Patched MIlestone",
+      expanded: true,
+    };
+
+     store.dispatch(actions.updateMilestone(data))
+
+    expect($.ajax.calledOnce).to.be.true
+    assert.equal("api/milestones", $.ajax.getCall(0).args[0].url);
+    assert.equal("PATCH", $.ajax.getCall(0).args[0].method);
+    assert.equal(data, $.ajax.getCall(0).args[0].data)
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
+
+  it('deleteMilestone makes a patch call to api/milestones', () => {
+    let data = {
+      id: 123,
+    };
+
+    store.dispatch(actions.deleteMilestone(data))
+
+    expect($.ajax.calledOnce).to.be.true
+    assert.equal("api/milestones", $.ajax.getCall(0).args[0].url);
+    assert.equal("DELETE", $.ajax.getCall(0).args[0].method);
+    assert.equal(data, $.ajax.getCall(0).args[0].data)
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
+
+  it('createTask makes a POST call to api/milestones/task', () => {
+    let data = {
+      name: "Test task",
+      milestoneId: 123,
+    };
+
+    store.dispatch(actions.createTask(data))
+
+    expect($.ajax.calledOnce).to.be.true
+    assert.equal("api/milestones/tasks", $.ajax.getCall(0).args[0].url);
+    assert.equal("POST", $.ajax.getCall(0).args[0].method);
+    assert.equal(data, $.ajax.getCall(0).args[0].data)
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
+
+  it('deleteTask makes a DELETE call to api/milestones/tasks', () => {
+    let data = {
+      id: 123
+    };
+
+    store.dispatch(actions.deleteTask(data))
+
+    expect($.ajax.calledOnce).to.be.true
+    assert.equal("api/milestones/tasks", $.ajax.getCall(0).args[0].url);
+    assert.equal("DELETE", $.ajax.getCall(0).args[0].method);
+    assert.equal(data, $.ajax.getCall(0).args[0].data)
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
+
+  it('updateTask makes a PATCH call to api/milestones/tasks', () => {
+    let data = {
+      id: 123,
+      name: "Updated Task",
+    };
+
+    store.dispatch(actions.updateTask(data))
+
+    expect($.ajax.calledOnce).to.be.true
+    assert.equal("api/milestones/tasks", $.ajax.getCall(0).args[0].url);
+    assert.equal("PATCH", $.ajax.getCall(0).args[0].method);
+    assert.equal(data, $.ajax.getCall(0).args[0].data)
+    assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+  });
+});
+
 
 /**
   Things to test for milestones
-  Tasks
-  Submilestones
-  Sub Tasks
-  Remaining time
-  expanded
   Create Milestone
   Add Landmark
   Add Task
@@ -171,6 +312,7 @@ describe('Milestone List Component', () => {
   Edit Task
   Delete Milestone
   Delete Task
+  Test Reducer
 **/
 
 

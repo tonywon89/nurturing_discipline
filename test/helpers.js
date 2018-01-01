@@ -1,5 +1,6 @@
 import { JSDOM } from "jsdom";
 import chai from 'chai';
+// import chaiEnzyme from 'chai-enzyme';
 import { expect, assert, should } from 'chai';
 import { shallow, mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
@@ -7,10 +8,17 @@ import {configure} from 'enzyme';
 import sinon from 'sinon';
 import { spy } from 'sinon';
 
+// function chaiDebugger (wrapper) {
+//   let html = wrapper.html()
+//   // do something cool with the html
+//   return html
+// }
+
 function setUpDomEnvironment(){
   const dom = new JSDOM('<!doctype html><html><body></body></html>');
   const {window} = dom;
-
+  // chai.use(require('chai-dom'))
+  // chai.use(chaiEnzyme(chaiDebugger));
   global.window = window;
   global.document = window.document;
   global.navigator = {

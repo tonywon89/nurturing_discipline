@@ -21,9 +21,7 @@ export const createMilestone = (data) => dispatch => {
 };
 
 export const createSubMilestone = (data) => dispatch => {
-  // console.log(data);
   MilestoneAPIUtil.createSubMilestone(data).then(({ milestones }) => {
-    console.log(milestones);
     dispatch({ type: RECEIVE_MILESTONES, milestones: milestones })
   })
 };

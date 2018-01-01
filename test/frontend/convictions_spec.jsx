@@ -72,7 +72,7 @@ const doubleConvictions =   [
 describe('Conviction Actions', () => {
   beforeEach(() => {
     sinon.spy($, 'ajax')
-  })
+  });
 
   afterEach(() => {
      $.ajax.restore();
