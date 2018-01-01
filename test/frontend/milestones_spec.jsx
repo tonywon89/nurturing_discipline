@@ -52,6 +52,7 @@ describe('Milestone List Component', () => {
           tasks: [],
           expanded: false,
           goalType: 'timed',
+          sub_milestones: [],
           goalRemaining: 3662,
         }
       ],
@@ -93,6 +94,65 @@ describe('Milestone List Component', () => {
     expect(milestoneList.text()).to.not.contain('Test Submilestone 1');
     expect(milestoneList.text()).to.not.contain('General Task for Test Milestone 1');
 
+  });
+
+  // Test for deeply nested submilestones and tasks
+  milestones[0].expanded = true;
+
+  let subMilestone = milestones[0].sub_milestones[0];
+  subMilestone.tasks.push({
+    id: 124,
+    name: 'General Task for Test Submilestone 1',
+  });
+
+  subMilestone.sub_milestones.push(
+       {
+          id: 125,
+          content: "Test Submilestone 2",
+          tasks: [
+            {
+              id: 127,
+              name: 'General Task for Test Submilestone 2',
+            }
+          ],
+          expanded: true,
+          goalType: 'timed',
+          sub_milestones: [
+               {
+              id: 126,
+              content: "Test Submilestone 3",
+              tasks: [
+                {
+                  id: 128,
+                  name: 'General Task for Test Submilestone 3',
+                }
+              ],
+              expanded: true,
+              goalType: 'timed',
+              sub_milestones: [],
+              goalRemaining: 3662,
+            }
+          ],
+          goalRemaining: 3662,
+        }
+
+  )
+
+  subMilestone.expanded = true;
+
+  let deepSubMilestonesTest = merge({}, milestonesDefault, { milestones });
+
+  it('renders the tasks and sub milestones that belong to deeply nested submilestones', () => {
+    milestoneList.setProps({
+      milestones: deepSubMilestonesTest
+    })
+
+    expect(milestoneList.text()).to.contain('Test Submilestone 1');
+    expect(milestoneList.text()).to.contain('Test Submilestone 2');
+    expect(milestoneList.text()).to.contain('Test Submilestone 3');
+    expect(milestoneList.text()).to.contain('General Task for Test Submilestone 1');
+    expect(milestoneList.text()).to.contain('General Task for Test Submilestone 2');
+    expect(milestoneList.text()).to.contain('General Task for Test Submilestone 3');
   });
 
 });
