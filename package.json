@@ -6,10 +6,18 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "webpack": "webpack",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
+    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",
+    "test-all": "mocha --compilers js:babel-core/register --require ./test/helpers.js --require ignore-styles \"test/**/*@(.js|.jsx)\"",
+    "test": "mocha --compilers js:babel-core/register --require ./test/helpers.js --require ignore-styles"
   },
   "engines": {
     "node": "6.10.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   },
   "dependencies": {
     "async": "^2.4.0",
@@ -40,6 +48,7 @@
     "font-awesome-webpack": "0.0.5-beta.2",
     "gsap": "^1.20.3",
     "jquery": "^3.2.1",
+    "jsdom": "^11.5.1",
     "jsonwebtoken": "^7.4.1",
     "jwt-simple": "^0.5.1",
     "less": "^2.7.2",
@@ -76,5 +85,15 @@
     "style-loader": "^0.19.0",
     "webpack": "^2.5.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai-exclude": "^1.0.3",
+    "chai-http": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "fetch-mock": "^5.13.1",
+    "ignore-styles": "^5.0.1",
+    "react-addons-test-utils": "^15.6.2",
+    "react-test-renderer": "^16.2.0",
+    "redux-mock-store": "^1.4.0",
+    "sinon": "^4.1.3"
+  }
 }

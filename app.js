@@ -23,6 +23,10 @@ var tasksAPI = require('./routes/api/tasks.js');
 var app = express();
 
 var mongoUrl = process.env.MONGODB_URI;
+// @TODO: refactor this
+if (process.env.NODE_ENV === 'test') {
+  mongoUrl = 'mongodb://localhost:27017/test'
+}
 mongoose.connect(mongoUrl);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
