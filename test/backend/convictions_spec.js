@@ -19,7 +19,7 @@ describe('Conviction controller', () => {
   before((done) => {
     Conviction.remove({}, (err) => {
 
-      // Logs in the user
+      // Logs in the user and gets the csrf token
       agent
         .post('/api/auth/login')
         .set('Accept','application/json')
@@ -59,6 +59,7 @@ describe('Conviction controller', () => {
           expect(res.body.title).to.equal("Test Conviction1");
           expect(res.body.detailed_description).to.equal('Test Detailed Description1')
           expect(res.body._user).to.equal(userId);
+          expect(res.body.date_added).to.not.be.a('null');
           done();
         })
     });
@@ -133,6 +134,28 @@ describe('Conviction controller', () => {
           });
       });
     });
+  });
+
+  describe('conviction_patch', () => {
+    it('updates the conviction with the new values', (done) => {
+      let conviction = new Conviction({ title: "Test Conviction4", detailed_description: "Test Detailed Description4", _user: userId });
+
+      conviction.save((err, conviction) => {
+        agent.patch('/api/convictions')
+          .set("X-CSRF-Token", csrfToken)
+          .send({
+            title: "Test Convicton4 Updated",
+            detailed_description: "Test Detailed Description4 Updated",
+            id: conviction._id
+          })
+          .then((res) => {
+            expect(res.body.id).to.equal(conviction._id.toString());
+            expect(res.body.title).to.equal("Test Convicton4 Updated");
+            expect(res.body.detailed_description).to.equal("Test Detailed Description4 Updated");
+            done();
+          });
+      });
+    })
   })
 
 });
