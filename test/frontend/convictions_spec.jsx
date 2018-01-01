@@ -17,7 +17,7 @@ describe('Conviction List Component', () => {
   let component = mount(<ConvictionList convictions={[]} authentication={authentication} fetchConvictions={fetchConvictions}/>);
 
   it("renders nothing when conviction list is empty", () => {
-    expect(component.text()).to.contain('The reasons why you want to change');
+    expect(component.text()).to.contain('No Convictions');
   });
 
   it("renders convictions if conviction is present", () => {
