@@ -83,7 +83,6 @@ describe('Milestone (Tasks) controller', () => {
 
       let milestone = new Milestone(data)
 
-      // console.log(milestone);
       milestone.save((err, milestone) => {
         agent.get('/api/milestones')
           .then((res) => {
@@ -103,5 +102,7 @@ describe('Milestone (Tasks) controller', () => {
           })
       })
     })
+
+    it('sets date_deleted for the associated task')
   });
 });
