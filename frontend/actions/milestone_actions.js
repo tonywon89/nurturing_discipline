@@ -3,7 +3,7 @@ export const RECEIVE_MILESTONE = "RECEIVE_MILESTONE";
 export const RECEIVE_MILESTONES = "RECEIVE_MILESTONES";
 
 export const OPEN_TASK_FORM = "OPEN_TASK_FORM";
-export const OPEN_MILESTONE_FORM = "OPEN_PARENT_MILESTONE_FORM";
+export const OPEN_MILESTONE_FORM = "OPEN_MILESTONE_FORM";
 export const CLOSE_MILESTONE_MODAL = "CLOSE_MILESTONE_MODAL";
 
 import * as MilestoneAPIUtil from '../api_utils/milestone_api_util.js';
