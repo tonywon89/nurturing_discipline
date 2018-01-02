@@ -239,19 +239,165 @@ describe('Milestone (Tasks) controller', () => {
                         expect(subMilestone2.tasks[0].date_deleted).to.not.be.equal(null);
                         done();
                       });
-                    })
+                    });
                   });
                 });
 
-              })
+              });
 
-            })
+            });
 
-          })
+          });
         });
 
       });
     });
+  });
 
+  describe('milestone_patch', () => {
+    it('successfully updates the milestone', (done) => {
+      let milestoneData = {
+        _id: new mongoose.Types.ObjectId(),
+        content: 'Test milestone 5',
+        goalType: "timed",
+        goalRemaing: 3660,
+        _user: userId,
+        sub_milestones: [],
+      };
+
+      let milestone = new Milestone(milestoneData);
+
+      milestone.save((err, milestone) => {
+        agent.patch('/api/milestones')
+          .set("X-CSRF-Token", csrfToken)
+          .send({
+            content: "Test Milestone 5 Updated",
+            id: milestone._id
+          })
+          .then((res) => {
+            expect(res.body.milestones[2].content).to.equal('Test Milestone 5 Updated');
+            done();
+          });
+      });
+    });
+  });
+
+  describe('task_create', () => {
+    it('successfully creates a new task', (done) => {
+      let milestoneData = {
+        _id: new mongoose.Types.ObjectId(),
+        content: 'Test milestone 5',
+        goalType: "timed",
+        goalRemaing: 3660,
+        _user: userId,
+      };
+
+      let taskData = {
+        name: 'Test task 1',
+        milestoneId: milestoneData._id,
+      }
+
+      let milestone = new Milestone(milestoneData);
+
+      milestone.save((err, milestone) => {
+        agent.post('/api/milestones/tasks')
+          .set("X-CSRF-Token", csrfToken)
+          .send(taskData)
+          .then((res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body.milestones.length).to.equal(4);
+            expect(res.body.milestones[3].tasks.length).to.equal(1);
+            expect(res.body.milestones[3].tasks[0].name).to.equal(taskData.name);
+            done();
+          })
+      })
+    })
+  });
+
+  describe('task_delete', () => {
+    it('successfully deletes a task', (done) => {
+      let milestoneData = {
+        _id: new mongoose.Types.ObjectId(),
+        content: 'Test milestone 5',
+        goalType: "timed",
+        goalRemaing: 3660,
+        _user: userId,
+        tasks: [],
+      };
+
+      let taskData = {
+        _id: new mongoose.Types.ObjectId(),
+        name: 'Test task 2',
+        _milestone: milestoneData._id,
+        _user: userId,
+      }
+
+      milestoneData.tasks.push(taskData._id)
+
+      let milestone = new Milestone(milestoneData);
+      let task = new Task(taskData);
+      milestone.save((err, milestone) => {
+        task.save((err, task) => {
+
+          agent.delete('/api/milestones/tasks')
+            .set("X-CSRF-Token", csrfToken)
+            .send({ id: taskData._id})
+            .then((res) => {
+              expect(res.status).to.equal(200);
+              expect(res.body.milestones.length).to.equal(5);
+              expect(res.body.milestones[4].tasks.length).to.equal(0);
+
+              Task.findById(task._id).exec(function(err, task) {
+                expect(task.date_deleted).to.not.equal(null);
+                done();
+              })
+            })
+        })
+      })
+    })
+  });
+
+  describe('task_patch', () => {
+    it ('successfully updates a task', (done) => {
+
+      let milestoneData = {
+          _id: new mongoose.Types.ObjectId(),
+          content: 'Test milestone 5',
+          goalType: "timed",
+          goalRemaing: 3660,
+          _user: userId,
+          tasks: [],
+        };
+
+      let taskData = {
+        _id: new mongoose.Types.ObjectId(),
+        name: 'Test task 3',
+        _milestone: milestoneData._id,
+        _user: userId,
+      }
+
+       milestoneData.tasks.push(taskData._id)
+
+      let milestone = new Milestone(milestoneData);
+      let task = new Task(taskData);
+
+      milestone.save((err, milestone) => {
+        task.save((err, task) => {
+          agent.patch('/api/milestones/tasks')
+            .set("X-CSRF-Token", csrfToken)
+            .send({
+              id: task._id,
+              name: 'Test task updated'
+            })
+            .then((res) => {
+              expect(res.status).to.equal(200);
+              expect(res.body.milestones.length).to.equal(6);
+              expect(res.body.milestones[5].tasks.length).to.equal(1);
+              expect(res.body.milestones[5].tasks[0].name).to.equal('Test task updated');
+              done();
+            });
+        });
+      });
+    });
   });
 });
