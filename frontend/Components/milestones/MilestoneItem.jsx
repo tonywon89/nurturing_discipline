@@ -97,15 +97,6 @@ class MilestoneItem extends React.Component {
 
   }
 
-  // closeModal() {
-  //   this.setState({
-  //     modalIsOpen: false,
-  //     addTaskForm: false,
-  //     addMilestoneForm: false,
-  //   })
-
-  // }
-
   showMenu() {
     this.setState({ menuOpen: true })
     document.addEventListener("click", this.hideMenu);
@@ -137,7 +128,7 @@ class MilestoneItem extends React.Component {
               deleteTask={this.props.deleteTask}
               openMilestoneForm={function() {
                 this.props.openMilestoneForm(subMilestone)
-              }}
+              }.bind(this)}
               openTaskForm={this.props.openTaskForm.bind(this)}
               />
           );

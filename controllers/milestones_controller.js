@@ -105,7 +105,10 @@ exports.milestone_patch = function (req, res, next) {
 }
 
 exports.milestone_delete = function (req, res, next) {
-  Milestone.findByIdAndUpdate(req.body.id, { date_deleted: new Date() }, function(err, milestone) {
+  Milestone.findByIdAndUpdate(req.body.id, { date_deleted: new Date() }).exec(function(err, milestone) {
+
+    // Mark tasks as deleted so that it doesn't show up in the workstation
+    recursivelyDeleteTasksAndSubMilestones(milestone);
 
     Milestone.findOne({ _id: milestone._parent}, function(err, parentMilestone) {
 
@@ -120,8 +123,27 @@ exports.milestone_delete = function (req, res, next) {
       }
 
     })
-  })
+  });
 }
+
+function recursivelyDeleteTasksAndSubMilestones(milestone) {
+  Task.update({_milestone: milestone._id}, { date_deleted: new Date() }, function (err, tasks) {
+
+    Milestone.update({ _parent: milestone._id}, { date_deleted: new Date() }, function (err, milestones) {
+
+      if (milestone.sub_milestones.length === 0) {
+        return;
+      }
+
+      Milestone.populate(milestone, {path: 'sub_milestones', model: 'Milestone' }, function(err, milestone) {
+          milestone.sub_milestones.forEach(function(subMilestone) {
+            recursivelyDeleteTasksAndSubMilestones(subMilestone);
+          });
+      });
+    })
+  });
+}
+
 
 exports.task_create = function (req, res, next) {
   var task = new Task({
@@ -152,7 +174,6 @@ exports.task_delete = function (req, res, next) {
         milestone.tasks.remove(task._id);
 
         milestone.save(function(err) {
-          console.log("THIS IS THERE");
           getAllMilestones(req, res, next);
         })
       } else {
@@ -167,3 +188,4 @@ exports.task_patch = function (req, res, next) {
     getAllMilestones(req, res, next);
   });
 }
+
