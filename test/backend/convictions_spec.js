@@ -1,13 +1,11 @@
 // To ensure using test database
 process.env.NODE_ENV = 'test';
 
-let mongoose = require('mongoose');
 const chai = require('chai');
-// const expect = chai.expect;
 let chaiHttp = require('chai-http');
-const Conviction = require('../../models/Conviction.js');
-const conviction_controller = require('../../controllers/convictions_controller.js');
+
 let server = require('../../app.js');
+const Conviction = require('../../models/Conviction.js');
 
 
 chai.use(chaiHttp);
