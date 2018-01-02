@@ -2,9 +2,10 @@
 process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
-let chaiHttp = require('chai-http');
+const chaiHttp = require('chai-http');
+const mongoose = require('mongoose');
 
-let server = require('../../app.js');
+const server = require('../../app.js');
 const Milestone = require('../../models/Milestone.js');
 const Task = require('../../models/Task.js');
 
@@ -103,6 +104,55 @@ describe('Milestone (Tasks) controller', () => {
       })
     })
 
-    it('sets date_deleted for the associated task')
+    it('sets date_deleted for the associated task', (done) => {
+      let milestoneData = {
+        _id: new mongoose.Types.ObjectId(),
+        content: 'Test milestone 3',
+        goalType: "timed",
+        goalRemaing: 3660,
+        _user: userId,
+        tasks: [],
+      };
+
+      let taskData = {
+        _id: new mongoose.Types.ObjectId(),
+        name: 'Test task 3',
+      }
+
+      milestoneData.tasks.push(taskData._id);
+      taskData._milestone = milestoneData._id;
+
+      let milestone = new Milestone(milestoneData);
+      let task = new Task(taskData);
+
+      task.save((err, task) => {
+        milestone.save((err, milestone) => {
+          agent.get('/api/milestones')
+          .then((res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body.milestones).to.be.an('array');
+            expect(res.body.milestones.length).to.be.equal(2);
+
+          agent.delete('/api/milestones')
+            .set("X-CSRF-Token", csrfToken)
+            .send({id: milestone._id})
+            .then((res) => {
+              Task.findById(task._id).exec(function (err, task) {
+                expect(task.date_deleted).to.not.be.equal(null);
+                done();
+              })
+            });
+          });
+        });
+      });
+    });
+
+    it('recursively delete all sub milestones and sub tasks', (done) => {
+
+    });
+
+    it('removes the sub milestone from the parent when a sub milestone is deleted', (done) => {
+
+    })
   });
 });

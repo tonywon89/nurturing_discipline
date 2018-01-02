@@ -174,7 +174,6 @@ exports.task_delete = function (req, res, next) {
         milestone.tasks.remove(task._id);
 
         milestone.save(function(err) {
-          console.log("THIS IS THERE");
           getAllMilestones(req, res, next);
         })
       } else {
