@@ -127,9 +127,9 @@ exports.milestone_delete = function (req, res, next) {
 }
 
 function recursivelyDeleteTasksAndSubMilestones(milestone) {
-  Task.update({_milestone: milestone._id}, { date_deleted: new Date()}, function (err, tasks) {
+  Task.update({_milestone: milestone._id}, { date_deleted: new Date() }, function (err, tasks) {
 
-    Milestone.update({ _parent: milestone._id}, {date_deleted: new Date()}, function (err, milestones) {
+    Milestone.update({ _parent: milestone._id}, { date_deleted: new Date() }, function (err, milestones) {
 
       if (milestone.sub_milestones.length === 0) {
         return;

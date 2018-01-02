@@ -147,12 +147,111 @@ describe('Milestone (Tasks) controller', () => {
       });
     });
 
-    it('recursively delete all sub milestones and sub tasks', (done) => {
+    it('removes the sub milestone from the parent when a sub milestone is deleted', (done) => {
+      let milestoneData = {
+        _id: new mongoose.Types.ObjectId(),
+        content: 'Test milestone 4',
+        goalType: "timed",
+        goalRemaing: 3660,
+        _user: userId,
+        sub_milestones: [],
+      };
 
+      let subMilestoneData1 = {
+        _id: new mongoose.Types.ObjectId(),
+        content: 'Test Submilestone 1',
+        goalType: "timed",
+        goalReaming: 3660,
+        _user: userId,
+        _parent: milestoneData._id,
+        sub_milestones: [],
+        tasks: [],
+      }
+
+      let taskData1 = {
+        _id: new mongoose.Types.ObjectId(),
+        name: 'Test task 1',
+        _milestone: subMilestoneData1._id,
+      }
+
+      subMilestoneData1.tasks.push(taskData1._id);
+
+      let subMilestoneData2 = {
+        _id: new mongoose.Types.ObjectId(),
+        content: 'Test Submilestone 1',
+        goalType: "timed",
+        goalReaming: 3660,
+        _user: userId,
+        _parent: subMilestoneData1._id,
+        sub_milestones: [],
+        tasks: [],
+      }
+
+      let taskData2 = {
+        _id: new mongoose.Types.ObjectId(),
+        _milestone: subMilestoneData2._id,
+        name: 'Test task 2',
+      }
+
+      subMilestoneData2.tasks.push(taskData2._id);
+
+      milestoneData.sub_milestones.push(subMilestoneData1._id);
+      subMilestoneData1.sub_milestones.push(subMilestoneData2._id);
+
+      let milestone = new Milestone(milestoneData);
+      let subMilestone1 = new Milestone(subMilestoneData1);
+      let subMilestone2 = new Milestone(subMilestoneData2);
+
+      let task1 = new Task(taskData1);
+      let task2 = new Task(taskData2);
+
+      milestone.save((err, milestone) => {
+        subMilestone1.save((err, subMilestone1) => {
+          subMilestone2.save((err, subMilestone2) => {
+            task1.save((err, task1) => {
+              task2.save((err, task2) => {
+                agent.get('/api/milestones')
+                .then((res) => {
+                  expect(res.status).to.equal(200);
+                  expect(res.body.milestones).to.be.an('array');
+                  expect(res.body.milestones.length).to.be.equal(2);
+                  expect(res.body.milestones[1].sub_milestones.length).to.be.equal(1);
+                  expect(res.body.milestones[1].sub_milestones[0].id).to.be.equal(subMilestone1._id.toString());
+                  expect(res.body.milestones[1].sub_milestones[0].sub_milestones.length).to.be.equal(1);
+
+                agent.delete('/api/milestones')
+                  .set("X-CSRF-Token", csrfToken)
+                  .send({id: subMilestone1._id})
+                  .then((res) => {
+                    expect(res.status).to.equal(200);
+                    expect(res.body.milestones).to.be.an('array');
+                    expect(res.body.milestones.length).to.be.equal(2);
+                    expect(res.body.milestones[1].sub_milestones.length).to.be.equal(0);
+
+                    Milestone.findById(subMilestone1._id).exec(function(err, subMilestone1) {
+                      expect(subMilestone1.date_deleted).to.not.be.equal(null);
+                      expect(subMilestone1.tasks.length).to.be.equal(1);
+                      expect(subMilestone1.tasks[0].date_deleted).to.not.be.equal(null);
+
+                      Milestone.findById(subMilestone2._id).exec(function(err, subMilestone2) {
+                        expect(subMilestone2.date_deleted).to.not.be.equal(null);
+                        expect(subMilestone2.tasks.length).to.be.equal(1);
+                        expect(subMilestone2.tasks[0].date_deleted).to.not.be.equal(null);
+                        done();
+                      });
+                    })
+                  });
+                });
+
+              })
+
+            })
+
+          })
+        });
+
+      });
     });
 
-    it('removes the sub milestone from the parent when a sub milestone is deleted', (done) => {
-
-    })
   });
 });
