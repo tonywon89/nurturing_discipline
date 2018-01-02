@@ -128,7 +128,7 @@ class MilestoneItem extends React.Component {
               deleteTask={this.props.deleteTask}
               openMilestoneForm={function() {
                 this.props.openMilestoneForm(subMilestone)
-              }}
+              }.bind(this)}
               openTaskForm={this.props.openTaskForm.bind(this)}
               />
           );
