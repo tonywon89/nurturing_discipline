@@ -24,6 +24,7 @@ export const fetchTasks = () => dispatch => {
 
 export const selectTask = (selectedTask, oldSelectedTask = null) => dispatch => {
   TaskAPIUtil.stopTaskTimer().then((taskActivity) => {
+
     if (taskActivity) {
       dispatch({type: STOP_TASK_TIMER, taskActivity: taskActivity });
     }

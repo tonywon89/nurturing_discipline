@@ -184,7 +184,15 @@ exports.task_delete = function (req, res, next) {
 }
 
 exports.task_patch = function (req, res, next) {
-  Task.findByIdAndUpdate(req.body.id, { name: req.body.name, selected: (req.body.selected === 'true' ? true : false) }, function(err, task) {
+  Task.findById(req.body.id, function(err, task) {
+    task.name = (req.body.name ? req.body.name : task.name)
+    var selected = false;
+
+    if (req.body.selected == 'true' || task.selected === true) {
+      selected = true;
+    }
+    task.selected = selected;
+    task.save();
     getAllMilestones(req, res, next);
   });
 }
