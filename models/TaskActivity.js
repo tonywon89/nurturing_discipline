@@ -9,6 +9,11 @@ var TaskActivitySchema = Schema(
       default: null,
     },
 
+    taskName: {
+      type: String,
+      default: null,
+    },
+
     timeAmount: {
       type: Number,
       default: 0
