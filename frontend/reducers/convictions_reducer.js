@@ -6,6 +6,11 @@ import {
   MODIFY_CONVICTION
 } from '../actions/conviction_actions.js';
 
+import {
+  RECEIVE_LOGOUT
+} from '../actions/auth_actions.js';
+
+
 const ConvictionsReducer = (state = [], action) => {
   Object.freeze(state);
 
@@ -33,6 +38,9 @@ const ConvictionsReducer = (state = [], action) => {
         // Otherwise, this is the one we want - return an updated value
         return merge({}, conviction, action.conviction)
     });
+
+    case RECEIVE_LOGOUT:
+      return [];
     default:
       return state;
   }

@@ -13,7 +13,7 @@ class TaskActivityItem extends React.Component {
       <div className="task-activity-item">
 
         <span>
-            <span className="task-activity-name">{taskActivity._task.name}</span>
+            <span className="task-activity-name">{taskActivity.taskName}</span>
             <span className="task-milestone-content">(Milestone: {taskActivity._milestone.content})
           </span>
         </span>

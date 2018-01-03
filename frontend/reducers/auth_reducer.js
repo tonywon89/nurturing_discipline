@@ -40,7 +40,7 @@ const AuthReducer = (state = _nullUser, action) => {
       return merge({}, state, { currentUser, errors: null });
 
     case RECEIVE_LOGOUT:
-      return merge({}, state, { currentUser: null, errors: null });
+      return _nullUser;
 
     case RECEIVE_ERRORS:
       const errors = action.errors;

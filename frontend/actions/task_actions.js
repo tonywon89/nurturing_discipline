@@ -23,6 +23,13 @@ export const fetchTasks = () => dispatch => {
 // Not only pushes the selected task, but also marks it as active and deactivates the existing on so it saves for the next time upon leaving the page.
 
 export const selectTask = (selectedTask, oldSelectedTask = null) => dispatch => {
+  TaskAPIUtil.stopTaskTimer().then((taskActivity) => {
+
+    if (taskActivity) {
+      dispatch({type: STOP_TASK_TIMER, taskActivity: taskActivity });
+    }
+  });
+
   MilestoneAPIUtil.updateTask({ selected: true, id: selectedTask.id, name: selectedTask.name }).then(() => {
 
     if (oldSelectedTask !== null) {
@@ -50,12 +57,14 @@ export const startTaskTimer = (selectedTask = null) => dispatch => {
 export const pingTaskTimer = () => dispatch => {
   TaskAPIUtil.pingTaskTimer().then(({ taskActivity }) => {
     dispatch({type: PING_TASK_TIMER, taskActivity: taskActivity});
-
+    if (taskActivity !== null) {
+      dispatch({ type: RECEIVE_SELECTED_TASK, selectedTask: taskActivity._task })
+    }
   })
 }
 
-export const stopTaskTimer = (taskActivity) => dispatch => {
-  TaskAPIUtil.stopTaskTimer(taskActivity).then((taskActivity) => {
+export const stopTaskTimer = () => dispatch => {
+  TaskAPIUtil.stopTaskTimer().then((taskActivity) => {
     dispatch({type: STOP_TASK_TIMER, taskActivity: taskActivity });
   });
 }

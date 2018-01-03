@@ -1,57 +1,49 @@
 import React from 'react';
+import Select from 'react-select';
 
 class TaskDropdown extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      dropdownVisible: false,
-      selected: props.selected
+      selectedOption: { value: props.selectedTask.id, label: props.selectedTask.name, task: props.selectedTask},
     }
 
-    this.show = this.show.bind(this);
-    this.hide = this.hide.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.select = this.select.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+
+    this.setState({ selectedOption: { value: newProps.selectedTask.id, label: newProps.selectedTask.name, task: newProps.selectedTask}});
   }
 
   select(task) {
     this.props.selectTask(task, this.props.selectedTask);
   }
 
-  show() {
-    if (this.state.dropdownVisible === false) {
-      this.setState({ dropdownVisible: true });
-      document.addEventListener("click", this.hide);
+  handleChange(selectedOption) {
+    if (selectedOption) {
+      this.setState({ selectedOption })
+      this.select(selectedOption.task)
     }
   }
 
-  hide() {
-    this.setState({ dropdownVisible: false });
-    document.removeEventListener("click", this.hide);
-  }
-
   render() {
-    const self = this;
-    const tasks = this.props.tasks.map((task, idx) => {
-      return (<div onClick={this.select.bind(self, task)} key={task.id}><b className="task-name">{task.name}</b> <span className="task-milestone-content">(Milestone: {task._milestone.content})</span></div>)
+    const taskOptions = this.props.tasks.map((task, idx) => {
+      return { value: task.id, label: task.name, task: task }
     });
 
     return (
-      <div className={"task-dropdown-container" + (this.state.dropdownVisible ? " show" : "")}>
-        <div>
-          <div className={"task-dropdown-display" + (this.state.dropdownVisible ? " clicked": "")} onClick={this.show.bind(this)}>
-
-
-            <span><b className="task-name">{this.props.selectedTask.name}</b> {(this.props.selectedTask.name !== "" ? <span className="task-milestone-content"> (Milestone: { this.props.selectedTask._milestone.content}) </span>: null)}</span>
-            <i className="fa fa-angle-down"></i>
-          </div>
-
-          <div className="task-dropdown-list">
-            {tasks}
-          </div>
-        </div>
-
-      </div>
-    )
+      <Select
+        name="form-field-name"
+        value={this.state.selectedOption.value}
+        onChange={this.handleChange}
+        className="task-dropdown-select-container"
+        options={taskOptions}
+      />
+    );
   }
 }
 

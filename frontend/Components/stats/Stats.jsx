@@ -19,18 +19,19 @@ class Stats extends React.Component {
     let dataObject = {};
 
     newProps.taskActivities.forEach((taskActivity) => {
-      if (!labels.includes(taskActivity._task.name)) {
-        labels.push(taskActivity._task.name);
+      let labelName = taskActivity.taskName;
+      if (!labels.includes(labelName)) {
+        labels.push(labelName);
       }
 
-      if (!dataObject[taskActivity._task.name]) {
-        dataObject[taskActivity._task.name] = {
+      if (!dataObject[labelName]) {
+        dataObject[labelName] = {
           timeAmount: 0,
           backgroundColor: Please.make_color({golden: true}),
         };
       }
 
-      dataObject[taskActivity._task.name]['timeAmount'] += taskActivity.timeAmount;
+      dataObject[labelName]['timeAmount'] += taskActivity.timeAmount;
     })
 
     let dataArr = [];

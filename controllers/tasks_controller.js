@@ -18,6 +18,7 @@ exports.start_timer = function(req, res, next) {
       _task: task._id,
       _user: task._user,
       _milestone: task._milestone,
+      taskName: task.name,
       running: true,
     }, function (err, taskActivity) {
       Milestone.findById(task._milestone).exec(function(err, milestone) {
@@ -37,10 +38,13 @@ exports.start_timer = function(req, res, next) {
 }
 
 exports.ping_task_timer = function (req, res, next) {
-  TaskActivity.findOne({ _user: req.user._id, date_ended: null }).exec(function (err, taskActivity) {
+  TaskActivity.findOne({ _user: req.user._id, date_ended: null }).populate('_milestone').populate('_task').exec(function (err, taskActivity) {
+
     if (taskActivity && !taskActivity.running) {
       res.json({ taskActivity: taskActivity });
+      return;
     } else {
+
       if (taskActivity && !intervalIds['interval' + taskActivity._id]) {
         var intervalId = setInterval(function() {
           taskActivity.timeAmount += 1;
@@ -49,21 +53,26 @@ exports.ping_task_timer = function (req, res, next) {
         }, 1000);
 
         intervalIds['interval' + taskActivity._id] = intervalId;
-        res.json({ taskActivity: taskActivity });
       };
     }
-
+    res.json({ taskActivity: taskActivity });
   });
 };
 
 exports.stop_task_timer = function (req, res, next) {
-  TaskActivity.findById(req.body['taskActivity[_id]']).populate('_milestone', 'content').populate('_task', 'name').exec(function (err, taskActivity) {
-    taskActivity.running = false;
-    taskActivity.date_ended = new Date();
-    taskActivity.save();
+  TaskActivity.findOne({ _user: req.user._id, date_ended: null }).populate('_milestone', 'content').populate('_task', 'name').exec(function (err, taskActivity) {
+    if (taskActivity) {
 
-    clearInterval(intervalIds['interval' + taskActivity._id]);
-    res.render('json/task/task_activity', { error: err, data: taskActivity })
+      taskActivity.running = false;
+      taskActivity.date_ended = new Date();
+
+      taskActivity.save();
+
+      clearInterval(intervalIds['interval' + taskActivity._id]);
+      res.render('json/task/task_activity', { error: err, data: taskActivity })
+    } else {
+      res.json(null);
+    }
   })
 }
 

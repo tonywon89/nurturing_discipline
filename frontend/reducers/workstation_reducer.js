@@ -17,6 +17,10 @@ import {
   RECEIVE_TASK_ACTIVITIES,
 } from "../actions/task_actions.js";
 
+import {
+  RECEIVE_LOGOUT
+} from '../actions/auth_actions.js';
+
 const _default = {
   currentCarouselIndex: 0,
   carouselCycleOn: true,
@@ -52,6 +56,8 @@ const WorkStationReducer = (state = _default, action) => {
       return merge({}, state, { timerRunning: true, taskActivity: action.taskActivity })
     case RECEIVE_TASK_ACTIVITIES:
       return merge({}, state, { taskActivities: action.taskActivities})
+    case RECEIVE_LOGOUT:
+      return _default;
     default:
       return state;
   }
