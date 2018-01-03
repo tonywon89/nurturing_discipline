@@ -6,6 +6,10 @@ import {
   CLOSE_MILESTONE_MODAL,
 } from '../actions/milestone_actions.js';
 
+import {
+  RECEIVE_LOGOUT
+} from '../actions/auth_actions.js';
+
 const _default = {
   milestones: [],
   milestoneModal: {
@@ -20,14 +24,6 @@ const MilestonesReducer = (state = _default, action) => {
   Object.freeze(state);
 
   switch(action.type) {
-
-    // case RECEIVE_MILESTONE:
-    //   return (
-    //     [
-    //       ...state,
-    //       action.milestone
-    //     ]
-    //   );
     case RECEIVE_MILESTONES:
       return {
         milestoneModal: state.milestoneModal,
@@ -57,6 +53,9 @@ const MilestonesReducer = (state = _default, action) => {
         taskForm: false,
         parentMilestone: null
       }});
+
+    case RECEIVE_LOGOUT:
+      return _default;
     default:
       return state;
   }
