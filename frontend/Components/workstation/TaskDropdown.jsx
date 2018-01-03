@@ -24,12 +24,13 @@ class TaskDropdown extends React.Component {
   }
 
   handleChange(selectedOption) {
-    this.setState({ selectedOption })
-    this.select(selectedOption.task)
+    if (selectedOption) {
+      this.setState({ selectedOption })
+      this.select(selectedOption.task)
+    }
   }
-  render() {
 
-    // console.log(this.state.selectedOption);
+  render() {
     const taskOptions = this.props.tasks.map((task, idx) => {
       return { value: task.id, label: task.name, task: task }
     });
