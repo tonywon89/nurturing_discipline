@@ -116,6 +116,7 @@ describe('Workstation Component', () => {
       workstationWrapper.setState({ intervalId: 1});
       workstationWrapper.find('.timer-controls .fa-pause-circle-o').simulate('click');
       expect(pauseTaskTimer.calledOnce).to.equal(true);
+      workstationWrapper.setState({ intervalId: null});
     });
   });
 
@@ -144,6 +145,27 @@ describe('Workstation Component', () => {
     });
   })
 
+  describe('Workstation componentWillReceiveProps', () =>{
+    it('properly sets the intervalId when the timer is running and intervalId is null' ,() => {
+      let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123 }, timerRunning: true})
+      workstationWrapper.setProps({ workstation: taskActivityWorkstation });
+      expect(workstationWrapper.state().intervalId).to.not.be.equal(null)
+    });
+
+    it('sets the intervalId to null when there is a taskActivity but the timer is paused', () => {
+      let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123, timeAmount: 123 }, timerRunning: false})
+      workstationWrapper.setProps({ workstation: taskActivityWorkstation });
+      expect(workstationWrapper.state().intervalId).to.equal(null)
+      expect(workstationWrapper.state().currentTime).to.equal(123);
+    });
+
+    it('sets the intervalId to null when there is a taskActivity but the timer is paused', () => {
+      let taskActivityWorkstation = merge({}, workstation, { taskActivity: null, timerRunning: false})
+      workstationWrapper.setProps({ workstation: taskActivityWorkstation });
+      expect(workstationWrapper.state().intervalId).to.equal(null)
+      expect(workstationWrapper.state().currentTime).to.equal(0);
+    });
+  });
 
   describe('Carousel Component', () => {
     // it('when convictions are empty, it shows the "No Convictions" sign', () => {
