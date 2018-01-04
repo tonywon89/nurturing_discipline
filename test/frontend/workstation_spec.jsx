@@ -28,6 +28,7 @@ const pingTaskTimer = sinon.stub();
 const startTaskTimer = sinon.stub();
 const resumeTaskTimer = sinon.stub();
 const pauseTaskTimer = sinon.stub();
+const stopTaskTimer = sinon.stub();
 
 const increaseCarouselIndex = sinon.stub();
 const descreaseCarouselIndex = sinon.stub();
@@ -36,6 +37,7 @@ const toggleCarouselCycle = sinon.stub();
 
 const handleStartClick = spy(Workstation.WrappedComponent.prototype, 'handleStartClick');
 const handlePauseClick = spy(Workstation.WrappedComponent.prototype, 'handlePauseClick');
+const handleStopClick = spy(Workstation.WrappedComponent.prototype, 'handleStopClick');
 
 describe('Workstation Component', () => {
 
@@ -52,6 +54,7 @@ describe('Workstation Component', () => {
           startTaskTimer={startTaskTimer}
           resumeTaskTimer={resumeTaskTimer}
           pauseTaskTimer={pauseTaskTimer}
+          stopTaskTimer={stopTaskTimer}
         />
     )
 
@@ -113,6 +116,31 @@ describe('Workstation Component', () => {
       workstationWrapper.setState({ intervalId: 1});
       workstationWrapper.find('.timer-controls .fa-pause-circle-o').simulate('click');
       expect(pauseTaskTimer.calledOnce).to.equal(true);
+    });
+  });
+
+  describe('handleStopClick', () => {
+    it('handleStopClick is disabled if the timer is not running and if there is no active task activity', () => {
+      workstationWrapper.setProps({ workstation: workstation });
+      workstationWrapper.find('.timer-controls .fa-stop-circle-o').simulate('click');
+      expect(handleStopClick.calledOnce).to.equal(true);
+      expect(stopTaskTimer.called).to.equal(false);
+    });
+
+    it('handleStopClick stops the task the timer if the timer is running', () => {
+      let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123 }, timerRunning: true })
+      workstationWrapper.setProps({ workstation: taskActivityWorkstation });
+      workstationWrapper.find('.timer-controls .fa-stop-circle-o').simulate('click');
+
+      expect(stopTaskTimer.calledOnce).to.equal(true);
+    });
+
+    it('handleStopClick stops the task the timer if the timer is paused', () => {
+      let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123 }, timerRunning: false})
+      workstationWrapper.setProps({ workstation: taskActivityWorkstation });
+      workstationWrapper.find('.timer-controls .fa-stop-circle-o').simulate('click');
+
+      expect(stopTaskTimer.calledTwice).to.equal(true);
     });
   })
 
