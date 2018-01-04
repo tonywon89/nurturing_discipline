@@ -172,10 +172,7 @@ describe('Workstation Component', () => {
 describe('Carousel Component', () => {
   spy(Carousel.prototype, 'componentDidMount');
 
-  let convictions = [
-    {id: 123, title: "Test Conviction 1", detailed_description: "Test Detailed 1"},
-    {id: 124, title: "Test Conviction 2", detailed_description: "Test Detailed 2"}
-  ]
+  let convictions = []
 
   let carouselWrapper = shallow(
       <Carousel
@@ -188,13 +185,23 @@ describe('Carousel Component', () => {
       />
   );
 
-  it('when convictions are present, it sets the intervalId', () => {
+  it('does not show the convictions controls when there are no convictions', () => {
+    expect(carouselWrapper.find('.carousel-caret-left')).to.have.length(0);
+    expect(carouselWrapper.find('.carousel-caret-right')).to.have.length(0);
+    expect(carouselWrapper.find('.carousel-circles')).to.have.length(0);
+    expect(carouselWrapper.find('.carousel-play-pause-button')).to.have.length(0);
+  });
+
+  it('it sets the intervalId when it mounts', () => {
     expect(Carousel.prototype.componentDidMount.calledOnce).to.equal(true);
     expect(carouselWrapper.state().intervalId).to.not.equal(null);
     carouselWrapper.unmount();
-
   });
 
+  convictions = [
+    {id: 123, title: "Test Conviction 1", detailed_description: "Test Detailed 1"},
+    {id: 124, title: "Test Conviction 2", detailed_description: "Test Detailed 2"}
+  ]
 
   it('when the toggle carousel cycle is off, ', () => {
     let toggleCycleWorkstation = merge({}, workstation, { carouselCycleOn: false });
@@ -277,5 +284,30 @@ describe('Carousel Component', () => {
       // The current conviction should be the one at index 0
       expect(carouselWrapper.find(CarouselItem).props().currentConviction.title).to.equal(convictions[0].title);
     });
+  });
+
+  describe('CarouselItem', () => {
+    let currentConviction = { id: 123, title: 'Test Current Conviction', detailed_description: 'Test Current Detailed Description' };
+
+    let carouselItemWrapper = mount(
+      <CarouselItem.WrappedComponent
+        currentConviction={currentConviction}
+      />
+    );
+
+    it('displays the current conviction title and detailed description', () => {
+      expect(carouselItemWrapper.find('.carousel-content')).to.have.length(1);
+      expect(carouselItemWrapper.text()).to.contain(currentConviction.title);
+      expect(carouselItemWrapper.text()).to.contain(currentConviction.detailed_description);
+    })
+
+
+    it ('displays the empty message when there is no currentConviction', () => {
+      currentConviction = { id: null };
+      carouselItemWrapper.setProps({ currentConviction });
+
+      expect(carouselItemWrapper.text()).to.contain('No Convictions yet');
+      expect(carouselItemWrapper.text()).to.contain('Click here to make some');
+    })
   });
 });

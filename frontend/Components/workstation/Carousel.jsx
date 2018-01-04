@@ -80,14 +80,14 @@ class Carousel extends React.Component {
       return (
         <CarouselCircle handleCircleClick={this.handleCircleClick.bind(this)} key={idx} index={idx} currentIndex={currentIndex} setCarouselIndex={this.props.setCarouselIndex} />
       );
-    })
+    });
+
     const currentConviction = (convictions.length > 0 ? convictions[currentIndex] : {
         id: null,
         title: "No Convictions yet. Click here to make some",
         detailed_description: ""
       });
 
-    // @TODO: Removing all the controls until can figure out how to cancel the animation for React CSS Transition Group
     let toggleButton;
     if (workstation.carouselCycleOn) {
       toggleButton = <i className="fa fa-pause-circle-o" aria-hidden="true"></i>
