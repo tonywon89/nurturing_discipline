@@ -5,6 +5,7 @@ import TaskDropdown from '../../frontend/Components/workstation/TaskDropdown.jsx
 
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
+import merge from 'lodash/merge'
 
 let convictions = [];
 let currentUser = { id: 1};
@@ -24,11 +25,15 @@ const fetchTasks = sinon.stub();
 const fetchTaskActivities = sinon.stub();
 const pingTaskTimer = sinon.stub();
 
+const startTaskTimer = sinon.stub();
+const resumeTaskTimer = sinon.stub();
+
 const increaseCarouselIndex = sinon.stub();
 const descreaseCarouselIndex = sinon.stub();
 const setCarouselIndex  = sinon.stub();
 const toggleCarouselCycle = sinon.stub();
 
+const handleStartClick = spy(Workstation.WrappedComponent.prototype, 'handleStartClick');
 
 describe('Workstation Component', () => {
 
@@ -42,6 +47,8 @@ describe('Workstation Component', () => {
           fetchTasks={fetchTasks}
           fetchTaskActivities={fetchTaskActivities}
           pingTaskTimer={pingTaskTimer}
+          startTaskTimer={startTaskTimer}
+          resumeTaskTimer={resumeTaskTimer}
         />
     )
 
@@ -65,6 +72,31 @@ describe('Workstation Component', () => {
     //Should display two disabled buttons
     expect(workstationWrapper.find(".disabled")).to.have.length(2);
   });
+
+  it('handlesStartClick starts the task timer when clicked on the play button and it is not paused', () => {
+    workstationWrapper.find('.timer-controls .fa-play-circle').simulate('click');
+    expect(handleStartClick.calledOnce).to.equal(true);
+    expect(startTaskTimer.calledOnce).to.equal(true);
+  });
+
+  it('handleStartClick is disabled if the timer is running', () => {
+    let taskActivityWorkstation = merge({}, workstation, { timerRunning: true,  taskActivity: {id: 123, timeAount: 123 }})
+    workstationWrapper.setProps({ workstation: taskActivityWorkstation });
+
+    workstationWrapper.find('.timer-controls .fa-play-circle').simulate('click');
+    expect(startTaskTimer.calledTwice).to.equal(false);
+    expect(resumeTaskTimer.calledOnce).to.equal(false);
+
+  });
+
+  it('handlesStartClick resumes the task timer when the timer is paused', () => {
+    let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123 } })
+    workstationWrapper.setProps({ workstation: taskActivityWorkstation });
+
+    workstationWrapper.find('.timer-controls .fa-play-circle').simulate('click');
+    expect(resumeTaskTimer.calledOnce).to.equal(true);
+  });
+
 
   describe('Carousel Component', () => {
     // it('when convictions are empty, it shows the "No Convictions" sign', () => {
@@ -101,10 +133,5 @@ describe('Workstation Component', () => {
       );
       expect(carouselWrapper.state().intervalId).to.not.equal(null);
     });
-
-
-
   });
-
-
 });
