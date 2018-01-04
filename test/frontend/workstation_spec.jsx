@@ -12,7 +12,7 @@ let convictions = [];
 let currentUser = { id: 1};
 let authentication = { currentUser };
 let tasks = [];
-let workstation = {
+let defaultWorkstation = {
   currentCarouselIndex: 0,
   carouselCycleOn: true,
   selectedTask: { id: 123, name: "Testing selected Task" },
@@ -47,7 +47,7 @@ describe('Workstation Component', () => {
           convictions={convictions}
           authentication={authentication}
           tasks={tasks}
-          workstation={workstation}
+          workstation={defaultWorkstation}
           fetchConvictions={fetchConvictions}
           fetchTasks={fetchTasks}
           fetchTaskActivities={fetchTaskActivities}
@@ -88,7 +88,7 @@ describe('Workstation Component', () => {
     });
 
     it('handleStartClick is disabled if the timer is running', () => {
-      let taskActivityWorkstation = merge({}, workstation, { timerRunning: true,  taskActivity: {id: 123, timeAount: 123 }})
+      let taskActivityWorkstation = merge({}, defaultWorkstation, { timerRunning: true,  taskActivity: {id: 123, timeAount: 123 }})
       workstationWrapper.setProps({ workstation: taskActivityWorkstation });
 
       workstationWrapper.find('.timer-controls .fa-play-circle').simulate('click');
@@ -98,7 +98,7 @@ describe('Workstation Component', () => {
     });
 
     it('handlesStartClick resumes the task timer when the timer is paused', () => {
-      let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123 } })
+      let taskActivityWorkstation = merge({}, defaultWorkstation, { taskActivity: {id: 123 } })
       workstationWrapper.setProps({ workstation: taskActivityWorkstation });
 
       workstationWrapper.find('.timer-controls .fa-play-circle').simulate('click');
@@ -123,14 +123,14 @@ describe('Workstation Component', () => {
 
   describe('handleStopClick', () => {
     it('handleStopClick is disabled if the timer is not running and if there is no active task activity', () => {
-      workstationWrapper.setProps({ workstation: workstation });
+      workstationWrapper.setProps({ workstation: defaultWorkstation });
       workstationWrapper.find('.timer-controls .fa-stop-circle-o').simulate('click');
       expect(handleStopClick.calledOnce).to.equal(true);
       expect(stopTaskTimer.called).to.equal(false);
     });
 
     it('handleStopClick stops the task the timer if the timer is running', () => {
-      let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123 }, timerRunning: true })
+      let taskActivityWorkstation = merge({}, defaultWorkstation, { taskActivity: {id: 123 }, timerRunning: true })
       workstationWrapper.setProps({ workstation: taskActivityWorkstation });
       workstationWrapper.find('.timer-controls .fa-stop-circle-o').simulate('click');
 
@@ -138,7 +138,7 @@ describe('Workstation Component', () => {
     });
 
     it('handleStopClick stops the task the timer if the timer is paused', () => {
-      let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123 }, timerRunning: false})
+      let taskActivityWorkstation = merge({}, defaultWorkstation, { taskActivity: {id: 123 }, timerRunning: false})
       workstationWrapper.setProps({ workstation: taskActivityWorkstation });
       workstationWrapper.find('.timer-controls .fa-stop-circle-o').simulate('click');
 
@@ -148,20 +148,20 @@ describe('Workstation Component', () => {
 
   describe('Workstation componentWillReceiveProps', () =>{
     it('properly sets the intervalId when the timer is running and intervalId is null' ,() => {
-      let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123 }, timerRunning: true})
+      let taskActivityWorkstation = merge({}, defaultWorkstation, { taskActivity: {id: 123 }, timerRunning: true})
       workstationWrapper.setProps({ workstation: taskActivityWorkstation });
       expect(workstationWrapper.state().intervalId).to.not.be.equal(null)
     });
 
     it('sets the intervalId to null when there is a taskActivity but the timer is paused', () => {
-      let taskActivityWorkstation = merge({}, workstation, { taskActivity: {id: 123, timeAmount: 123 }, timerRunning: false})
+      let taskActivityWorkstation = merge({}, defaultWorkstation, { taskActivity: {id: 123, timeAmount: 123 }, timerRunning: false})
       workstationWrapper.setProps({ workstation: taskActivityWorkstation });
       expect(workstationWrapper.state().intervalId).to.equal(null)
       expect(workstationWrapper.state().currentTime).to.equal(123);
     });
 
     it('sets the intervalId to null when there is a taskActivity but the timer is paused', () => {
-      let taskActivityWorkstation = merge({}, workstation, { taskActivity: null, timerRunning: false})
+      let taskActivityWorkstation = merge({}, defaultWorkstation, { taskActivity: null, timerRunning: false})
       workstationWrapper.setProps({ workstation: taskActivityWorkstation });
       expect(workstationWrapper.state().intervalId).to.equal(null)
       expect(workstationWrapper.state().currentTime).to.equal(0);
@@ -177,7 +177,7 @@ describe('Carousel Component', () => {
   let carouselWrapper = shallow(
       <Carousel
         convictions={convictions}
-        workstation={workstation}
+        workstation={defaultWorkstation}
         increaseCarouselIndex={increaseCarouselIndex}
         decreaseCarouselIndex={decreaseCarouselIndex}
         setCarouselIndex={setCarouselIndex}
@@ -204,7 +204,7 @@ describe('Carousel Component', () => {
   ]
 
   it('when the toggle carousel cycle is off, ', () => {
-    let toggleCycleWorkstation = merge({}, workstation, { carouselCycleOn: false });
+    let toggleCycleWorkstation = merge({}, defaultWorkstation, { carouselCycleOn: false });
 
     carouselWrapper = shallow(
       <Carousel
@@ -270,7 +270,7 @@ describe('Carousel Component', () => {
     });
 
     it('has the pause button when the toggleCycle is true', () => {
-      let toggleCycleWorkstation = merge({}, workstation, { carouselCycleOn: true });
+      let toggleCycleWorkstation = merge({}, defaultWorkstation, { carouselCycleOn: true });
       carouselWrapper.setProps({ workstation: toggleCycleWorkstation});
       expect(carouselWrapper.find('.fa.fa-pause-circle-o')).to.have.length(1);
     })
@@ -309,5 +309,57 @@ describe('Carousel Component', () => {
       expect(carouselItemWrapper.text()).to.contain('No Convictions yet');
       expect(carouselItemWrapper.text()).to.contain('Click here to make some');
     })
+  });
+});
+
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import * as workstationActions from '../../frontend/actions/workstation_actions.js';
+import * as taskActions from '../../frontend/actions/task_actions.js';
+
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
+const store = mockStore(defaultWorkstation)
+
+describe('Workstation Actions', () => {
+  before(() => {
+    sinon.spy($, 'ajax')
+  });
+
+  after(() => {
+     $.ajax.restore();
+  });
+
+  describe('Carousel Actions', () => {
+    it ('increaseCarouselIndex returns the correct action type', () => {
+      store.dispatch(workstationActions.increaseCarouselIndex());
+      expect(store.getActions()[0]).to.deep.equal({ type: workstationActions.INCREASE_CAROUSEL_INDEX });
+    });
+
+    it ('decreaseCarouselIndex returns the correct action type', () => {
+      store.dispatch(workstationActions.decreaseCarouselIndex());
+      expect(store.getActions()[1]).to.deep.equal({ type: workstationActions.DECREASE_CAROUSEL_INDEX });
+    });
+
+    it ('setCarouselIndex returns the correct action type', () => {
+      store.dispatch(workstationActions.setCarouselIndex(1));
+      expect(store.getActions()[2]).to.deep.equal({ type: workstationActions.SET_CAROUSEL_INDEX, newIndex: 1 });
+    });
+
+    it ('toggleCarouselIndex returns the correct action type', () => {
+      store.dispatch(workstationActions.toggleCarouselCycle());
+      expect(store.getActions()[3]).to.deep.equal({ type: workstationActions.TOGGLE_CAROUSEL_CYCLE });
+    });
+  });
+
+  describe('Task Actions', () => {
+    it('fetchTasks calls the proper GET api/tasks', () => {
+      store.dispatch(taskActions.fetchTasks());
+
+      expect($.ajax.calledOnce).to.be.true;
+      assert.equal("api/tasks", $.ajax.getCall(0).args[0].url);
+      assert.equal("GET", $.ajax.getCall(0).args[0].method);
+      assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+    });
   });
 });
