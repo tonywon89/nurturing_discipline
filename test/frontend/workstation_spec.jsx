@@ -31,7 +31,7 @@ const pauseTaskTimer = sinon.stub();
 const stopTaskTimer = sinon.stub();
 
 const increaseCarouselIndex = sinon.stub();
-const descreaseCarouselIndex = sinon.stub();
+const decreaseCarouselIndex = sinon.stub();
 const setCarouselIndex  = sinon.stub();
 const toggleCarouselCycle = sinon.stub();
 
@@ -166,41 +166,95 @@ describe('Workstation Component', () => {
       expect(workstationWrapper.state().currentTime).to.equal(0);
     });
   });
+});
 
-  describe('Carousel Component', () => {
-    // it('when convictions are empty, it shows the "No Convictions" sign', () => {
-    //   let carouselWrapper = mount(
-    //     <HashRouter>
-    //       <Carousel
-    //         convictions={convictions}
-    //         workstation={workstation}
-    //         increaseCarouselIndex={increaseCarouselIndex}
-    //         descreaseCarouselIndex={descreaseCarouselIndex}
-    //         setCarouselIndex={setCarouselIndex}
-    //         toggleCarouselCycle={toggleCarouselCycle}
-    //       />
-    //     </HashRouter>
-    //   );
-    //   expect(carouselWrapper.text()).to.contain('No Convictions yet');
-    //   expect(carouselWrapper.text()).to.contain('Click here to make some');
-    //   carouselWrapper.unmount();
-    // });
+describe('Carousel Component', () => {
+  spy(Carousel.prototype, 'componentDidMount');
 
-    it('when convictions are present, it shows the conviction sign', () => {
-      let convictions = [{id: 123, title: "Test Conviction 1", detailed_description: "Test Detailed 1"}]
+  let convictions = [
+    {id: 123, title: "Test Conviction 1", detailed_description: "Test Detailed 1"},
+    {id: 124, title: "Test Conviction 2", detailed_description: "Test Detailed 2"}
+  ]
 
-      let carouselWrapper = shallow(
-          <Carousel
-            convictions={convictions}
-            workstation={workstation}
-            increaseCarouselIndex={increaseCarouselIndex}
-            descreaseCarouselIndex={descreaseCarouselIndex}
-            setCarouselIndex={setCarouselIndex}
-            toggleCarouselCycle={toggleCarouselCycle}
-          />
+  let carouselWrapper = shallow(
+      <Carousel
+        convictions={convictions}
+        workstation={workstation}
+        increaseCarouselIndex={increaseCarouselIndex}
+        decreaseCarouselIndex={decreaseCarouselIndex}
+        setCarouselIndex={setCarouselIndex}
+        toggleCarouselCycle={toggleCarouselCycle}
+      />
+  );
 
-      );
+  it('when convictions are present, it sets the intervalId', () => {
+    expect(Carousel.prototype.componentDidMount.calledOnce).to.equal(true);
+    expect(carouselWrapper.state().intervalId).to.not.equal(null);
+    carouselWrapper.unmount();
+
+  });
+
+
+  it('when the toggle carousel cycle is off, ', () => {
+    let toggleCycleWorkstation = merge({}, workstation, { carouselCycleOn: false });
+
+    carouselWrapper = shallow(
+      <Carousel
+        convictions={convictions}
+        workstation={toggleCycleWorkstation}
+        increaseCarouselIndex={increaseCarouselIndex}
+        decreaseCarouselIndex={decreaseCarouselIndex}
+        setCarouselIndex={setCarouselIndex}
+        toggleCarouselCycle={toggleCarouselCycle}
+      />
+    );
+
+    expect(carouselWrapper.state().intervalId).to.equal(null);
+  });
+
+  it('has the toggle controls when a conviction is present', () => {
+    expect(carouselWrapper.find('.carousel-caret-left')).to.have.length(1);
+    expect(carouselWrapper.find('.carousel-caret-right')).to.have.length(1);
+    expect(carouselWrapper.find('.carousel-circles')).to.have.length(1);
+    expect(carouselWrapper.find('.carousel-play-pause-button')).to.have.length(1);
+  });
+
+  const handleLeftClick = spy(Carousel.prototype, 'handleLeftClick');
+  const handleRightClick = spy(Carousel.prototype, 'handleRightClick');
+  const handleToggleClick = spy(Carousel.prototype, 'handleToggleClick');
+
+  describe('handleLeftClick', () => {
+    it('calls once when it is clicked', () => {
+      carouselWrapper.find('.carousel-caret-left').simulate('click');
+      expect(handleLeftClick.calledOnce).to.equal(true);
+      expect(decreaseCarouselIndex.calledOnce).to.equal(true);
+    });
+  });
+
+  describe('handleRightClick', () => {
+    it('calls once when it is clicked', () => {
+      carouselWrapper.find('.carousel-caret-right').simulate('click');
+      expect(handleRightClick.calledOnce).to.equal(true);
+      expect(increaseCarouselIndex.calledOnce).to.equal(true);
+    });
+  });
+
+  describe('handleToggleClick', () => {
+    it('calls once when it is clicked', () => {
+      carouselWrapper.setState({ intervalId: 1});
+
+      carouselWrapper.find('.carousel-play-pause-button').simulate('click');
+      expect(handleToggleClick.calledOnce).to.equal(true);
+      expect(toggleCarouselCycle.calledOnce).to.equal(true);
+      expect(carouselWrapper.state().intervalId).to.equal(null);
+
+      // Expect the intervalId to be set already
+      carouselWrapper.find('.carousel-play-pause-button').simulate('click');
+      expect(handleToggleClick.calledTwice).to.equal(true);
+      expect(toggleCarouselCycle.calledTwice).to.equal(true);
       expect(carouselWrapper.state().intervalId).to.not.equal(null);
     });
   });
+
+
 });

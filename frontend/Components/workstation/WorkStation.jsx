@@ -108,6 +108,7 @@ class WorkStation extends React.Component {
 
     this.props.history.push('milestone')
   }
+
   render() {
     let taskOptions = <span>You currently have no tasks</span>
 
