@@ -1,6 +1,7 @@
 import Workstation from '../../frontend/Components/workstation/WorkStation.jsx';
 import Carousel from '../../frontend/Components/workstation/Carousel.jsx';
 import CarouselItem from '../../frontend/Components/workstation/CarouselItem.jsx';
+import CarouselCircle from '../../frontend/Components/workstation/CarouselCircle.jsx';
 import TaskDropdown from '../../frontend/Components/workstation/TaskDropdown.jsx';
 
 import React from 'react';
@@ -256,5 +257,25 @@ describe('Carousel Component', () => {
     });
   });
 
+  describe('toggle cycle button', () => {
+    it('has the play button when the toggleCycle is false', () => {
+      expect(carouselWrapper.find('.fa.fa-play-circle-o')).to.have.length(1);
+    });
 
+    it('has the pause button when the toggleCycle is true', () => {
+      let toggleCycleWorkstation = merge({}, workstation, { carouselCycleOn: true });
+      carouselWrapper.setProps({ workstation: toggleCycleWorkstation});
+      expect(carouselWrapper.find('.fa.fa-pause-circle-o')).to.have.length(1);
+    })
+  });
+
+  describe('Carousel Circles', () => {
+    it('Shows two circles for two convictions that are present', () => {
+      expect(carouselWrapper.find(CarouselCircle)).to.have.length(2);
+      expect(carouselWrapper.find(CarouselItem)).to.have.length(1);
+
+      // The current conviction should be the one at index 0
+      expect(carouselWrapper.find(CarouselItem).props().currentConviction.title).to.equal(convictions[0].title);
+    });
+  });
 });
