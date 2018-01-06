@@ -322,11 +322,11 @@ const mockStore = configureMockStore(middlewares)
 const store = mockStore(defaultWorkstation)
 
 describe('Workstation Actions', () => {
-  before(() => {
+  beforeEach(() => {
     sinon.spy($, 'ajax')
   });
 
-  after(() => {
+  afterEach(() => {
      $.ajax.restore();
   });
 
@@ -361,5 +361,71 @@ describe('Workstation Actions', () => {
       assert.equal("GET", $.ajax.getCall(0).args[0].method);
       assert.equal("json", $.ajax.getCall(0).args[0].dataType);
     });
+
+    it('selectTask calls TaskAPIUtil.stopTaskTimer and MilestoneAPIUtilupdateTask', () => {
+      store.dispatch(taskActions.selectTask({id: 123}, {id: 124}));
+
+      expect($.ajax.calledTwice).to.be.true;
+      assert.equal("api/tasks/stop_task_timer", $.ajax.getCall(0).args[0].url);
+      assert.equal("PATCH", $.ajax.getCall(0).args[0].method);
+      assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+
+      assert.equal("api/milestones/tasks", $.ajax.getCall(1).args[0].url);
+      assert.equal("PATCH", $.ajax.getCall(1).args[0].method);
+      assert.equal("json", $.ajax.getCall(1).args[0].dataType);
+    });
+
+    describe('startTaskTimer', () => {
+      it('startTaskTimer does not start if there is no task passed as an argument', () => {
+        store.dispatch(taskActions.startTaskTimer());
+        expect($.ajax.calledOnce).to.be.false
+      });
+
+      it('startTaskTimer calls POST api/taks/start_task_timer', () => {
+        store.dispatch(taskActions.startTaskTimer({ id: 123}))
+
+        expect($.ajax.calledOnce).to.be.true;
+        assert.equal("api/tasks/start_timer", $.ajax.getCall(0).args[0].url);
+        assert.equal("POST", $.ajax.getCall(0).args[0].method);
+        assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+      });
+    });
+
+    it('stopTaskTimer calls the PATCH api/tasks/stop_task_timer', () => {
+      store.dispatch(taskActions.stopTaskTimer());
+
+      expect($.ajax.calledOnce).to.be.true;
+      assert.equal("api/tasks/stop_task_timer", $.ajax.getCall(0).args[0].url);
+      assert.equal("PATCH", $.ajax.getCall(0).args[0].method);
+      assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+    });
+
+    it('resumeTaskTimer calls the PATCH api/tasks/resume_task_timer', () => {
+      store.dispatch(taskActions.resumeTaskTimer());
+
+      expect($.ajax.calledOnce).to.be.true;
+      assert.equal("api/tasks/resume_task_timer", $.ajax.getCall(0).args[0].url);
+      assert.equal("PATCH", $.ajax.getCall(0).args[0].method);
+      assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+    });
+
+    it('pauseTaskTimer calls the PATCH api/tasks/pause_task_timer', () => {
+      store.dispatch(taskActions.pauseTaskTimer());
+
+      expect($.ajax.calledOnce).to.be.true;
+      assert.equal("api/tasks/pause_task_timer", $.ajax.getCall(0).args[0].url);
+      assert.equal("PATCH", $.ajax.getCall(0).args[0].method);
+      assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+    });
+
+    it('fetchTaskActivities calls the PATCH api/tasks/task_activities', () => {
+      store.dispatch(taskActions.fetchTaskActivities());
+
+      expect($.ajax.calledOnce).to.be.true;
+      assert.equal("api/tasks/task_activities", $.ajax.getCall(0).args[0].url);
+      assert.equal("GET", $.ajax.getCall(0).args[0].method);
+      assert.equal("json", $.ajax.getCall(0).args[0].dataType);
+    });
   });
+
 });
