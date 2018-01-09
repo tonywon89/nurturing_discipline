@@ -15,7 +15,7 @@ let tasks = [];
 let defaultWorkstation = {
   currentCarouselIndex: 0,
   carouselCycleOn: true,
-  selectedTask: { id: 123, name: "Testing selected Task" },
+  selectedTask: { id: null, name: "" },
   timerRunning: false,
   taskActivity: null,
   taskActivities: [],
@@ -427,5 +427,93 @@ describe('Workstation Actions', () => {
       assert.equal("json", $.ajax.getCall(0).args[0].dataType);
     });
   });
+
+});
+
+import WorkStationReducer from '../../frontend/reducers/workstation_reducer.js';
+
+describe('WorkstationReducer', () => {
+  it('should return the initial state', () => {
+    expect(WorkStationReducer(undefined, {})).to.deep.equal(defaultWorkstation);
+  });
+
+
+  it('should increase the current carousel index with INCREASE_CAROUSEL_INDEX', () => {
+    expect(WorkStationReducer(defaultWorkstation, { type: workstationActions.INCREASE_CAROUSEL_INDEX })).to.deep.equal({
+        currentCarouselIndex: 1,
+        carouselCycleOn: true,
+        selectedTask: { id: null, name: "" },
+        timerRunning: false,
+        taskActivity: null,
+        taskActivities: [],
+    });
+  });
+
+  it('should decrease the current carousel index with DECREASE_CAROUSEL_INDEX', () => {
+    expect(WorkStationReducer(defaultWorkstation, { type: workstationActions.DECREASE_CAROUSEL_INDEX })).to.deep.equal({
+        currentCarouselIndex: -1,
+        carouselCycleOn: true,
+        selectedTask: { id: null, name: "" },
+        timerRunning: false,
+        taskActivity: null,
+        taskActivities: [],
+    });
+  });
+
+  it('should set the current carousel index with SET_CAROUSEL_INDEX', () => {
+    expect(WorkStationReducer(defaultWorkstation, { type: workstationActions.SET_CAROUSEL_INDEX,  newIndex: 5 })).to.deep.equal({
+        currentCarouselIndex: 5,
+        carouselCycleOn: true,
+        selectedTask: { id: null, name: "" },
+        timerRunning: false,
+        taskActivity: null,
+        taskActivities: [],
+    });
+  });
+
+  let cycleOffState = WorkStationReducer(defaultWorkstation, { type: workstationActions.TOGGLE_CAROUSEL_CYCLE });
+
+  it('should toggle the carousel cycle with TOGGLE_CAROUSEL_CYCLE to false when it is originally set to true', () => {
+    expect(cycleOffState).to.deep.equal({
+        currentCarouselIndex: 0,
+        carouselCycleOn: false,
+        selectedTask: { id: null, name: "" },
+        timerRunning: false,
+        taskActivity: null,
+        taskActivities: [],
+    });
+  });
+
+  it('should toggle the carousel cycle with TOGGLE_CAROUSEL_CYCLE to true when it is originall set to false', () => {
+    expect(WorkStationReducer(cycleOffState, { type: workstationActions.TOGGLE_CAROUSEL_CYCLE })).to.deep.equal(defaultWorkstation);
+  });
+
+  let selectedTaskState = WorkStationReducer(defaultWorkstation, { type: taskActions.RECEIVE_SELECTED_TASK, selectedTask: { id: 123, name: "Test Selected Task" } })
+
+
+  it('should set the selectedTask to be the selected Task', () => {
+    expect(selectedTaskState).to.deep.equal({
+        currentCarouselIndex: 0,
+        carouselCycleOn: true,
+        selectedTask: { id: 123, name: "Test Selected Task" },
+        timerRunning: false,
+        taskActivity: null,
+        taskActivities: [],
+    });
+  });
+
+  let timerStartedState = WorkStationReducer(defaultWorkstation, { type: taskActions.START_TASK_TIMER, taskActivity: { id: 123, taskName: 'Test Task Activity' } })
+
+  it('START_TASK_TIMER should set timerRunning to true and set the taskActivity', () => {
+    expect(timerStartedState).to.deep.equal({
+      currentCarouselIndex: 0,
+      carouselCycleOn: true,
+      selectedTask: { id: null, name: "" },
+      timerRunning: true,
+      taskActivity: { id: 123, taskName: 'Test Task Activity' },
+      taskActivities: [],
+    })
+  })
+
 
 });

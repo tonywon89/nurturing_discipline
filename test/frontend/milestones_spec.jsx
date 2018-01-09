@@ -426,18 +426,3 @@ describe('Milestones Reducer', () => {
       });
   });
 });
-
-
-/**
-  Things to test for milestones
-  Create Milestone
-  Add Landmark
-  Add Task
-  Edit milestone
-  Edit Task
-  Delete Milestone
-  Delete Task
-  Test Reducer
-**/
-
-
