@@ -512,8 +512,81 @@ describe('WorkstationReducer', () => {
       timerRunning: true,
       taskActivity: { id: 123, taskName: 'Test Task Activity' },
       taskActivities: [],
+    });
+  });
+
+  describe('PING_TASK_TIMER', () => {
+    it('when there is a taskActivity, sets the taskActivity and if the taskActivity is running, then set the timerRunning to true', () => {
+      expect(WorkStationReducer(defaultWorkstation, { type: taskActions.PING_TASK_TIMER, taskActivity: {id: 123, taskName: 'Test Task Activity', running: true } })).to.deep.equal({
+        currentCarouselIndex: 0,
+        carouselCycleOn: true,
+        selectedTask: { id: null, name: "" },
+        timerRunning: true,
+        taskActivity: { id: 123, taskName: 'Test Task Activity', running: true },
+        taskActivities: [],
+      });
+    });
+
+    it('When there is a taskActivity, sets the taskActivity and if the taskActivity is not running, then set the timerRunning to false', () => {
+      expect(WorkStationReducer(defaultWorkstation, { type: taskActions.PING_TASK_TIMER, taskActivity: {id: 123, taskName: 'Test Task Activity', running: false } })).to.deep.equal({
+        currentCarouselIndex: 0,
+        carouselCycleOn: true,
+        selectedTask: { id: null, name: "" },
+        timerRunning: false,
+        taskActivity: { id: 123, taskName: 'Test Task Activity', running: false },
+        taskActivities: [],
+      });
+    });
+
+    it('When there is no current taskActivity, set the taskActivity to null', () => {
+      expect(WorkStationReducer(timerStartedState, { type: taskActions.PING_TASK_TIMER, taskActivity: null })).to.deep.equal(defaultWorkstation);
+    });
+  });
+
+  it('PAUSE_TASK_TIMER sets the timerRunning to be false, and sets the taskActivity', () => {
+    expect(WorkStationReducer(timerStartedState, { type: taskActions.PAUSE_TASK_TIMER, taskActivity: {id: 123, taskName: 'Test Task Activity' } })).to.deep.equal({
+        currentCarouselIndex: 0,
+        carouselCycleOn: true,
+        selectedTask: { id: null, name: "" },
+        timerRunning: false,
+        taskActivity: { id: 123, taskName: 'Test Task Activity' },
+        taskActivities: [],
+    });
+  });
+
+  it('RESUME_TASK_TIMER sets the timerRunning to be true and sets the taskActivity', () => {
+    expect(WorkStationReducer(timerStartedState, { type: taskActions.RESUME_TASK_TIMER, taskActivity: {id: 123, taskName: 'Test Task Activity' } })).to.deep.equal({
+        currentCarouselIndex: 0,
+        carouselCycleOn: true,
+        selectedTask: { id: null, name: "" },
+        timerRunning: true,
+        taskActivity: { id: 123, taskName: 'Test Task Activity' },
+        taskActivities: [],
+    });
+  });
+
+  let receivedTaskActivitiesState = WorkStationReducer(defaultWorkstation, { type: taskActions.RECEIVE_TASK_ACTIVITIES, taskActivities: [{ id: 123, taskName: 'TaskActivities' }] });
+
+  it('RECEIVE_TASK_ACTIVITIES sets the taskActivities', () => {
+    expect(receivedTaskActivitiesState).to.deep.equal({
+      currentCarouselIndex: 0,
+      carouselCycleOn: true,
+      selectedTask: { id: null, name: "" },
+      timerRunning: false,
+      taskActivity: null,
+      taskActivities: [{ id: 123, taskName: 'TaskActivities' }],
+    });
+  });
+
+  it('STOP_TASK_TIMER sets the taskActivity to null, timerRunning to be false, and adds the taskActivity to the state taskActivities', () => {
+
+    expect(WorkStationReducer(receivedTaskActivitiesState, { type: taskActions.STOP_TASK_TIMER, taskActivity: { id: 124, taskName: 'TaskActivities2' } })).to.deep.equal({
+      currentCarouselIndex: 0,
+      carouselCycleOn: true,
+      selectedTask: { id: null, name: "" },
+      timerRunning: false,
+      taskActivity: null,
+      taskActivities: [ { id: 124, taskName: 'TaskActivities2' }, { id: 123, taskName: 'TaskActivities' } ],
     })
   })
-
-
 });
