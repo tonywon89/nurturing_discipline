@@ -27,7 +27,7 @@ exports.start_timer = function(req, res, next) {
         var intervalId = setInterval(function() {
           taskActivity.timeAmount += 1;
           taskActivity.save();
-          console.log(taskActivity.timeAmount);
+          // console.log(taskActivity.timeAmount);
         }, 1000);
         intervalIds['interval' + taskActivity._id] = intervalId;
 
@@ -49,7 +49,7 @@ exports.ping_task_timer = function (req, res, next) {
         var intervalId = setInterval(function() {
           taskActivity.timeAmount += 1;
           taskActivity.save();
-          console.log(taskActivity.timeAmount);
+          // console.log(taskActivity.timeAmount);
         }, 1000);
 
         intervalIds['interval' + taskActivity._id] = intervalId;
@@ -92,7 +92,7 @@ exports.resume_task_timer = function (req, res, next) {
     var intervalId = setInterval(function() {
       taskActivity.timeAmount += 1;
       taskActivity.save();
-      console.log(taskActivity.timeAmount);
+      // console.log(taskActivity.timeAmount);
     }, 1000);
 
     intervalIds['interval' + taskActivity._id] = intervalId;
@@ -102,7 +102,7 @@ exports.resume_task_timer = function (req, res, next) {
 
 // Task Activities actions
 
-exports.fetch_task_activities = function (req, res, next) {
+exports.task_activities_list = function (req, res, next) {
   TaskActivity.find({_user: req.user._id, date_ended: { $ne: null } }).populate('_milestone', 'content').populate('_task', 'name').sort('-date_added').exec(function(err, taskActivities) {
 
     res.render('json/task/task_activities', { error: err, data: { taskActivities: taskActivities }});
