@@ -20,4 +20,4 @@ router.patch('/pause_task_timer', api_helpers.checkAuthenticated, tasks_controll
 router.patch('/resume_Task_timer', api_helpers.checkAuthenticated, tasks_controller.resume_task_timer);
 
 // Task Activities
-router.get('/task_activities', api_helpers.checkAuthenticated, tasks_controller.fetch_task_activities);
+router.get('/task_activities', api_helpers.checkAuthenticated, tasks_controller.task_activities_list);
