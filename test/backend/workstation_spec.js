@@ -117,13 +117,64 @@ describe('Task Controller', () => {
         expect(taskActivity.date_ended).to.equal(null);
         agent.patch('/api/tasks/stop_task_timer')
           .then((res) => {
-            // console.log(res.body)
             expect(res.body.date_ended).to.not.equal(null);
             done();
           });
       });
     });
   });
+
+  describe('pause_task_timer', () => {
+    it ('finds the taskActivity and pauses the task', (done) => {
+      let taskActivity = new TaskActivity({ _user: userId, running: true, date_ended: null });
+
+      taskActivity.save((err, taskActivity) => {
+        expect(taskActivity.date_ended).to.equal(null);
+        expect(taskActivity.running).to.equal(true);
+
+        let data = { 'taskActivity[_id]': taskActivity._id };
+        agent.patch('/api/tasks/pause_task_timer')
+          .send(data)
+          .then((res) => {
+            expect(res.body.taskActivity.date_ended).to.equal(null);
+            expect(res.body.taskActivity.running).to.equal(false);
+            done();
+          })
+      });
+    });
+  });
+
+  describe('resume_task_timer', () => {
+    it ('resumes the task timer when it is paused', (done) => {
+      let taskActivity = new TaskActivity({ _user: userId, running: false, date_ended: null });
+
+      taskActivity.save((err, taskActivity) => {
+        expect(taskActivity.date_ended).to.equal(null);
+        expect(taskActivity.running).to.equal(false);
+
+        let data = { 'taskActivity[_id]': taskActivity._id };
+
+        agent.patch('/api/tasks/resume_task_timer')
+          .send(data)
+          .then((res) => {
+            expect(res.body.taskActivity.date_ended).to.equal(null);
+            expect(res.body.taskActivity.running).to.equal(true);
+            done();
+          });
+      });
+    });
+  });
+
+  describe('task_activities_list', () => {
+    it ('pulls the task activities', (done) => {
+      agent.get('/api/tasks/task_activities')
+        .then((res) => {
+          expect(res.body.taskActivities.length).to.equal(1);
+          expect(res.body.taskActivities[0].date_ended).to.not.equal(null);
+          done();
+        });
+    });
+  })
 
 });
 
