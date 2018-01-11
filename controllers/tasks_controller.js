@@ -27,7 +27,7 @@ exports.start_timer = function(req, res, next) {
         var intervalId = setInterval(function() {
           taskActivity.timeAmount += 1;
           taskActivity.save();
-          console.log(taskActivity.timeAmount);
+          // console.log(taskActivity.timeAmount);
         }, 1000);
         intervalIds['interval' + taskActivity._id] = intervalId;
 
@@ -49,7 +49,7 @@ exports.ping_task_timer = function (req, res, next) {
         var intervalId = setInterval(function() {
           taskActivity.timeAmount += 1;
           taskActivity.save();
-          console.log(taskActivity.timeAmount);
+          // console.log(taskActivity.timeAmount);
         }, 1000);
 
         intervalIds['interval' + taskActivity._id] = intervalId;
@@ -92,7 +92,7 @@ exports.resume_task_timer = function (req, res, next) {
     var intervalId = setInterval(function() {
       taskActivity.timeAmount += 1;
       taskActivity.save();
-      console.log(taskActivity.timeAmount);
+      // console.log(taskActivity.timeAmount);
     }, 1000);
 
     intervalIds['interval' + taskActivity._id] = intervalId;
