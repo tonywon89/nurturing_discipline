@@ -8,7 +8,6 @@
 @import './milestone.scss';
 @import './stats.scss';
 
-// @TODO: Remove this if decide not to use react-select
 :global {
     @import "../../node_modules/react-select/dist/react-select.css";
 }

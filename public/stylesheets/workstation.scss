@@ -314,3 +314,25 @@
   margin-top: 1.5em;
   margin-left: 1.5em;
 }
+
+.date-selector {
+  position: relative;
+  margin-right: 1em;
+  label {
+    position: absolute;
+    pointer-events: none;
+    top: -1.9em;
+    font-size: 1em;
+    transition: 0.2s ease all;
+    opacity: 0.5;
+    color: black;
+    width: 100%;
+
+  }
+
+  .DayPickerInput {
+    input {
+      padding: 1em;
+    }
+  }
+}

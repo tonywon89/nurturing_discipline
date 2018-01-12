@@ -36,7 +36,8 @@ module.exports = {
             use: ['css-loader', 'sass-loader']
           }
         )
-      }
+      },
+
     ],
     rules: [
       {
@@ -45,6 +46,14 @@ module.exports = {
           fallback: 'style-loader',
           //resolve-url-loader may be chained before sass-loader if necessary
           use: ['css-loader', 'sass-loader']
+        })
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          //resolve-url-loader may be chained before sass-loader if necessary
+          use: ['css-loader']
         })
       },
       {
@@ -70,6 +79,6 @@ module.exports = {
   ],
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.jsx', '*']
+    extensions: ['.js', '.jsx', '*', '/css']
   },
 };
