@@ -28,7 +28,11 @@ class WorkStation extends React.Component {
     const userId = this.props.authentication.currentUser.id;
     this.props.fetchConvictions(userId);
     this.props.fetchTasks();
-    this.props.fetchTaskActivities();
+    var today = new Date();
+    this.props.fetchTaskActivities({
+      from: new Date(today.setMonth(today.getMonth() - 1)),
+      to: new Date(),
+    });
     this.props.pingTaskTimer();
   }
 
@@ -137,7 +141,7 @@ class WorkStation extends React.Component {
             <span className="chronometer">{padZeroes(hour, 1)}:{padZeroes(minute, 2)}:{padZeroes(second, 2)} </span>
           </div>
 
-          <TaskActivityList taskActivities={taskActivities}/>
+          <TaskActivityList taskActivities={taskActivities} fetchTaskActivities={this.props.fetchTaskActivities}/>
         </div>
       )
     } else {

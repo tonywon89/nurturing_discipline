@@ -32,6 +32,7 @@ class TaskActivityList extends React.Component {
     clearTimeout(this.timeout);
   }
 
+
   focusTo() {
     // Focus to `to` field. A timeout is required here because the overlays
     // already set timeouts to work well with input fields
@@ -62,8 +63,7 @@ class TaskActivityList extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    alert("Hello");
+    this.props.fetchTaskActivities(this.state)
   }
 
   render() {

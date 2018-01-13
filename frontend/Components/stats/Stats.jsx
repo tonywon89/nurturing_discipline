@@ -58,7 +58,11 @@ class Stats extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchTaskActivities();
+    var today = new Date();
+    this.props.fetchTaskActivities({
+      from: new Date(today.setMonth(today.getMonth() - 1)),
+      to: new Date(),
+    });
   }
 
   handleWorkStationLinkClick(event) {
@@ -114,7 +118,7 @@ class Stats extends React.Component {
             />
           </div>
           <div className="stats-task-activities-list">
-            <TaskActivityList taskActivities={this.props.taskActivities}/>
+            <TaskActivityList taskActivities={this.props.taskActivities} fetchTaskActivities={this.props.fetchTaskActivities} />
           </div>
         </div>
       );

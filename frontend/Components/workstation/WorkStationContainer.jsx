@@ -80,8 +80,8 @@ const mapDispatchToProps = dispatch => ({
     resumeTaskTimer(taskActivity)(dispatch);
   },
 
-  fetchTaskActivities: () => {
-    fetchTaskActivities()(dispatch);
+  fetchTaskActivities: (data) => {
+    fetchTaskActivities(data)(dispatch);
   }
 });
 

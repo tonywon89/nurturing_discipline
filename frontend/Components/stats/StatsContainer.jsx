@@ -11,8 +11,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTaskActivities: () => {
-    fetchTaskActivities()(dispatch);
+  fetchTaskActivities: (data) => {
+    fetchTaskActivities(data)(dispatch);
   }
 });
 

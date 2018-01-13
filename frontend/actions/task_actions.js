@@ -11,6 +11,8 @@ export const RECEIVE_TASK_ACTIVITIES = "RECEIVE_TASK_ACTIVITIES";
 import * as TaskAPIUtil from '../api_utils/task_api_util.js';
 import * as MilestoneAPIUtil from '../api_utils/milestone_api_util.js';
 
+import { makeRequest, finishRequest } from './loading_actions.js';
+
 let intervalId = null;
 
 export const fetchTasks = () => dispatch => {
@@ -47,9 +49,11 @@ export const selectTask = (selectedTask, oldSelectedTask = null) => dispatch => 
 }
 
 export const startTaskTimer = (selectedTask = null) => dispatch => {
+  makeRequest()(dispatch);
   if (selectedTask !== null) {
     TaskAPIUtil.startTaskTimer(selectedTask).then(({ task, taskActivity }) => {
       dispatch({ type: START_TASK_TIMER, taskActivity: taskActivity });
+      finishRequest()(dispatch);
     });
   }
 }
@@ -81,8 +85,8 @@ export const resumeTaskTimer = (taskActivity) => dispatch => {
   })
 }
 
-export const fetchTaskActivities = () => dispatch => {
-  TaskAPIUtil.fetchTaskActivities().then(({ taskActivities }) => {
+export const fetchTaskActivities = (data) => dispatch => {
+  TaskAPIUtil.fetchTaskActivities(data).then(({ taskActivities }) => {
     dispatch({ type: RECEIVE_TASK_ACTIVITIES, taskActivities})
   })
 }

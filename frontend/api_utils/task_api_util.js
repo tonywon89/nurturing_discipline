@@ -52,10 +52,11 @@ export const resumeTaskTimer = (taskActivity) => (
   })
 );
 
-export const fetchTaskActivities = () => (
+export const fetchTaskActivities = (data) => (
   $.ajax({
     method: "GET",
     url: "api/tasks/task_activities",
-    dataType: 'json'
+    dataType: 'json',
+    data,
   })
 );
