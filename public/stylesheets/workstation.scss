@@ -315,6 +315,11 @@
   margin-left: 1.5em;
 }
 
+.date-selector-container {
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
 .date-selector {
   position: relative;
   margin-right: 1em;
@@ -327,12 +332,16 @@
     opacity: 0.5;
     color: black;
     width: 100%;
-
   }
+}
 
-  .DayPickerInput {
-    input {
-      padding: 1em;
-    }
+.DayPickerInput {
+  input {
+    padding: 1em;
   }
+}
+
+.task-activities-fetch-button {
+  padding: 1em;
+  font-size: 0.8em;
 }
